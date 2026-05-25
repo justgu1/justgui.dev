@@ -11,16 +11,8 @@ services:
     working_dir: /var/www/api
     volumes:
       - ./:/var/www
-    environment:
-      APP_ENV: ${APP_ENV:-production}
-
-      APP_PORT: ${API_PORT:-8080}
-
-      DB_HOST: justgui_db
-      DB_PORT: ${DB_PORT:-5432}
-      DB_DATABASE: ${DB_DATABASE:-justgui}
-      DB_USERNAME: ${DB_USERNAME:-postgres}
-      DB_PASSWORD: ${DB_PASSWORD:-postgres}
+    env_file:
+      - ./.env
     networks:
       - justgui
     depends_on:
@@ -49,10 +41,8 @@ services:
     working_dir: /var/www/frontend
     volumes:
       - ./:/var/www
-    environment:
-      APP_ENV: ${APP_ENV}
-      PORT: ${FRONTEND_PORT:-4321}
-      PUBLIC_API_URL: /api
+    env_file:
+      - ./.env
     networks:
       - justgui
     depends_on:
@@ -75,19 +65,16 @@ services:
     restart: unless-stopped
   
     environment:
-      POSTGRES_DB: ${DB_DATABASE:-justgui}
-      POSTGRES_USER: ${DB_USERNAME:-postgres}
-      POSTGRES_PASSWORD: ${DB_PASSWORD:-postgres}
-  
+      POSTGRES_DB: ${DB_DATABASE}
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_PORT: ${DB_PORT}
     expose:
-      - "5432"
-  
+      - "${DB_PORT}"
     volumes:
       - justgui_db_data:/var/lib/postgresql
-  
     networks:
       - justgui
-  
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 10s

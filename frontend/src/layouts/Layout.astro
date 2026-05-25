@@ -1,0 +1,30 @@
+---
+import { getLang } from "../langs";
+import { createT } from "../langs/createT";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+
+const { lang = "en" } = Astro.props;
+
+const dict = getLang(lang);
+const t = createT(dict);
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicons/favicon.svg" />
+    <link rel="icon" href="/favicons/favicon.ico" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Guilherme Santos - {t("header.title")}</title>
+  </head>
+
+  <body>
+	<Header lang={lang} />
+	<main>
+    	<slot />
+	</main>
+	<Footer lang={lang} />
+  </body>
+</html>

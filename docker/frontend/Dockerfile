@@ -15,7 +15,7 @@ EXPOSE 4321
 
 CMD ["sh", "-c", "\
 if [ \"$APP_ENV\" = 'production' ]; then \
-  yarn preview --host 0.0.0.0 --port 4321; \
+  yarn preview --host 0.0.0.0 --port 4321; \  
 else \
   yarn dev --host 0.0.0.0 --port 4321; \
 fi"]

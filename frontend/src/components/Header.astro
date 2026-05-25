@@ -1,0 +1,38 @@
+---
+import { getLang } from "../langs";
+import { createT } from "../langs/createT";
+import { withLang } from "../utils/utils";
+
+interface Props {
+  lang: string;
+}
+
+const { lang } = Astro.props;
+
+const t = createT(getLang(lang));
+---
+
+<header>
+    <nav>
+        <ul>
+            <li>
+                <a href={withLang(lang, "/")}>{t("header.name")} <span>|</span> {t("header.title")}</a>
+            </li>
+            <li>
+                <a href={withLang(lang, "/sections/expertise")}>{t("header.sections.expertise")}</a>
+            </li>
+            <li>
+                <a href={withLang(lang, "/sections/projects")}>{t("header.sections.projects")}</a>
+            </li>
+            <li>
+                <a href={withLang(lang, "/sections/about")}>{t("header.sections.about")}</a>
+            </li>
+            <li>
+                <a href={withLang(lang, "/sections/contact")}>{t("header.sections.contact")}</a>
+            </li>
+
+        </ul>
+    </nav>
+    <button>{t("header.buttons.resume")}</button>
+    <button>{t("header.buttons.cv")}</button>
+</header>

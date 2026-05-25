@@ -1,0 +1,17 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { getLang } from "../../langs";
+
+interface Props {
+  lang?: string;
+}
+
+const { lang } = Astro.props;
+
+const t = getLang(lang || "en");
+---
+
+<Layout lang={lang || "en"}>
+  <h1>{t.title}</h1>
+  <p>{t.description}</p>
+</Layout>
