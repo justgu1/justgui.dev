@@ -12,27 +12,31 @@ const { lang } = Astro.props;
 const t = createT(getLang(lang));
 ---
 
-<header>
-    <nav>
-        <ul>
-            <li>
-                <a href={withLang(lang, "/")}>{t("header.name")} <span>|</span> {t("header.title")}</a>
+<header class="header">
+    <nav class="nav header-nav">
+        <a href="/" class="header-homepage-link">
+            <div class="header-name">
+                <span class="header-name-firstname">{t("firstname")}</span>
+                <span class="header-name-lastname">{t("lastname")}</span>
+            </div>
+            <span class="header-name-separator"></span>
+            <span class="header-role">{t("role")}</span>
+        </a>
+        <ul class="nav-list header-nav-list">
+            <li class="nav-item header-nav-item">
+                <a href="#expertise">{t("header.sections.expertise")}</a>
             </li>
-            <li>
-                <a href={withLang(lang, "/sections/expertise")}>{t("header.sections.expertise")}</a>
+            <li class="nav-item header-nav-item">
+                <a href="#projects">{t("header.sections.projects")}</a>
             </li>
-            <li>
-                <a href={withLang(lang, "/sections/projects")}>{t("header.sections.projects")}</a>
+            <li class="nav-item header-nav-item">
+                <a href="#about">{t("header.sections.about")}</a>
             </li>
-            <li>
-                <a href={withLang(lang, "/sections/about")}>{t("header.sections.about")}</a>
+            <li class="nav-item header-nav-item">
+                <a href="#contact">{t("header.sections.contact")}</a>
             </li>
-            <li>
-                <a href={withLang(lang, "/sections/contact")}>{t("header.sections.contact")}</a>
-            </li>
-
         </ul>
+
+        <button class="button button-primary header-button">{t("header.buttons.cv")}</button>
     </nav>
-    <button>{t("header.buttons.resume")}</button>
-    <button>{t("header.buttons.cv")}</button>
 </header>

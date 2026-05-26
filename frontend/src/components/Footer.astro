@@ -1,7 +1,6 @@
 ---
 import { getLang } from "../langs";
 import { createT } from "../langs/createT";
-import { withLang } from "../utils/utils";
 import { SITE_CONFIG } from "../config/site";
 
 interface Props {
@@ -13,17 +12,22 @@ const { lang } = Astro.props;
 const t = createT(getLang(lang));
 ---
 
-<footer>
-<p>© {new Date().getFullYear()} <span>{t("firstName")}</span> <span>{t("lastName")}</span>. {t("footer.rights")}.</p>
+<footer class="footer">
+    <p class="footer-copyright">
+        <span class="footer-copyright-firstname">{t("firstname")}</span>
+        <span class="footer-copyright-lastname">{t("lastname")}</span>
+        <span class="footer-copyright-separator">•</span>
+        © {new Date().getFullYear()} {t("rights")}
+    </p>
 
-<ul>
-    <li>
+<ul class="footer-social-list">
+    <li class="footer-social-item">
         <a href={SITE_CONFIG.linkedinUrl}>{t("social.linkedin")}</a>
     </li>
-    <li>
+    <li class="footer-social-item">
         <a href={SITE_CONFIG.githubUrl}>{t("social.github")}</a>
     </li>
-    <li>
+    <li class="footer-social-item">
         <a href={SITE_CONFIG.instagramUrl}>{t("social.instagram")}</a>
     </li>
 </ul>

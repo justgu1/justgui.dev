@@ -8,6 +8,10 @@ const en: Dictionary = {
   ...header,
   ...footer,
   ...social,
+  "firstname": "Guilherme",
+  "lastname": "Santos",
+  "role": "Accessible Software Engineer",
+  "rights": "All rights reserved",
 };
 
 export default en;
