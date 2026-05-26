@@ -1,0 +1,84 @@
+---
+import { getLang } from "../../langs";
+import { createT } from "../../langs/createT";
+import { SITE_CONFIG } from "../../config/site";
+
+interface Props {
+  lang: string;
+}
+
+const { lang } = Astro.props;
+
+const t = createT(getLang(lang));
+
+const YearsOfExperience = new Date().getFullYear() - 2022;
+const cards = [
+  {
+    title: YearsOfExperience,
+    subtitle: "+",
+    description: t("hero.cards.experience"),
+  },
+  {
+    title: YearsOfExperience,
+    subtitle: "+",
+    description: t("hero.cards.projects"),
+  },
+  {
+    title: "WCAG",
+    description: t("hero.cards.wcag-2.1-aa-oriented"),
+  },
+  {
+    title: "99",
+    subtitle: "%",
+    description: t("hero.accessible-performance"),
+  },
+];
+---
+
+<section id="hero" class="section hero-section">
+  <div class="section-content">
+    <div class="left-column">
+      <p class="hero-eyebrow">
+        <span class="eyebrow-paragraph"></span> 
+        {t("hero.eyebrow.first")} 
+        <span class="eyebrow-separator">•</span> 
+        {t("hero.eyebrow.second")}
+      </p>
+      <h1 class="hero-title">
+        <span class="hero-firstname">{t("firstname")}</span>
+        <span class="hero-lastname">{t("lastname")}</span>
+      </h1>
+      <h2 class="hero-subtitle">{t("hero.role")}</h2>
+      <p class="hero-description">{t("hero.description")}</p>
+
+      <div class="hero-buttons-container">
+        <a href="#projects" class="button button-primary hero-button">{t("hero.buttons.primary")}</a>
+        <a href="#contact" class="button button-secondary hero-button">{t("hero.buttons.secondary")}</a>
+      </div>
+    </div>
+    <div class="right-column">
+      <ul class="hero-cards-list">
+        {cards.map((card) => (
+          <li class="card-item">
+            <div class="card hero-card">
+              <h3 class="card-title">
+                <span class="card-title-main">{card.title}</span> <span class="card-title-subtitle">{card.subtitle}</span>
+              </h3>
+              <p class="card-description">{card.description}</p>
+            </div>
+          </li>
+        ))}
+      </ul>
+      <div class="hero-available-container">
+        <div>
+          <span class="available-dot"></span>
+        <span>{t("hero.available")}</span>
+        </div>
+        <a href="#contact" class="button hero-contact-button">{t("hero.contact")} 
+          <span class="arrow-right">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-move-right-icon lucide-move-right"><path d="M18 8L22 12L18 16"/><path d="M2 12H22"/></svg>
+          </span>
+        </a>
+      </div>
+  </div>
+</section>

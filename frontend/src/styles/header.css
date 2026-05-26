@@ -4,7 +4,7 @@
     justify-content: space-between;
     background-color: var(--bg);
     border-bottom: 1px solid var(--border);
-    height: 3.5rem;
+    height: var(--header-height);
     width: 100%;
 }
 
@@ -59,7 +59,7 @@
 }
 
 .header-nav-item a:hover {
-    color: var(--white);
+    color: var(--cream);
 }
 
 .header-nav-item a:hover::before {
@@ -79,7 +79,7 @@
 }
 
 .header-name-firstname{
-    color: var(--white);
+    color: var(--cream);
 }
 
 .header-name-lastname{

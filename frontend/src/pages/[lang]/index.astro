@@ -1,17 +1,18 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import { getLang } from "../../langs";
+import Hero from "../../components/sections/Hero.astro";
+import Expertise from "../../components/sections/Expertise.astro";
+import Projects from "../../components/sections/Projects.astro";
+import About from "../../components/sections/About.astro";
+import Contact from "../../components/sections/Contact.astro";
 
 interface Props {
-  lang?: string;
+  lang: string;
 }
 
 const { lang } = Astro.props;
-
-const t = getLang(lang || "en");
 ---
 
-<Layout lang={lang || "en"}>
-  <h1>{t.title}</h1>
-  <p>{t.description}</p>
+<Layout lang={lang}>
+  <Hero lang={lang} />
 </Layout>

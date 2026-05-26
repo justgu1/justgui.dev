@@ -12,7 +12,7 @@
 
 .footer-copyright-firstname{
     font-family: var(--font-secondary);
-    color: var(--white);
+    color: var(--cream);
 }
 
 .footer-copyright-lastname{
@@ -75,7 +75,7 @@
 }
 
 .footer-social-item a:hover {
-    color: var(--white);
+    color: var(--cream);
 }
 
 .footer-social-item a:hover::before {
