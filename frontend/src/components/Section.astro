@@ -1,17 +1,30 @@
 ---
-import Title from './Title.astro';
+import Title from "./Title.astro";
 
 interface Props {
+  id: string;
   number: string;
   description: string;
   title: string;
+  headingId?: string;
 }
 
-const { number, description, title } = Astro.props;
+const {
+  id,
+  number,
+  description,
+  title,
+  headingId = `${id}-heading`,
+} = Astro.props;
 ---
 
-<section class="section">
-  <Title number={number} description={description} title={title} />
+<section id={id} class="section" aria-labelledby={headingId}>
+  <Title
+    number={number}
+    description={description}
+    title={title}
+    headingId={headingId}
+  />
   <div class="section-content">
     <slot />
   </div>

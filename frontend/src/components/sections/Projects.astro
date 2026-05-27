@@ -1,7 +1,6 @@
 ---
 import { getLang } from "../../langs";
 import { createT } from "../../langs/createT";
-import { SITE_CONFIG } from "../../config/site";
 import Section from "../Section.astro";
 
 interface Props {
@@ -9,10 +8,14 @@ interface Props {
 }
 
 const { lang } = Astro.props;
-
 const t = createT(getLang(lang));
 ---
 
-<Section number="01" description="01" title="01">
-  <h1 class="hero-title">{t("hero.title")}</h1>
+<Section
+  id="projects"
+  number={t("sections.projects.number")}
+  description={t("sections.projects.description")}
+  title={t("sections.projects.title")}
+>
+  <p>{t("sections.projects.placeholder")}</p>
 </Section>

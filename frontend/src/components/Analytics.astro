@@ -1,0 +1,76 @@
+---
+import { ENV, IS_PRODUCTION } from "../config/env";
+
+const ga4Id = ENV.GA4_MEASUREMENT_ID;
+const metaPixelId = ENV.META_PIXEL_ID;
+const enabled = IS_PRODUCTION && (ga4Id || metaPixelId);
+---
+
+{
+  enabled && ga4Id && (
+    <>
+      <script
+        is:inline
+        async
+        src={`https://www.googletagmanager.com/gtag/js?id=${ga4Id}`}
+      />
+      <script is:inline define:vars={{ ga4Id }}>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+          dataLayer.push(arguments);
+        }
+        gtag("consent", "default", {
+          analytics_storage: "denied",
+          ad_storage: "denied",
+          ad_user_data: "denied",
+          ad_personalization: "denied",
+        });
+        gtag("js", new Date());
+        gtag("config", ga4Id, { anonymize_ip: true });
+        window.gtag = gtag;
+      </script>
+    </>
+  )
+}
+
+{
+  enabled && metaPixelId && (
+    <script is:inline define:vars={{ metaPixelId }}>
+      !(function (f, b, e, v, n, t, s) {
+        if (f.fbq) return;
+        n = f.fbq = function () {
+          n.callMethod
+            ? n.callMethod.apply(n, arguments)
+            : n.queue.push(arguments);
+        };
+        if (!f["_fbq"]) f["_fbq"] = n;
+        n.push = n;
+        n.loaded = !0;
+        n.version = "2.0";
+        n.queue = [];
+        t = b.createElement(e);
+        t.async = !0;
+        t.src = v;
+        s = b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t, s);
+      })(
+        window,
+        document,
+        "script",
+        "https://connect.facebook.net/en_US/fbevents.js"
+      );
+      fbq("consent", "revoke");
+      fbq("init", metaPixelId);
+      fbq("track", "PageView");
+      window.fbq = fbq;
+    </script>
+  )
+}
+
+{
+  enabled && (
+    <script>
+      import "../scripts/analytics.client.ts";
+    </script>
+  )
+}

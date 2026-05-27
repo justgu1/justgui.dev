@@ -3,19 +3,22 @@ interface Props {
   number: string;
   description: string;
   title: string;
+  headingId: string;
 }
 
-const { number, description, title } = Astro.props;
+const { number, description, title, headingId } = Astro.props;
 ---
 
-<h2 class="section-title">
-  <div class="section-title-left">
-    <span class="number">{number}</span>
-    <span class="separator"></span>
-    <span class="description">{description}</span>
-  </div>
-  <div class="section-title-right">
-    <span class="separator"></span>
-    <span class="title">{title}</span>
-  </div>
-</h2>
+<header class="section-header">
+  <h2 id={headingId} class="section-title">
+    <span class="section-title-left">
+      <span class="number">{number}</span>
+      <span class="separator" aria-hidden="true"></span>
+      <span class="description">{description}</span>
+    </span>
+    <span class="section-title-right">
+      <span class="separator" aria-hidden="true"></span>
+      <span class="title">{title}</span>
+    </span>
+  </h2>
+</header>

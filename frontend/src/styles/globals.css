@@ -1,6 +1,15 @@
 /* Default */
 @import "./default.css";
 
+/* Typography utilities */
+@import "./typography.css";
+
+/* Accessibility */
+@import "./a11y.css";
+
+/* Section */
+@import "./section.css";
+
 /* Header */
 @import "./header.css";
 

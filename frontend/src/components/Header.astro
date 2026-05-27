@@ -1,42 +1,107 @@
 ---
 import { getLang } from "../langs";
 import { createT } from "../langs/createT";
-import { withLang } from "../utils/utils";
+import { ENV } from "../config/env";
 
 interface Props {
   lang: string;
 }
 
 const { lang } = Astro.props;
-
 const t = createT(getLang(lang));
+const cvUrl = ENV.CV_URL;
+const homeHref = `/${lang}`;
 ---
 
 <header class="header">
-    <nav class="nav header-nav">
-        <a href="/" class="header-homepage-link">
-            <div class="header-name">
-                <span class="header-name-firstname">{t("firstname")}</span>
-                <span class="header-name-lastname">{t("lastname")}</span>
-            </div>
-            <span class="header-name-separator"></span>
-            <span class="header-role">{t("role")}</span>
-        </a>
-        <ul class="nav-list header-nav-list">
-            <li class="nav-item header-nav-item">
-                <a href="#expertise">{t("header.sections.expertise")}</a>
-            </li>
-            <li class="nav-item header-nav-item">
-                <a href="#projects">{t("header.sections.projects")}</a>
-            </li>
-            <li class="nav-item header-nav-item">
-                <a href="#about">{t("header.sections.about")}</a>
-            </li>
-            <li class="nav-item header-nav-item">
-                <a href="#contact">{t("header.sections.contact")}</a>
-            </li>
-        </ul>
+  <nav class="nav header-nav" aria-label={t("a11y.mainNavigation")}>
+    <a href={homeHref} class="header-homepage-link">
+      <span class="header-name">
+        <span class="header-name-firstname">{t("firstname")}</span>
+        <span class="header-name-lastname">{t("lastname")}</span>
+      </span>
+      <span class="header-name-separator" aria-hidden="true"></span>
+      <span class="header-role">{t("role")}</span>
+    </a>
 
-        <button class="button button-primary header-button">{t("header.buttons.cv")}</button>
-    </nav>
+    <button
+      type="button"
+      class="header-menu-toggle"
+      data-menu-toggle
+      aria-expanded="false"
+      aria-controls="primary-nav"
+      aria-label={t("a11y.menuOpen")}
+      data-label-open={t("a11y.menuOpen")}
+      data-label-close={t("a11y.menuClose")}
+    >
+      <span class="header-menu-icon" aria-hidden="true"></span>
+    </button>
+
+    <div id="primary-nav" class="header-nav-panel">
+      <ul class="nav-list header-nav-list">
+        <li class="nav-item header-nav-item">
+          <a
+            href="#expertise"
+            data-analytics="cta_click"
+            data-analytics-location="header"
+          >
+            {t("header.sections.expertise")}
+          </a>
+        </li>
+        <li class="nav-item header-nav-item">
+          <a
+            href="#projects"
+            data-analytics="cta_click"
+            data-analytics-location="header"
+          >
+            {t("header.sections.projects")}
+          </a>
+        </li>
+        <li class="nav-item header-nav-item">
+          <a
+            href="#about"
+            data-analytics="cta_click"
+            data-analytics-location="header"
+          >
+            {t("header.sections.about")}
+          </a>
+        </li>
+        <li class="nav-item header-nav-item">
+          <a
+            href="#contact"
+            data-analytics="cta_click"
+            data-analytics-location="header"
+          >
+            {t("header.sections.contact")}
+          </a>
+        </li>
+      </ul>
+
+      {
+        cvUrl ? (
+          <a
+            href={cvUrl}
+            class="button button-primary header-button"
+            download
+            data-analytics="cv_download"
+            data-analytics-location="header"
+          >
+            {t("header.buttons.cv")}
+          </a>
+        ) : (
+          <button
+            type="button"
+            class="button button-primary header-button"
+            disabled
+            aria-disabled="true"
+            title={t("header.buttons.cv")}
+          >
+            {t("header.buttons.cv")}
+          </button>
+        )
+      }
+    </div>
+  </nav>
 </header>
+
+<script src="../scripts/header.client.ts"></script>

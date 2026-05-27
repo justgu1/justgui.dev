@@ -5,7 +5,8 @@ const hero: Dictionary = {
   "hero.eyebrow.second": "WCAG-first Engineering",
   "hero.title": "Guilherme Santos",
   "hero.role": "Full-Stack Engineer",
-  "hero.description": "Innovation only matters when it is accessible. I build scalable digital systems focused on performance, accessibility, and real-world usability — including people navigating visual, cognitive, or motor limitations.",
+  "hero.description":
+    "Innovation only matters when it is accessible. I build scalable digital systems focused on performance, accessibility, and real-world usability — including people navigating visual, cognitive, or motor limitations.",
   "hero.buttons.primary": "View work",
   "hero.buttons.secondary": "Let's talk",
   "hero.cards.experience": "Years of Experience",

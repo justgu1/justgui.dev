@@ -8,27 +8,42 @@ interface Props {
 }
 
 const { lang } = Astro.props;
-
 const t = createT(getLang(lang));
+
+const socialLinks = [
+  { key: "social.linkedin", url: SITE_CONFIG.linkedinUrl },
+  { key: "social.github", url: SITE_CONFIG.githubUrl },
+  { key: "social.instagram", url: SITE_CONFIG.instagramUrl },
+] as const;
 ---
 
 <footer class="footer">
-    <p class="footer-copyright">
-        <span class="footer-copyright-firstname">{t("firstname")}</span>
-        <span class="footer-copyright-lastname">{t("lastname")}</span>
-        <span class="footer-copyright-separator">•</span>
-        © {new Date().getFullYear()} {t("rights")}
-    </p>
+  <p class="footer-copyright">
+    <span class="footer-copyright-firstname">{t("firstname")}</span>
+    <span class="footer-copyright-lastname">{t("lastname")}</span>
+    <span class="footer-copyright-separator" aria-hidden="true">•</span>
+    © {new Date().getFullYear()}
+    {t("rights")}
+  </p>
 
-<ul class="footer-social-list">
-    <li class="footer-social-item">
-        <a href={SITE_CONFIG.linkedinUrl}>{t("social.linkedin")}</a>
-    </li>
-    <li class="footer-social-item">
-        <a href={SITE_CONFIG.githubUrl}>{t("social.github")}</a>
-    </li>
-    <li class="footer-social-item">
-        <a href={SITE_CONFIG.instagramUrl}>{t("social.instagram")}</a>
-    </li>
-</ul>
+  <nav class="footer-social-nav" aria-label={t("a11y.socialNavigation")}>
+    <ul class="footer-social-list">
+      {
+        socialLinks.map(({ key, url }) => (
+          <li class="footer-social-item">
+            <a
+              href={url}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={t("a11y.externalLink", { label: t(key) })}
+              data-analytics="outbound_click"
+              data-analytics-network={key.split(".")[1]}
+            >
+              {t(key)}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
 </footer>

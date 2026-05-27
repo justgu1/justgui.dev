@@ -5,14 +5,25 @@ import Expertise from "../../components/sections/Expertise.astro";
 import Projects from "../../components/sections/Projects.astro";
 import About from "../../components/sections/About.astro";
 import Contact from "../../components/sections/Contact.astro";
+import { SUPPORTED_LANGS } from "../../config/seo";
 
 interface Props {
   lang: string;
 }
+
+export function getStaticPaths() {
+  return SUPPORTED_LANGS.map((lang) => ({ params: { lang } }));
+}
+
+export const prerender = true;
 
 const { lang } = Astro.props;
 ---
 
 <Layout lang={lang}>
   <Hero lang={lang} />
+  <Expertise lang={lang} />
+  <Projects lang={lang} />
+  <About lang={lang} />
+  <Contact lang={lang} />
 </Layout>

@@ -1,0 +1,97 @@
+name: Frontend CI
+
+on:
+  push:
+    branches: [main, master]
+    paths:
+      - "frontend/**"
+      - ".github/workflows/frontend-ci.yml"
+      - ".env.example"
+  pull_request:
+    paths:
+      - "frontend/**"
+      - ".github/workflows/frontend-ci.yml"
+      - ".env.example"
+
+defaults:
+  run:
+    working-directory: frontend
+
+env:
+  PUBLIC_APP_ENV: production
+  PUBLIC_API_URL: http://localhost:8080
+  PUBLIC_LINKEDIN_URL: https://www.linkedin.com/in/justgui
+  PUBLIC_GITHUB_URL: https://github.com/justgu1
+  PUBLIC_INSTAGRAM_URL: https://www.instagram.com/just.guis
+  PUBLIC_SITE_URL: http://127.0.0.1:4321
+  PUBLIC_GA4_MEASUREMENT_ID: ""
+  PUBLIC_META_PIXEL_ID: ""
+  PUBLIC_CV_URL: ""
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: yarn
+          cache-dependency-path: frontend/yarn.lock
+      - run: yarn install --frozen-lockfile
+      - run: yarn format:check
+      - run: yarn lint
+      - run: yarn typecheck
+      - run: yarn check:astro
+      - run: yarn check:arch
+      - run: yarn test
+
+  build:
+    needs: quality
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: yarn
+          cache-dependency-path: frontend/yarn.lock
+      - run: yarn install --frozen-lockfile
+      - run: yarn build
+      - run: yarn size
+      - run: yarn audit
+        continue-on-error: ${{ github.event_name == 'pull_request' }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: frontend/dist
+
+  verify:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: yarn
+          cache-dependency-path: frontend/yarn.lock
+      - run: yarn install --frozen-lockfile
+      - uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: frontend/dist
+      - run: npx playwright install --with-deps chromium
+      - run: yarn ci:verify
+        env:
+          CI: true
+          SEO_BASE_URL: http://127.0.0.1:4321
+          PLAYWRIGHT_BASE_URL: http://127.0.0.1:4321
+
+  docker:
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker compose build justgui_frontend

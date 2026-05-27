@@ -1,0 +1,12 @@
+dist
+node_modules
+.astro
+coverage
+playwright-report
+test-results
+yarn.lock
+src/components/Analytics.astro
+.lighthouseci
+*.report.html
+*.report.json
+manifest.json

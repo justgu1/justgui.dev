@@ -33,6 +33,16 @@ services:
     build:
       context: .
       dockerfile: docker/frontend/Dockerfile
+      args:
+        PUBLIC_APP_ENV: ${PUBLIC_APP_ENV:-local}
+        PUBLIC_API_URL: ${PUBLIC_API_URL:-http://localhost:8080}
+        PUBLIC_SITE_URL: ${PUBLIC_SITE_URL:-http://localhost:4321}
+        PUBLIC_LINKEDIN_URL: ${PUBLIC_LINKEDIN_URL:-https://www.linkedin.com/in/justgui}
+        PUBLIC_GITHUB_URL: ${PUBLIC_GITHUB_URL:-https://github.com/justgu1}
+        PUBLIC_INSTAGRAM_URL: ${PUBLIC_INSTAGRAM_URL:-https://www.instagram.com/just.guis}
+        PUBLIC_GA4_MEASUREMENT_ID: ${PUBLIC_GA4_MEASUREMENT_ID:-}
+        PUBLIC_META_PIXEL_ID: ${PUBLIC_META_PIXEL_ID:-}
+        PUBLIC_CV_URL: ${PUBLIC_CV_URL:-}
     image: justgui_frontend:latest
     container_name: justgui_frontend
     restart: unless-stopped
