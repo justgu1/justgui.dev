@@ -24,6 +24,12 @@ History line do projeto em tom de produto técnico, direto e sem detalhamento ex
 - Corrigimos build do frontend no Docker com envs públicas disponíveis na etapa de build.
 - Removemos geração de lixo no repositório durante verificações (artefatos de lighthouse fora da árvore do projeto e limpeza automática).
 
+### Segurança de variáveis de ambiente
+
+- Removemos `.env` do tracking Git; o template permanece em `.env.example`.
+- Reforçámos `.gitignore` para variantes `.env.*` (exceto o exemplo).
+- O histórico público ainda contém commits antigos com `.env` de desenvolvimento — ver nota de rotação/limpeza no README do monorepo se necessário.
+
 ---
 
 ## Regra de atualização deste arquivo

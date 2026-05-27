@@ -64,6 +64,14 @@ cd frontend && yarn ci
 
 ## Variáveis de ambiente (PUBLIC\_\*)
 
+Copie o template na raiz do monorepo e edite só localmente:
+
+```bash
+cp .env.example .env
+```
+
+O ficheiro `.env` está no `.gitignore` e **não deve ser commitado**. Use apenas `.env.example` no repositório.
+
 Definidas em `.env` (veja `.env.example`):
 
 - `PUBLIC_APP_ENV`
