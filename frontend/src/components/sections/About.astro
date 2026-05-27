@@ -1,4 +1,7 @@
 ---
+import AboutA11yStatement from "../about/AboutA11yStatement.astro";
+import AboutIntro from "../about/AboutIntro.astro";
+import AboutTimeline from "../about/AboutTimeline.astro";
 import { getLang } from "../../langs";
 import { createT } from "../../langs/createT";
 import Section from "../Section.astro";
@@ -13,9 +16,16 @@ const t = createT(getLang(lang));
 
 <Section
   id="about"
+  flush
   number={t("sections.about.number")}
   description={t("sections.about.description")}
   title={t("sections.about.title")}
 >
-  <p>{t("sections.about.placeholder")}</p>
+  <div class="about-layout">
+    <div class="about-cols">
+      <AboutIntro t={t} />
+      <AboutTimeline lang={lang} />
+    </div>
+    <AboutA11yStatement t={t} />
+  </div>
 </Section>

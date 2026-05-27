@@ -1,0 +1,18 @@
+---
+import ProjectAccordionItem from "./ProjectAccordionItem.astro";
+import type { Project } from "../../types/project";
+import type { createT } from "../../langs/createT";
+
+interface Props {
+  projects: Project[];
+  t: ReturnType<typeof createT>;
+}
+
+const { projects, t } = Astro.props;
+---
+
+<div class="projects-accordion" data-project-accordion>
+  {projects.map((project) => <ProjectAccordionItem project={project} t={t} />)}
+</div>
+
+<script src="../../scripts/projects-accordion.client.ts"></script>

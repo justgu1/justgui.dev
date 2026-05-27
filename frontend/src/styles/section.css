@@ -1,5 +1,6 @@
 .section {
   width: 100%;
+  scroll-margin-top: var(--header-height);
 }
 
 .section-header {
@@ -52,6 +53,10 @@
 
 .section-content {
   padding: 3rem 2rem;
+}
+
+.section-content--flush {
+  padding: 0;
 }
 
 @media (max-width: 64rem) {

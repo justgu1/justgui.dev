@@ -1,0 +1,40 @@
+---
+import { ENV } from "../../config/env";
+import type { createT } from "../../langs/createT";
+
+interface Props {
+  t: ReturnType<typeof createT>;
+}
+
+const { t } = Astro.props;
+const email = t("contact.email");
+---
+
+<nav class="contact-links" aria-label={t("sections.contact.description")}>
+  <a class="contact-link" href={`mailto:${email}`}>
+    {email}
+    <span aria-hidden="true">→</span>
+  </a>
+  <a
+    class="contact-link"
+    href={ENV.LINKEDIN_URL}
+    target="_blank"
+    rel="noopener noreferrer"
+    data-analytics="outbound_click"
+    data-analytics-network="linkedin"
+  >
+    LinkedIn
+    <span aria-hidden="true">→</span>
+  </a>
+  <a
+    class="contact-link"
+    href={ENV.GITHUB_URL}
+    target="_blank"
+    rel="noopener noreferrer"
+    data-analytics="outbound_click"
+    data-analytics-network="github"
+  >
+    GitHub
+    <span aria-hidden="true">→</span>
+  </a>
+</nav>

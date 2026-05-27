@@ -18,3 +18,9 @@
 
 /* Hero */
 @import "./hero.css";
+
+/* Sections */
+@import "./expertise.css";
+@import "./projects.css";
+@import "./about.css";
+@import "./contact.css";

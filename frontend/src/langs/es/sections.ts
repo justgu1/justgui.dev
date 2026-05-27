@@ -2,24 +2,20 @@ import type { Dictionary } from "../types";
 
 const sections: Dictionary = {
   "sections.expertise.number": "01",
-  "sections.expertise.description": "Expertise",
-  "sections.expertise.title": "Lo que hago",
-  "sections.expertise.placeholder": "Contenido de expertise próximamente.",
+  "sections.expertise.description": "Lo que construyo — y por qué importa",
+  "sections.expertise.title": "Expertise Principal",
 
   "sections.projects.number": "02",
-  "sections.projects.description": "Proyectos",
-  "sections.projects.title": "Trabajos seleccionados",
-  "sections.projects.placeholder": "Contenido de proyectos próximamente.",
+  "sections.projects.description": "Trabajos seleccionados",
+  "sections.projects.title": "Proyectos",
 
   "sections.about.number": "03",
-  "sections.about.description": "Sobre mí",
-  "sections.about.title": "Quién soy",
-  "sections.about.placeholder": "Contenido sobre mí próximamente.",
+  "sections.about.description": "Un poco sobre mí",
+  "sections.about.title": "Historia",
 
   "sections.contact.number": "04",
-  "sections.contact.description": "Contacto",
-  "sections.contact.title": "Hablemos",
-  "sections.contact.placeholder": "Contenido de contacto próximamente.",
+  "sections.contact.description": "Construyamos algo con significado",
+  "sections.contact.title": "Contacto",
 };
 
 export default sections;

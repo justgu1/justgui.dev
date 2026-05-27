@@ -1,0 +1,21 @@
+---
+interface Props {
+  year: string;
+  chapter: string;
+  title: string;
+  text: string;
+}
+
+const { year, chapter, title, text } = Astro.props;
+---
+
+<div class="timeline-entry">
+  <div class="te-year-strip">
+    <span class="te-year-num">{year}</span>
+  </div>
+  <div class="te-body">
+    <span class="te-chapter">{chapter}</span>
+    <h3 class="te-title">{title}</h3>
+    <p class="te-text">{text}</p>
+  </div>
+</div>

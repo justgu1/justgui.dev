@@ -1,0 +1,147 @@
+.about-layout {
+  border-bottom: 1px solid var(--border);
+}
+
+.about-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.about-left {
+  padding: 4rem 3rem;
+  border-right: 1px solid var(--border);
+}
+
+.about-pull-quote {
+  font-family: var(--font-secondary);
+  font-size: var(--text-xl);
+  line-height: 1.2;
+  color: var(--cream);
+}
+
+.about-pull-quote strong {
+  color: var(--red-bright);
+}
+
+.about-body {
+  margin-top: 1.5rem;
+  font-size: var(--text-sm);
+  line-height: 1.9;
+  color: var(--gray);
+}
+
+.about-cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+  margin-top: 2.5rem;
+}
+
+.about-cta-row .button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1.2;
+}
+
+.about-cta-primary {
+  font-family: var(--font-primary);
+  font-style: normal;
+  letter-spacing: 0.08em;
+}
+
+.about-cta-secondary {
+  border-left: none;
+}
+
+.about-a11y {
+  padding: 3rem;
+  border-top: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.about-a11y-title {
+  margin: 0 0 1rem;
+  font-family: var(--font-secondary);
+  font-size: var(--text-lg);
+  color: var(--cream);
+}
+
+.about-a11y-lead {
+  max-width: 40rem;
+  margin-bottom: 1.25rem;
+  font-size: var(--text-sm);
+  line-height: 1.8;
+  color: var(--gray);
+}
+
+.about-a11y-list {
+  display: grid;
+  gap: 0.5rem;
+  padding-left: 1.25rem;
+  max-width: 48rem;
+}
+
+.about-a11y-list li {
+  font-size: var(--text-sm);
+  line-height: 1.8;
+  color: var(--gray);
+}
+
+.timeline-entry {
+  display: grid;
+  grid-template-columns: 5.5rem 1fr;
+  border-bottom: 1px solid var(--border);
+}
+
+.te-year-strip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--surface2);
+  border-right: 1px solid var(--border);
+}
+
+.te-year-num {
+  font-family: var(--font-secondary);
+  font-size: var(--text-sm);
+  color: var(--gray);
+  writing-mode: vertical-rl;
+}
+
+.te-body {
+  padding: 2rem;
+}
+
+.te-chapter {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-family: var(--font-primary);
+  font-size: var(--text-sm);
+  letter-spacing: 0.12em;
+  color: var(--red-bright);
+}
+
+.te-title {
+  margin-bottom: 0.75rem;
+  font-family: var(--font-secondary);
+  font-size: var(--text-md);
+  color: var(--cream);
+}
+
+.te-text {
+  font-size: var(--text-sm);
+  line-height: 1.8;
+  color: var(--gray);
+}
+
+@media (max-width: 64rem) {
+  .about-cols {
+    grid-template-columns: 1fr;
+  }
+
+  .about-left {
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+}

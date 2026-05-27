@@ -1,4 +1,5 @@
 ---
+import ExpertiseGrid from "../expertise/ExpertiseGrid.astro";
 import { getLang } from "../../langs";
 import { createT } from "../../langs/createT";
 import Section from "../Section.astro";
@@ -13,9 +14,10 @@ const t = createT(getLang(lang));
 
 <Section
   id="expertise"
+  flush
   number={t("sections.expertise.number")}
   description={t("sections.expertise.description")}
   title={t("sections.expertise.title")}
 >
-  <p>{t("sections.expertise.placeholder")}</p>
+  <ExpertiseGrid lang={lang} />
 </Section>

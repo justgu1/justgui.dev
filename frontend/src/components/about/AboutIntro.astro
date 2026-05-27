@@ -1,0 +1,49 @@
+---
+import { ENV } from "../../config/env";
+import type { createT } from "../../langs/createT";
+
+interface Props {
+  t: ReturnType<typeof createT>;
+}
+
+const { t } = Astro.props;
+const cvUrl = ENV.CV_URL;
+---
+
+<div class="about-left">
+  <p class="about-pull-quote">
+    “{t("about.quote.before")}
+    <strong>{t("about.quote.emphasis")}</strong>{t("about.quote.after")}”
+  </p>
+
+  <p class="about-body">{t("about.body1")}</p>
+  <p class="about-body">{t("about.body2")}</p>
+
+  <div class="about-cta-row">
+    <a href="#contact" class="button button-primary about-cta-primary">
+      {t("about.cta.primary")}
+    </a>
+    {
+      cvUrl ? (
+        <a
+          href={cvUrl}
+          class="button button-secondary about-cta-secondary"
+          download
+          data-analytics="cv_download"
+          data-analytics-location="about"
+        >
+          {t("about.cta.secondary")}
+        </a>
+      ) : (
+        <button
+          type="button"
+          class="button button-secondary about-cta-secondary"
+          disabled
+          aria-disabled="true"
+        >
+          {t("about.cta.secondary")}
+        </button>
+      )
+    }
+  </div>
+</div>

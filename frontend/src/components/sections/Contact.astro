@@ -1,4 +1,7 @@
 ---
+import ContactForm from "../contact/ContactForm.astro";
+import ContactIntro from "../contact/ContactIntro.astro";
+import ContactLinks from "../contact/ContactLinks.astro";
 import { getLang } from "../../langs";
 import { createT } from "../../langs/createT";
 import Section from "../Section.astro";
@@ -13,9 +16,17 @@ const t = createT(getLang(lang));
 
 <Section
   id="contact"
+  flush
   number={t("sections.contact.number")}
   description={t("sections.contact.description")}
   title={t("sections.contact.title")}
+  headingId="contact-heading"
 >
-  <p>{t("sections.contact.placeholder")}</p>
+  <div class="contact-section-inner">
+    <div class="contact-left">
+      <ContactIntro t={t} />
+      <ContactLinks t={t} />
+    </div>
+    <ContactForm t={t} />
+  </div>
 </Section>

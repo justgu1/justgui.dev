@@ -1,0 +1,34 @@
+---
+import type { Project } from "../../types/project";
+import type { createT } from "../../langs/createT";
+
+interface Props {
+  project: Project;
+  t: ReturnType<typeof createT>;
+}
+
+const { project, t } = Astro.props;
+---
+
+<details class="project-accordion" data-project-id={project.id}>
+  <summary class="project-accordion-summary">
+    <span class="pr-num">{project.number}</span>
+    <span class="pr-name">{project.name}</span>
+    <span class="pr-cat">{project.category}</span>
+    <span class="pr-tech">{project.tech}</span>
+    <span class="pr-chevron" aria-hidden="true">↓</span>
+  </summary>
+  <div class="project-accordion-panel">
+    <p class="project-accordion-desc">{project.description}</p>
+    <div class="project-accordion-tags">
+      {project.tags.map((tag) => <span class="fb-tag">{tag}</span>)}
+    </div>
+    {
+      project.href && (
+        <a href={project.href} class="project-accordion-link">
+          {t("projects.accordion.viewLink")}
+        </a>
+      )
+    }
+  </div>
+</details>

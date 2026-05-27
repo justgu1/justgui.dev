@@ -1,0 +1,65 @@
+---
+import HeroStatCard from "./HeroStatCard.astro";
+import type { createT } from "../../langs/createT";
+
+interface StatCard {
+  title: string;
+  subtitle?: string;
+  description: string;
+}
+
+interface Props {
+  t: ReturnType<typeof createT>;
+  cards: StatCard[];
+}
+
+const { t, cards } = Astro.props;
+---
+
+<aside class="hero-aside" aria-label={t("a11y.heroStats")}>
+  <ul class="hero-cards-list">
+    {
+      cards.map((card) => (
+        <li class="card-item">
+          <HeroStatCard
+            title={card.title}
+            {...(card.subtitle ? { subtitle: card.subtitle } : {})}
+            description={card.description}
+          />
+        </li>
+      ))
+    }
+  </ul>
+  <footer class="hero-status">
+    <p class="hero-status-text">
+      <span class="available-dot" aria-hidden="true"></span>
+      {t("hero.available")}
+    </p>
+    <a
+      href="#contact"
+      class="button hero-contact-button"
+      data-analytics="cta_click"
+      data-analytics-location="hero-contact"
+    >
+      {t("hero.contact")}
+      <span class="arrow-right" aria-hidden="true">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          focusable="false"
+          aria-hidden="true"
+        >
+          <path d="M18 8L22 12L18 16"></path>
+          <path d="M2 12H22"></path>
+        </svg>
+      </span>
+    </a>
+  </footer>
+</aside>

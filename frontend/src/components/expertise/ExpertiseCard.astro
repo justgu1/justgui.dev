@@ -1,0 +1,15 @@
+---
+interface Props {
+  numeral: string;
+  title: string;
+  description: string;
+}
+
+const { numeral, title, description } = Astro.props;
+---
+
+<article class="exp-block">
+  <span class="eb-num">{numeral}</span>
+  <h3 class="eb-title">{title}</h3>
+  <p class="eb-desc">{description}</p>
+</article>

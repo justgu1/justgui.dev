@@ -7,6 +7,7 @@ interface Props {
   description: string;
   title: string;
   headingId?: string;
+  flush?: boolean;
 }
 
 const {
@@ -15,6 +16,7 @@ const {
   description,
   title,
   headingId = `${id}-heading`,
+  flush = false,
 } = Astro.props;
 ---
 
@@ -25,7 +27,7 @@ const {
     title={title}
     headingId={headingId}
   />
-  <div class="section-content">
+  <div class:list={["section-content", flush && "section-content--flush"]}>
     <slot />
   </div>
 </section>

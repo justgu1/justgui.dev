@@ -1,0 +1,230 @@
+.featured-block {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-bottom: 1px solid var(--border);
+}
+
+.fb-content {
+  padding: 3.5rem 3rem;
+  border-right: 1px solid var(--border);
+}
+
+.fb-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.75rem;
+}
+
+.fb-label,
+.fb-year {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.06em;
+}
+
+.fb-label {
+  color: var(--red-bright);
+}
+
+.fb-year {
+  color: var(--gray);
+}
+
+.fb-sep {
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+.fb-title-serif {
+  margin: 0;
+  font-family: var(--font-secondary);
+  font-size: var(--text-xl);
+  line-height: 0.92;
+  color: var(--cream);
+}
+
+.fb-title-serif em {
+  display: block;
+  font-size: 0.55em;
+  font-style: italic;
+  font-weight: var(--fw-light);
+  color: var(--cream-dim);
+}
+
+.fb-body {
+  max-width: 32.5rem;
+  margin: 2rem 0;
+  font-size: var(--text-sm);
+  line-height: 1.9;
+  color: var(--gray);
+}
+
+.fb-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.625rem;
+  margin-bottom: 2.25rem;
+}
+
+.fb-tag {
+  padding: 0.375rem 0.875rem;
+  border: 1px solid var(--border);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--gray);
+}
+
+.fb-link {
+  font-family: var(--font-secondary);
+  font-size: var(--text-md);
+  font-style: italic;
+  color: var(--red-bright);
+}
+
+.fb-visual {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--surface2);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.12em;
+  color: var(--gray-soft);
+}
+
+.projects-accordion {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.project-accordion {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
+
+.project-accordion-summary {
+  display: grid;
+  grid-template-columns: 3.5rem 2fr 1fr 1fr auto;
+  align-items: center;
+  padding: 1.75rem 2rem;
+  border-left: 3px solid transparent;
+  cursor: pointer;
+  list-style: none;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.project-accordion-summary::-webkit-details-marker {
+  display: none;
+}
+
+.project-accordion-summary::marker {
+  content: "";
+}
+
+.project-accordion:hover .project-accordion-summary,
+.project-accordion[open] .project-accordion-summary {
+  background: var(--surface2);
+  border-left-color: var(--red-bright);
+}
+
+.project-accordion:hover .pr-name,
+.project-accordion[open] .pr-name {
+  color: var(--red-bright);
+}
+
+.project-accordion[open] .pr-chevron {
+  transform: rotate(180deg);
+}
+
+.pr-num {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--gray);
+}
+
+.pr-name {
+  font-family: var(--font-primary);
+  font-size: var(--text-lg);
+  line-height: 1;
+  color: var(--cream);
+  transition: color 0.15s ease;
+}
+
+.pr-cat {
+  font-size: var(--text-xs);
+  font-weight: var(--fw-semibold);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gray);
+}
+
+.pr-tech {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--gray);
+}
+
+.pr-chevron {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.25rem;
+  height: 1.25rem;
+  font-size: var(--text-md);
+  line-height: 1;
+  color: var(--red-bright);
+  transition: transform 0.2s ease;
+}
+
+.project-accordion-panel {
+  padding: 0 2rem 2rem 5.5rem;
+  border-top: 1px solid var(--border);
+  background: var(--surface2);
+}
+
+.project-accordion-desc {
+  max-width: 40rem;
+  margin: 1.5rem 0;
+  font-size: var(--text-sm);
+  line-height: 1.8;
+  color: var(--gray);
+}
+
+.project-accordion-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.project-accordion-link {
+  font-family: var(--font-secondary);
+  font-size: var(--text-md);
+  font-style: italic;
+  color: var(--red-bright);
+}
+
+@media (max-width: 64rem) {
+  .featured-block {
+    grid-template-columns: 1fr;
+  }
+
+  .fb-content {
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .project-accordion-summary {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+
+  .project-accordion-panel {
+    padding: 0 1.5rem 1.5rem;
+  }
+}

@@ -1,0 +1,45 @@
+---
+import type { Project } from "../../types/project";
+import type { createT } from "../../langs/createT";
+
+interface Props {
+  project: Project;
+  t: ReturnType<typeof createT>;
+}
+
+const { project, t } = Astro.props;
+const titleEm = project.featuredTitleEm ?? "";
+---
+
+<div class="featured-block">
+  <div class="fb-content">
+    <div class="fb-eyebrow">
+      <span class="fb-label">{project.featuredLabel}</span>
+      <div class="fb-sep" aria-hidden="true"></div>
+      <span class="fb-year">{project.featuredYear}</span>
+    </div>
+
+    <h3 class="fb-title-serif">
+      {project.name}
+      {titleEm && <em>{titleEm}</em>}
+    </h3>
+
+    <p class="fb-body">{project.description}</p>
+
+    <div class="fb-tags">
+      {project.tags.map((tag) => <span class="fb-tag">{tag}</span>)}
+    </div>
+
+    {
+      project.href && (
+        <a href={project.href} class="fb-link">
+          {t("projects.featured.link")}
+        </a>
+      )
+    }
+  </div>
+
+  <div class="fb-visual" aria-hidden="true">
+    {t("projects.featured.visual")}
+  </div>
+</div>

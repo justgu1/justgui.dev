@@ -1,0 +1,18 @@
+---
+import type { createT } from "../../langs/createT";
+
+interface Props {
+  t: ReturnType<typeof createT>;
+}
+
+const { t } = Astro.props;
+---
+
+<div class="contact-intro">
+  <h3 class="contact-headline">
+    {t("contact.headline.line1")}<br />
+    {t("contact.headline.line2")}
+  </h3>
+  <p class="contact-headline-serif">{t("contact.headline.serif")}</p>
+  <p class="contact-body">{t("contact.body")}</p>
+</div>

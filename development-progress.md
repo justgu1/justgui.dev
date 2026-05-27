@@ -4,6 +4,18 @@ History line do projeto em tom de produto técnico, direto e sem detalhamento ex
 
 ## 2026-05-26
 
+### Skills — padrões visuais do portfolio
+
+- `justgui-frontend-best-practices` atualizado com layout de seções, hero, expertise, accordion, about/contact e navegação por âncoras (após aprovação dos ajustes finos).
+
+### Frontend — seções do portfolio finalizadas
+
+- Hero refatorado em subcomponentes (`hero/*`) com layout full-bleed, ticker de skills e coluna direita alinhada ao header.
+- Expertise, Projects, About e Contact implementados com `Section flush`, i18n `en`/`pt`/`es` e CSS por domínio.
+- Projects com camada `data/projects` + tipo `Project`; acordeão exclusivo via `<details>` e `projects-accordion.client.ts` (mock até API).
+- Contact em tema escuro alinhado ao design system; formulário estruturado e desabilitado até integração.
+- Governança: limite de 300 linhas/arquivo e componentização documentados em `justgui-frontend-best-practices`.
+
 ### Qualidade e governança de entrega
 
 - Consolidamos a esteira de qualidade do frontend com `yarn ci` como gate único de conclusão.

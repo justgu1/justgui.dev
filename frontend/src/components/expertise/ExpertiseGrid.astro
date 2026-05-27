@@ -1,0 +1,28 @@
+---
+import ExpertiseCard from "./ExpertiseCard.astro";
+import { getLang } from "../../langs";
+import { createT } from "../../langs/createT";
+import {
+  EXPERTISE_ITEM_KEYS,
+  EXPERTISE_NUMERALS,
+} from "../../langs/expertise-keys";
+
+interface Props {
+  lang: string;
+}
+
+const { lang } = Astro.props;
+const t = createT(getLang(lang));
+---
+
+<div class="expertise-blocks">
+  {
+    EXPERTISE_ITEM_KEYS.map((index, i) => (
+      <ExpertiseCard
+        numeral={EXPERTISE_NUMERALS[i] ?? ""}
+        title={t(`expertise.items.${index}.title`)}
+        description={t(`expertise.items.${index}.description`)}
+      />
+    ))
+  }
+</div>

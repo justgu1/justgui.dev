@@ -1,4 +1,7 @@
 ---
+import ProjectAccordion from "../projects/ProjectAccordion.astro";
+import ProjectFeatured from "../projects/ProjectFeatured.astro";
+import { getAccordionProjects, getFeaturedProject } from "../../data/projects";
 import { getLang } from "../../langs";
 import { createT } from "../../langs/createT";
 import Section from "../Section.astro";
@@ -9,13 +12,17 @@ interface Props {
 
 const { lang } = Astro.props;
 const t = createT(getLang(lang));
+const featured = await getFeaturedProject(lang);
+const accordionProjects = await getAccordionProjects(lang);
 ---
 
 <Section
   id="projects"
+  flush
   number={t("sections.projects.number")}
   description={t("sections.projects.description")}
   title={t("sections.projects.title")}
 >
-  <p>{t("sections.projects.placeholder")}</p>
+  {featured && <ProjectFeatured project={featured} t={t} />}
+  <ProjectAccordion projects={accordionProjects} t={t} />
 </Section>

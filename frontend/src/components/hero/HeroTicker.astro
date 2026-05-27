@@ -1,0 +1,27 @@
+---
+import { getLang } from "../../langs";
+import { createT } from "../../langs/createT";
+import { HERO_SKILL_KEYS } from "../../langs/hero-skill-keys";
+
+interface Props {
+  lang: string;
+}
+
+const { lang } = Astro.props;
+const t = createT(getLang(lang));
+const skills = HERO_SKILL_KEYS.map((key) => t(key));
+const tickerItems = [...skills, ...skills];
+---
+
+<div class="hero-ticker" aria-hidden="true">
+  <div class="hero-ticker-inner">
+    {
+      tickerItems.map((skill) => (
+        <span class="hero-ticker-item">
+          {skill}
+          <span class="hero-ticker-dot" />
+        </span>
+      ))
+    }
+  </div>
+</div>

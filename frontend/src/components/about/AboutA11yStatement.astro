@@ -1,0 +1,25 @@
+---
+import type { createT } from "../../langs/createT";
+
+interface Props {
+  t: ReturnType<typeof createT>;
+}
+
+const { t } = Astro.props;
+
+const items = [
+  "about.a11y.item1",
+  "about.a11y.item2",
+  "about.a11y.item3",
+  "about.a11y.item4",
+  "about.a11y.item5",
+] as const;
+---
+
+<div class="about-a11y">
+  <h3 class="about-a11y-title">{t("about.a11y.title")}</h3>
+  <p class="about-a11y-lead">{t("about.a11y.lead")}</p>
+  <ul class="about-a11y-list">
+    {items.map((key) => <li>{t(key)}</li>)}
+  </ul>
+</div>
