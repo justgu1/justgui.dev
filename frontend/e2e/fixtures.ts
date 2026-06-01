@@ -1,6 +1,24 @@
-import { test as base } from "@playwright/test";
+import { test as base, expect } from "@playwright/test";
 
 export const test = base.extend({
+  context: async ({ context }, use) => {
+    await context.addInitScript(() => {
+      localStorage.setItem("justgui.welcome.done", "1");
+    });
+    await context.addCookies([
+      {
+        name: "justgui_welcome",
+        value: "1",
+        url: "http://127.0.0.1:4321",
+      },
+      {
+        name: "justgui_vid",
+        value: "e2e-playwright-visitor",
+        url: "http://127.0.0.1:4321",
+      },
+    ]);
+    await use(context);
+  },
   page: async ({ page }, use) => {
     const errors: string[] = [];
     page.on("console", (msg) => {
@@ -15,4 +33,4 @@ export const test = base.extend({
   },
 });
 
-export { expect } from "@playwright/test";
+export { expect };

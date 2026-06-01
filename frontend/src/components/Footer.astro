@@ -1,14 +1,21 @@
 ---
+import { SUPPORTED_LANGS, type SupportedLang } from "../config/seo";
+import { SITE_CONFIG } from "../config/site";
 import { getLang } from "../langs";
 import { createT } from "../langs/createT";
-import { SITE_CONFIG } from "../config/site";
+import { pathSuffix } from "../utils/localePath";
 
 interface Props {
   lang: string;
+  pathname: string;
 }
 
-const { lang } = Astro.props;
+const { lang, pathname } = Astro.props;
 const t = createT(getLang(lang));
+const currentLang = lang as SupportedLang;
+const suffix = pathSuffix(pathname, currentLang);
+const suffixPath = suffix ? `/${suffix}` : "";
+const langLabel = (code: SupportedLang) => t(`languages.${code}`);
 
 const socialLinks = [
   { key: "social.linkedin", url: SITE_CONFIG.linkedinUrl },
@@ -18,32 +25,84 @@ const socialLinks = [
 ---
 
 <footer class="footer">
-  <p class="footer-copyright">
-    <span class="footer-copyright-firstname">{t("firstname")}</span>
-    <span class="footer-copyright-lastname">{t("lastname")}</span>
-    <span class="footer-copyright-separator" aria-hidden="true">•</span>
-    © {new Date().getFullYear()}
-    {t("rights")}
-  </p>
+  <div class="footer-surface">
+    <p class="footer-copyright">
+      <span class="footer-copyright-firstname">{t("firstname")}</span>
+      <span class="footer-copyright-lastname">{t("lastname")}</span>
+      <span class="footer-copyright-separator" aria-hidden="true">•</span>
+      © {new Date().getFullYear()}
+      {t("rights")}
+    </p>
 
-  <nav class="footer-social-nav" aria-label={t("a11y.socialNavigation")}>
-    <ul class="footer-social-list">
-      {
-        socialLinks.map(({ key, url }) => (
-          <li class="footer-social-item">
-            <a
-              href={url}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={t("a11y.externalLink", { label: t(key) })}
-              data-analytics="outbound_click"
-              data-analytics-network={key.split(".")[1]}
-            >
-              {t(key)}
-            </a>
-          </li>
-        ))
-      }
-    </ul>
-  </nav>
+    <div class="footer-toolbar" aria-label={t("a11y.footerToolbar")}>
+      <div class="footer-lang" data-footer-lang>
+        <button
+          type="button"
+          class="footer-toolbar-btn footer-toolbar-btn-lang"
+          data-footer-lang-toggle
+          aria-haspopup="listbox"
+          aria-expanded="false"
+          aria-controls="footer-lang-listbox"
+        >
+          {langLabel(currentLang)}
+        </button>
+        <ul
+          id="footer-lang-listbox"
+          class="footer-lang-list"
+          role="listbox"
+          aria-label={t("a11y.selectLanguage")}
+          hidden
+          data-footer-lang-list
+        >
+          {
+            SUPPORTED_LANGS.map((targetLang) => (
+              <li
+                role="option"
+                aria-selected={targetLang === currentLang}
+                tabindex={targetLang === currentLang ? 0 : -1}
+                data-lang-href={`/${targetLang}${suffixPath}`}
+                data-footer-lang-option
+              >
+                {langLabel(targetLang)}
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <button
+        type="button"
+        class="footer-toolbar-btn footer-toolbar-btn-a11y"
+        data-a11y-panel-open
+        aria-label={t("a11y.openAccessibilityPanel")}
+        aria-haspopup="dialog"
+        aria-expanded="false"
+      >
+        <span>{t("a11yPanel.title")}</span>
+      </button>
+    </div>
+
+    <nav class="footer-social-nav" aria-label={t("a11y.socialNavigation")}>
+      <ul class="footer-social-list">
+        {
+          socialLinks.map(({ key, url }) => (
+            <li class="footer-social-item">
+              <a
+                href={url}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={t("a11y.externalLink", { label: t(key) })}
+                data-analytics="outbound_click"
+                data-analytics-network={key.split(".")[1]}
+              >
+                {t(key)}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </div>
 </footer>
+
+<script src="../scripts/footer-toolbar.client.ts"></script>

@@ -4,6 +4,9 @@
     "timeout": 30000,
     "chromeLaunchConfig": {
       "args": ["--no-sandbox"]
+    },
+    "headers": {
+      "Cookie": "justgui_welcome=1; justgui_vid=e2e-pa11y-visitor"
     }
   },
   "urls": [

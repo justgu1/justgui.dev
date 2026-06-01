@@ -2,3 +2,9 @@
 .env
 .env.*
 !.env.example
+
+# SQLite local
+data/
+*.sqlite
+*.sqlite-wal
+*.sqlite-shm

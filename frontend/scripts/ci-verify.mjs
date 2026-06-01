@@ -36,10 +36,10 @@ try {
       detached: true,
       env: {
         ...process.env,
-        // Lighthouse SEO should validate indexable production markup.
-        // Tracking scripts remain disabled unless IDs are set.
         PUBLIC_APP_ENV: "production",
         PUBLIC_SITE_URL: baseUrl,
+        DATABASE_PATH: path.join(root, "data", "ci.sqlite"),
+        VISITOR_IP_SALT: process.env.VISITOR_IP_SALT ?? "ci-salt",
       },
     }
   );
@@ -53,6 +53,7 @@ try {
     CI: "true",
     PLAYWRIGHT_BASE_URL: baseUrl,
     PLAYWRIGHT_SKIP_WEBSERVER: "1",
+    DATABASE_PATH: path.join(root, "data", "ci.sqlite"),
   });
   await run("yarn", ["test:a11y"]);
   await run("yarn", ["lighthouse"]);

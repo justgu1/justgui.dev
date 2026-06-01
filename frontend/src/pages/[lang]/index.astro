@@ -7,17 +7,14 @@ import About from "../../components/sections/About.astro";
 import Contact from "../../components/sections/Contact.astro";
 import { SUPPORTED_LANGS } from "../../config/seo";
 
-interface Props {
-  lang: string;
-}
-
 export function getStaticPaths() {
   return SUPPORTED_LANGS.map((lang) => ({ params: { lang } }));
 }
 
-export const prerender = true;
+export const prerender = false;
 
-const { lang } = Astro.props;
+const { lang: langParam } = Astro.params;
+const lang = langParam ?? "en";
 ---
 
 <Layout lang={lang}>

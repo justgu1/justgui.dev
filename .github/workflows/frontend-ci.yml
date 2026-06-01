@@ -19,14 +19,14 @@ defaults:
 
 env:
   PUBLIC_APP_ENV: production
-  PUBLIC_API_URL: http://localhost:8080
   PUBLIC_LINKEDIN_URL: https://www.linkedin.com/in/justgui
   PUBLIC_GITHUB_URL: https://github.com/justgu1
   PUBLIC_INSTAGRAM_URL: https://www.instagram.com/just.guis
   PUBLIC_SITE_URL: http://127.0.0.1:4321
   PUBLIC_GA4_MEASUREMENT_ID: ""
   PUBLIC_META_PIXEL_ID: ""
-  PUBLIC_CV_URL: ""
+  PUBLIC_CV_URL: /cv/GuilhermeSantos-Curriculo-2026.pdf
+  PUBLIC_WHATSAPP_NUMBER: "5511976598853"
 
 jobs:
   quality:

@@ -19,6 +19,18 @@ const { project, t } = Astro.props;
     <span class="pr-chevron" aria-hidden="true">↓</span>
   </summary>
   <div class="project-accordion-panel">
+    {
+      project.previewImageUrl && (
+        <div class="project-accordion-preview">
+          <img
+            src={project.previewImageUrl}
+            alt={project.previewImageAlt ?? project.name}
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+      )
+    }
     <p class="project-accordion-desc">{project.description}</p>
     <div class="project-accordion-tags">
       {project.tags.map((tag) => <span class="fb-tag">{tag}</span>)}

@@ -1,5 +1,9 @@
 # Frontend — Checklist
 
+## CI (Definition of Done)
+
+- [ ] `cd frontend && yarn ci` passa sem falhas
+
 ## CI (job `quality`)
 
 - [ ] `yarn format:check`
@@ -11,16 +15,31 @@
 
 ## Manual
 
-- [ ] Novas strings em en, pt, es
+- [ ] Rotas `pages/[lang]/**`: idioma via `Astro.params.lang` (não `Astro.props`)
+- [ ] Páginas que dependem do middleware: `prerender = false` (ex.: home)
+- [ ] Middleware: `VisitorsMiddleware` antes de `LanguagesMiddleware`
+- [ ] Footer: toolbar idioma + a11y; sticky após scroll; redes em linha em `<64rem`
+- [ ] Flutuantes: WhatsApp + topo juntos após scroll ≥400px; fade-in; acima do footer
+- [ ] `AccessibilityPanel` no `Layout`, **não** dentro do footer
+- [ ] Welcome dialog: form a11y completo; Continuar fecha; cookies default essenciais
+- [ ] Contato: limites 128/128/512 + contador no textarea
+- [ ] SQLite: `DATABASE_PATH`; APIs `/api/consent`, `/api/a11y`, `/api/contact`
+- [ ] Novas strings em en, pt, es (incl. `a11y-panel.ts`, `welcome.ts`, `contact.ts`)
 - [ ] Env documentado em `.env.example`
-- [ ] Client JS: menu, analytics, acordeão de projetos — outras exceções documentadas no PR
-- [ ] `getStaticPaths` atualizado se novas rotas `[lang]`
-- [ ] **Nenhum arquivo novo/alterado passa de 300 linhas** — dividir em subcomponentes, utils ou CSS por domínio
-- [ ] Seções são orquestradores; markup pesado em `components/<domínio>/`
-- [ ] Dados dinâmicos via `src/data/` ou `src/services/`; mocks tipados até API
-- [ ] Cabeçalho de seção: `description` (frase longa) à esquerda do número; `title` (rótulo curto) à direita
-- [ ] Âncoras com `scroll-margin-top: var(--header-height)`; scroll suave em `html`
-- [ ] Hero ticker pausa no hover; expertise com cor no numeral (sem borda animada no número)
-- [ ] Accordion de projetos: um aberto, chevron ↓/↑ sempre visível
-- [ ] Compromisso de acessibilidade em About (`AboutA11yStatement`), não em Projects
-- [ ] About separado de Contact (`border-bottom` em `about-layout`); Contact em tema escuro
+- [ ] **Nenhum arquivo passa de 300 linhas**
+- [ ] Dados estáticos via `src/data/`; endpoints em `src/pages/api/`
+
+## Locale (middleware)
+
+- [ ] `yarn test` — `negotiateLocale.test.ts`, `localePath.test.ts`, `languages.test.ts`
+- [ ] `yarn test:e2e` — `e2e/locale.spec.ts`
+- [ ] Welcome persiste após redirect `/` → `/{lang}` (cookie `justgui_welcome_pending`)
+- [ ] Não reintroduzir `?setLang=`
+
+## UI portfolio
+
+- [ ] Cabeçalho de seção: `description` à esquerda; `title` à direita
+- [ ] Âncoras com `scroll-margin-top: var(--header-height)`
+- [ ] Accordion de projetos: um aberto, chevron ↓/↑ visível
+- [ ] Compromisso a11y em About, não em Projects
+- [ ] Controles a11y: `.form-control` + descrição por seção (`a11y-field-desc`)

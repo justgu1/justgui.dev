@@ -12,6 +12,13 @@ const a11y: Dictionary = {
   "a11y.availableStatus": "Disponible para trabajar",
   "a11y.externalLink": "{label} (se abre en una pestaña nueva)",
   "a11y.decorativeSeparator": "",
+  "a11y.languageNavigation": "Idioma",
+  "a11y.contactWhatsApp": "Contacto por WhatsApp",
+  "a11y.backToTop": "Volver arriba",
+  "a11y.openAccessibilityPanel": "Abrir configuración de accesibilidad",
+  "a11y.floatingActions": "Acciones rápidas",
+  "a11y.footerToolbar": "Preferencias del sitio",
+  "a11y.selectLanguage": "Seleccionar idioma",
 };
 
 export default a11y;

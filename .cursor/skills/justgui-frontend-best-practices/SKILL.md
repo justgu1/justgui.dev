@@ -9,124 +9,143 @@ disable-model-invocation: true
 ## Astro
 
 - Prefer `.astro` components; avoid React islands unless needed
-- Client scripts: `<script src="../scripts/foo.client.ts"></script>` in component (mesmo padrão de `Header.astro`)
-- Prerender language pages: `getStaticPaths` + `prerender = true` em `[lang]/index.astro`
-- SSR: `@astrojs/node` adapter; middleware for language redirect
+- Client scripts: `<script src="../scripts/foo.client.ts"></script>` em component (mesmo padrão de `Header.astro`)
+- SSR: `@astrojs/node` adapter; middleware em `src/middleware.ts` via `sequence()`
+
+### Middleware (ordem importa)
+
+```ts
+sequence(VisitorsMiddleware, LanguagesMiddleware)
+```
+
+| Middleware | Papel |
+|------------|-------|
+| `VisitorsMiddleware` | cookie `justgui_vid`, `showWelcome`, `justgui_welcome_pending` |
+| `LanguagesMiddleware` | negociação `/` → `/{lang}`, cookie `justgui_lang` |
+
+Visitantes **antes** de idioma garante cookies no 1º acesso mesmo com redirect 302.
+
+### Rotas `[lang]` e locale
+
+- **Parâmetro de idioma**: em `src/pages/[lang]/**` usar sempre `Astro.params.lang` (com fallback `?? "en"`). **Nunca** `Astro.props.lang`.
+- **Home** (`[lang]/index.astro`): `prerender = false` para o middleware aplicar negociação.
+- **Utilitários**: `negotiateLocale.ts`, `localePath.ts`
+- **Cookie** `justgui_lang`: definido ao servir `/{lang}`; evita redirect automático de `/en` após escolha explícita.
+- **Seletor de idioma**: footer toolbar (`Footer.astro` + `footer-toolbar.client.ts`) — listbox com nomes nativos; **sem** query `?setLang=`.
+- **Redirects automáticos (302)**: `/` → idioma negociado; `/en` → `pt`/`es` se browser preferir e não houver cookie.
+- **Docker/nginx**: `proxy_set_header Accept-Language $http_accept_language;`
+
+## Shell global (`Layout.astro`)
+
+Ordem no `<body>`:
+
+```
+skip-link → Header → main → Footer → AccessibilityPanel → FloatingActionCell → WelcomeDialog
+```
+
+- `AccessibilityPanel` **fora** do footer (evita que `transform`/`animation` quebrem `position: fixed`)
+- `data-show-welcome="true|false"` no body para o welcome dialog
+
+## Footer sticky + flutuantes
+
+| Peça | Comportamento |
+|------|---------------|
+| `.footer.footer--pinned` | sticky após `scrollY > 0` |
+| `.footer-surface` | animação slide-in; contém copyright, toolbar, redes |
+| Footer toolbar | idioma (listbox) + botão a11y |
+| Redes sociais | linha horizontal em `<64rem`, estilo toolbar |
+| `FloatingActionCell` | WhatsApp (esq.) + topo (dir.); visíveis juntos após scroll ≥400px; fade-in |
+
+Scripts: `floating-actions.client.ts`, `footer-toolbar.client.ts`.
+
+## Welcome dialog (1º acesso)
+
+- Form a11y completo via `AccessibilityPanelForm.astro` (`showReset={false}`)
+- **Continuar** sempre fecha; default “somente essenciais” se cookies não escolhidos
+- Persistência: `localStorage` `justgui.welcome.done` + cookies client-side + `/api/consent`
+- Focus trap: `focus-trap.ts` no dialog inteiro
 
 ## Componentização e tamanho de arquivo
 
-- **Limite rígido: 300 linhas por arquivo** (`.astro`, `.ts`, `.css`). Se um arquivo se aproxima disso, dividir — é sinal de responsabilidade demais num único módulo.
-- Seções (`components/sections/*.astro`) são **orquestradores finos**: compõem subcomponentes, passam props e i18n; não concentram markup/CSS extenso.
-- Extrair para `components/` por domínio, por exemplo:
-  - `components/hero/` — `HeroIntro`, `HeroAside`, `HeroTicker`, `HeroStatCard`
-  - `components/expertise/` — `ExpertiseCard`, `ExpertiseGrid`
-  - `components/projects/` — `ProjectFeatured`, `ProjectAccordion`, `ProjectAccordionItem`
-  - `components/about/` — `AboutIntro`, `AboutTimeline`, `TimelineEntry`, `AboutA11yStatement`
-  - `components/contact/` — `ContactIntro`, `ContactForm`, `ContactLinks`
-- Tipos e contratos em `src/types/`; mocks/loaders em `src/data/` até a API existir.
-- CSS por domínio em `src/styles/` (`hero.css`, `projects.css`, …); seções com conteúdo full-bleed usam `<Section flush>`.
+- **Limite rígido: 300 linhas por arquivo** (`.astro`, `.ts`, `.css`)
+- Seções (`components/sections/*.astro`) são orquestradores finos
+- Extrair por domínio: `hero/`, `expertise/`, `projects/`, `about/`, `contact/`
+- Tipos em `src/types/`; dados em `src/data/`
+- CSS por domínio em `src/styles/`; import em `globals.css`
 
-## Layout e UI do portfolio (justgui)
+## Contact
 
-### Cabeçalho de seção (`Title.astro` + `sections.*` i18n)
-
-- **Esquerda** (ao lado do número): `sections.<id>.description` — frase descritiva longa.
-- **Direita**: `sections.<id>.title` — rótulo curto da seção (ex.: "Core Expertise", "Story").
-- Não inverter esses papéis nos arquivos de i18n.
-
-### Navegação e âncoras
-
-- `html { scroll-behavior: smooth; }` em `default.css`.
-- `.section { scroll-margin-top: var(--header-height); }` para âncoras (`#expertise`, etc.) não ficarem atrás do header sticky.
-- Respeitar `prefers-reduced-motion` (já em `a11y.css`).
-
-### Hero
-
-- Layout full-bleed: `.hero-section .section-content` sem padding; grid sem gap; coluna direita com bordas até a viewport.
-- Ticker de skills: marquee com **pausa no hover** (`animation-play-state: paused` em `.hero-ticker:hover .hero-ticker-inner`).
-- Altura do hero: `min-height: calc(100dvh - var(--header-height) - 1px)` (borda da coluna direita).
-- Mobile (`≤64rem`): sem `border-left` em cards/status da coluna direita.
-
-### Expertise
-
-- Borda esquerda animada no **card** (`::before` em `.exp-block`), padrão do header nav.
-- Numerais romanos (`.eb-num`): **apenas troca de cor no hover** (`var(--red-bright)`), sem animação de borda no número.
-
-### Projects
-
-- Featured + acordeão `<details>`; dados via `getProjects()` / `getAccordionProjects()` em `src/data/projects.ts`.
-- **Um item aberto por vez**: `scripts/projects-accordion.client.ts` + `data-project-accordion`; registrar também em `astro:page-load`.
-- Chevron **sempre visível**: `↓` fechado, rotação 180° (`↑`) quando `[open]` — não esconder seta só no hover (acessibilidade e inferência visual).
-- Bloco "Accessibility Commitment" **não** fica em Projects — ver About.
-
-### About (Story)
-
-- Grid intro + timeline; abaixo, `AboutA11yStatement` (compromisso de acessibilidade integrado à seção).
-- `.about-layout` com `border-bottom` para separar visualmente de Contact.
-- CTAs: `display: inline-flex; align-items: center; justify-content: center` nos botões da story.
-
-### Contact
-
-- Tema escuro (`--surface` / `--cream`), alinhado ao design system — não usar bloco cream invertido do mock HTML antigo.
-- Email de contato em i18n (`contact.email`); valor atual: `support@justgui.dev`.
-- Formulário estruturado com a11y; desabilitado até endpoint de API existir.
+- Tema escuro; envio via `/api/contact` (SMTP)
+- Limites: nome 128, email 128, mensagem 512 — client + server (`contactMessages.ts`)
+- Contador `{current} / {max}` abaixo do textarea (`contact.client.ts`)
+- `CONTACT_TO` server-only no `.env`
 
 ## i18n
 
 - Strings in `langs/{en,pt,es}/*.ts`, merged in `index.ts`
+- Nomes de idioma: `languages.ts` — forma nativa (Português, English, Español)
+- Painel a11y: `a11y-panel.ts` — labels + **descrições por seção** (`*Desc` após legend)
 - Use `createT(dict)(key, { param: value })` for interpolation
 - Never hardcode user-visible copy in components
 
-## Environment (`PUBLIC_*`)
+## Environment
 
 | Variable | Required | Purpose |
 |----------|----------|---------|
 | `PUBLIC_SITE_URL` | yes | Canonical, OG, sitemap |
 | `PUBLIC_APP_ENV` | yes | `production` enables indexing + analytics |
+| `PUBLIC_WHATSAPP_NUMBER` | yes | Header + flutuante WhatsApp |
 | `PUBLIC_GA4_MEASUREMENT_ID` | no | Google Analytics 4 |
 | `PUBLIC_META_PIXEL_ID` | no | Meta Pixel |
 | `PUBLIC_CV_URL` | no | CV download link |
+| `CONTACT_TO` | server | Email admin para contato |
+| `DATABASE_PATH` | server | SQLite (visitantes, consent, contato) |
 
 Access via `config/env.ts` — never `import.meta.env` in components directly.
 
 ## Analytics
 
 - `data-analytics="cta_click|cv_download|outbound_click"` on interactive elements
-- Optional `data-analytics-location`, `data-analytics-network`
-- Delegated handler in `scripts/analytics.client.ts`
+- Consent via welcome dialog → `grantAnalyticsConsent()` + `/api/consent`
 - Tags load only when `IS_PRODUCTION` and IDs set (`Analytics.astro`)
 
 ## Performance
 
 - Fonts: `display=swap`, `preconnect` to Google Fonts
-- Client JS mínimo: header menu, analytics, acordeão de projetos (`projects-accordion.client.ts`). Novas exceções devem ser documentadas no PR.
-- OG image: `public/favicons/favicon_512x512.png` or dedicated asset
-
-## Dados e API
-
-- Consumir listas dinâmicas (projetos, etc.) via `src/data/` ou `src/services/`, não inline nas seções.
-- Mocks tipados com o mesmo contrato que o fetch usará (ex.: `Project` + `projects.mock.ts`).
-- Componentes recebem dados normalizados; não conhecem URLs de API.
+- Client JS mínimo documentado; novas exceções no PR
+- Lighthouse performance ≥ 85 (warn), SEO/a11y = 100
 
 ## File organization
 
 ```
 src/
-  components/           # UI atômica e composta
-  components/sections/  # Orquestração por seção da página
-  components/hero/
-  components/projects/
-  components/about/
-  components/contact/
-  config/
-  data/
-  types/
-  langs/
-  layouts/
-  pages/
-  scripts/              # *.client.ts
+  components/
+    AccessibilityPanel.astro
+    AccessibilityPanelForm.astro
+    FloatingActionCell.astro
+    WelcomeDialog.astro
+    Footer.astro
+  scripts/
+    focus-trap.ts
+    a11y-form.ts
+    footer-toolbar.client.ts
+    floating-actions.client.ts
+    welcome-dialog.client.ts
+  middlewares/
+    visitors.ts          # antes de languages
+    languages.ts
+  pages/api/
+    consent.ts
+    a11y.ts
+    contact.ts
+  server/
+    contact/contactMessages.ts
+    db/
   styles/
-  utils/
+    form-controls.css
+    footer.css
+    floating-action-cell.css
+    welcome-dialog.css
 ```
 
 ## Checklist

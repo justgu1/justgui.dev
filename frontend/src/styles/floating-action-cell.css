@@ -1,0 +1,139 @@
+.floating-actions {
+  position: fixed;
+  right: max(1rem, env(safe-area-inset-right));
+  bottom: var(--floating-bottom, max(1rem, env(safe-area-inset-bottom)));
+  z-index: 85;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition:
+    bottom 0.15s ease,
+    opacity 0.3s ease,
+    visibility 0.3s ease;
+}
+
+.floating-actions--visible {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.floating-actions-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  border: 1px solid var(--border2);
+  background: var(--surface);
+  color: var(--cream);
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(0.5rem);
+  transition:
+    opacity 0.35s ease,
+    transform 0.35s ease,
+    background-color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.floating-actions--visible .floating-actions-btn {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.floating-actions--visible .floating-actions-btn-contact {
+  transition-delay: 0.05s;
+}
+
+.floating-actions--visible .floating-actions-btn-top {
+  transition-delay: 0.15s;
+}
+
+.floating-actions-btn:hover {
+  background: var(--surface2);
+  border-color: var(--red);
+}
+
+.floating-actions-btn:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+.floating-actions-btn-contact {
+  background: var(--green);
+  border-color: rgb(34 197 94 / 60%);
+  color: var(--bg);
+  box-shadow:
+    0 0 0 3px rgb(34 197 94 / 15%),
+    0 0 10px rgb(34 197 94 / 30%);
+}
+
+.floating-actions-btn-contact::before {
+  position: absolute;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  background: var(--green);
+  animation: fab-ping 2s ease-out infinite;
+  content: "";
+  z-index: -1;
+  pointer-events: none;
+}
+
+.floating-actions-btn-contact {
+  position: relative;
+}
+
+.floating-actions-btn-contact:hover {
+  background: rgb(34 197 94 / 90%);
+  border-color: var(--green);
+  color: var(--bg);
+}
+
+.floating-actions-btn-top {
+  flex-shrink: 0;
+}
+
+.floating-actions-icon {
+  width: 1.15rem;
+  height: 1.15rem;
+}
+
+@keyframes fab-ping {
+  0% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+
+  70% {
+    transform: scale(1.7);
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@media (max-width: 40rem) {
+  .floating-actions-btn {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  .floating-actions-btn-contact::before {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  .floating-actions-icon {
+    width: 1rem;
+    height: 1rem;
+  }
+}

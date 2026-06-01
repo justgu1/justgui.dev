@@ -5,7 +5,7 @@ Este arquivo define as regras obrigatórias para qualquer agente trabalhando nes
 ## Escopo
 
 - Aplica-se ao projeto inteiro, com foco principal no frontend em `frontend/`.
-- O frontend é um projeto Astro SSR (Node adapter) com i18n (`en`, `pt`, `es`), SEO, acessibilidade WCAG 2.1 AA e pipeline CI própria.
+- O frontend é um projeto Astro SSR (Node adapter) com i18n (`en`, `pt`, `es`), negociação de locale via middleware (`Accept-Language`, cookie `justgui_lang`, rotas `/en` `/pt` `/es`), SEO, acessibilidade WCAG 2.1 AA e pipeline CI própria.
 
 ## Regras obrigatórias
 

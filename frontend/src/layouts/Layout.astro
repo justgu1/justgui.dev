@@ -6,6 +6,9 @@ import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import SeoHead from "../components/SeoHead.astro";
 import Analytics from "../components/Analytics.astro";
+import FloatingActionCell from "../components/FloatingActionCell.astro";
+import WelcomeDialog from "../components/WelcomeDialog.astro";
+import AccessibilityPanel from "../components/AccessibilityPanel.astro";
 
 interface Props {
   lang: string;
@@ -13,6 +16,7 @@ interface Props {
 
 const { lang = "en" } = Astro.props;
 const t = createT(getLang(lang));
+const showWelcome = Astro.locals.showWelcome ?? false;
 ---
 
 <html lang={lang}>
@@ -30,14 +34,35 @@ const t = createT(getLang(lang));
       rel="stylesheet"
     />
     <Analytics />
+    <script is:inline>
+      (function () {
+        try {
+          var raw = localStorage.getItem("justgui.a11y.prefs");
+          if (!raw) return;
+          var prefs = JSON.parse(raw);
+          var root = document.documentElement;
+          if (prefs.fontScale) root.dataset.a11yFontScale = prefs.fontScale;
+          root.dataset.a11ySpacing = prefs.textSpacing
+            ? "comfortable"
+            : "default";
+          root.dataset.a11yContrast = prefs.highContrast ? "high" : "default";
+          root.dataset.a11yVision = prefs.visionFilter || "none";
+          root.dataset.a11yMotion = prefs.reduceMotion ? "reduce" : "default";
+          root.dataset.a11yFocus = prefs.enhancedFocus ? "enhanced" : "default";
+        } catch (_) {}
+      })();
+    </script>
   </head>
 
-  <body>
+  <body data-show-welcome={showWelcome ? "true" : "false"}>
     <a href="#main-content" class="skip-link">{t("a11y.skipToContent")}</a>
     <Header lang={lang} />
     <main id="main-content" tabindex="-1">
       <slot />
     </main>
-    <Footer lang={lang} />
+    <Footer lang={lang} pathname={Astro.url.pathname} />
+    <AccessibilityPanel lang={lang} />
+    <FloatingActionCell lang={lang} />
+    <WelcomeDialog lang={lang} />
   </body>
 </html>

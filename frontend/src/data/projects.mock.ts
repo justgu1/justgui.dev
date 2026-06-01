@@ -20,6 +20,8 @@ const projectsEn: Project[] = [
     featuredLabel: "Featured · E-Commerce",
     featuredYear: "2024",
     featuredTitleEm: "Nutrition",
+    previewImageUrl: "/projects/ultrafarma-preview.svg",
+    previewImageAlt: "Ultrafarma Nutrition project preview",
   },
   {
     id: "dashboard",
@@ -32,6 +34,8 @@ const projectsEn: Project[] = [
       "Analytics dashboard with keyboard-first navigation, semantic structure, and real-time data views built for assistive technologies.",
     tags: ["Vue", "Go", "PostgreSQL"],
     href: "#",
+    previewImageUrl: "/projects/dashboard-preview.svg",
+    previewImageAlt: "Accessible dashboard project preview",
   },
   {
     id: "gateway",
@@ -44,6 +48,8 @@ const projectsEn: Project[] = [
       "Gateway for third-party integrations with rate limiting, observability, and resilient async processing.",
     tags: ["Go", "Redis", "Docker"],
     href: "#",
+    previewImageUrl: "/projects/gateway-preview.svg",
+    previewImageAlt: "Integration gateway project preview",
   },
   {
     id: "analytics",
@@ -56,6 +62,8 @@ const projectsEn: Project[] = [
       "Real-time metrics platform with accessible charts, reduced-motion fallbacks, and responsive layouts.",
     tags: ["React", "Laravel", "WebSockets"],
     href: "#",
+    previewImageUrl: "/projects/analytics-preview.svg",
+    previewImageAlt: "Real-time analytics project preview",
   },
 ];
 

@@ -1,0 +1,63 @@
+---
+import { ENV } from "../config/env";
+import { getLang } from "../langs";
+import { createT } from "../langs/createT";
+import { buildWhatsAppUrl } from "../utils/whatsapp";
+
+interface Props {
+  lang: string;
+}
+
+const { lang } = Astro.props;
+const t = createT(getLang(lang));
+const whatsappUrl = buildWhatsAppUrl(
+  ENV.WHATSAPP_NUMBER,
+  t("header.whatsappMessage")
+);
+---
+
+<aside
+  class="floating-actions"
+  aria-label={t("a11y.floatingActions")}
+  aria-hidden="true"
+>
+  <a
+    href={whatsappUrl}
+    class="floating-actions-btn floating-actions-btn-contact"
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label={t("a11y.contactWhatsApp")}
+    data-analytics="outbound_click"
+    data-analytics-network="whatsapp"
+  >
+    <svg
+      class="floating-actions-icon"
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+      focusable="false"
+    >
+      <path
+        fill="currentColor"
+        d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011-.24 11.36 11.36 0 003.56.57 1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1 11.36 11.36 0 00.57 3.56 1 1 0 01-.24 1l-2.2 2.23z"
+      ></path>
+    </svg>
+  </a>
+
+  <button
+    type="button"
+    class="floating-actions-btn floating-actions-btn-top"
+    data-back-to-top
+    aria-label={t("a11y.backToTop")}
+  >
+    <svg
+      class="floating-actions-icon"
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+      focusable="false"
+    >
+      <path fill="currentColor" d="M12 4l-8 8h5v8h6v-8h5z"></path>
+    </svg>
+  </button>
+</aside>
+
+<script src="../scripts/floating-actions.client.ts"></script>

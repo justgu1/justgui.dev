@@ -13,6 +13,9 @@ const header: Dictionary = {
 
   "header.buttons.resume": "download resume",
   "header.buttons.cv": "download CV",
+  "header.buttons.chat": "Conversar",
+  "header.whatsappMessage":
+    "Hola, me puse en contacto a través de tu sitio. ¿Estás disponible para conversar?",
 };
 
 export default header;

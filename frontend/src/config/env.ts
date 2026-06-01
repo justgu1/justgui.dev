@@ -10,8 +10,6 @@ function optional(value: string | undefined): string | undefined {
 }
 
 export const ENV = {
-  API_URL: required(import.meta.env.PUBLIC_API_URL, "PUBLIC_API_URL"),
-
   LINKEDIN_URL: required(
     import.meta.env.PUBLIC_LINKEDIN_URL,
     "PUBLIC_LINKEDIN_URL"
@@ -33,6 +31,11 @@ export const ENV = {
   META_PIXEL_ID: optional(import.meta.env.PUBLIC_META_PIXEL_ID),
 
   CV_URL: optional(import.meta.env.PUBLIC_CV_URL),
+
+  WHATSAPP_NUMBER: required(
+    import.meta.env.PUBLIC_WHATSAPP_NUMBER,
+    "PUBLIC_WHATSAPP_NUMBER"
+  ),
 } as const;
 
 export const IS_PRODUCTION = ENV.APP_ENV === "production";

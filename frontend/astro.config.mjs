@@ -1,5 +1,4 @@
 import { defineConfig } from "astro/config";
-import react from "@astrojs/react";
 import sitemap from "@astrojs/sitemap";
 import node from "@astrojs/node";
 
@@ -10,7 +9,6 @@ export default defineConfig({
   output: "server",
   adapter: node({ mode: "standalone" }),
   integrations: [
-    react(),
     sitemap({
       i18n: {
         defaultLocale: "en",
@@ -29,5 +27,8 @@ export default defineConfig({
   vite: {
     envDir: "../",
     cacheDir: "/tmp/justgui-vite-cache",
+    server: {
+      allowedHosts: ["localhost", "127.0.0.1", "justgui_frontend"],
+    },
   },
 });

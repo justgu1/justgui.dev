@@ -12,4 +12,6 @@ export interface Project {
   featuredLabel?: string;
   featuredYear?: string;
   featuredTitleEm?: string;
+  previewImageUrl?: string;
+  previewImageAlt?: string;
 }

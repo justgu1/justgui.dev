@@ -13,6 +13,7 @@ export default [
       ".astro/**",
       "coverage/**",
       "playwright-report/**",
+      "src/env.d.ts",
     ],
   },
   ...tseslint.configs.recommended,

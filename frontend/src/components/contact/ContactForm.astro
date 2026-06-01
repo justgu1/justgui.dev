@@ -1,5 +1,10 @@
 ---
 import type { createT } from "../../langs/createT";
+import {
+  CONTACT_EMAIL_MAX,
+  CONTACT_MESSAGE_MAX,
+  CONTACT_NAME_MAX,
+} from "../../server/contact/contactMessages";
 
 interface Props {
   t: ReturnType<typeof createT>;
@@ -15,8 +20,16 @@ const formId = "contact-form";
   aria-label={t("contact.form.label")}
   action="#"
   method="post"
+  data-success={t("contact.form.success")}
+  data-error={t("contact.form.error")}
+  data-validation={t("contact.form.validation")}
+  data-unavailable={t("contact.form.unavailable")}
+  data-sending={t("contact.form.sending")}
+  data-message-max={String(CONTACT_MESSAGE_MAX)}
+  data-message-counter={t("contact.form.messageCounter")}
+  data-state="idle"
 >
-  <p class="contact-form-notice">{t("contact.form.pending")}</p>
+  <p class="contact-form-notice" aria-live="polite"></p>
 
   <div class="form-group">
     <label for={`${formId}-name`}>{t("contact.form.name")}</label>
@@ -25,8 +38,8 @@ const formId = "contact-form";
       name="name"
       type="text"
       autocomplete="name"
+      maxlength={CONTACT_NAME_MAX}
       required
-      disabled
     />
   </div>
 
@@ -37,18 +50,37 @@ const formId = "contact-form";
       name="email"
       type="email"
       autocomplete="email"
+      maxlength={CONTACT_EMAIL_MAX}
       required
-      disabled
     />
   </div>
 
   <div class="form-group">
     <label for={`${formId}-message`}>{t("contact.form.message")}</label>
-    <textarea id={`${formId}-message`} name="message" required disabled
-    ></textarea>
+    <textarea
+      id={`${formId}-message`}
+      name="message"
+      maxlength={CONTACT_MESSAGE_MAX}
+      required
+      aria-describedby={`${formId}-message-hint`}></textarea>
+    <p
+      id={`${formId}-message-hint`}
+      class="form-hint"
+      data-message-counter
+      aria-live="polite"
+    >
+      {
+        t("contact.form.messageCounter", {
+          current: "0",
+          max: String(CONTACT_MESSAGE_MAX),
+        })
+      }
+    </p>
   </div>
 
-  <button type="submit" class="button button-primary contact-submit" disabled>
+  <button type="submit" class="button button-primary contact-submit">
     {t("contact.form.submit")}
   </button>
 </form>
+
+<script src="../../scripts/contact.client.ts"></script>

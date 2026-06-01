@@ -15,7 +15,7 @@ Documentação do frontend: [frontend/README.md](frontend/README.md).
 
 O `.env` **não** está na branch `main` atual, mas commits antigos num repositório **público** chegaram a incluí-lo. Qualquer pessoa com clone pode ver esses commits (`git show a1682db:.env`).
 
-**O que vazou (só valores de desenvolvimento):** `DB_PASSWORD=postgres`, portas locais e URLs `PUBLIC_*` (já públicas por desenho no Astro).
+**O que vazou (só valores de desenvolvimento):** portas locais e URLs `PUBLIC_*` (já públicas por desenho no Astro).
 
 **Se alguma vez colocou segredos reais no `.env` versionado:** rode credenciais (DB, GA4, Meta Pixel, etc.).
 

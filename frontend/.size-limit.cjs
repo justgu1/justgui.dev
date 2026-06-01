@@ -1,7 +1,7 @@
 module.exports = [
   {
-    name: "Client JS (Astro)",
-    path: "dist/client/**/*.js",
-    limit: "150 KB",
+    name: "Client CSS (Astro)",
+    path: "dist/client/_astro/**/*.css",
+    limit: "50 KB",
   },
 ];

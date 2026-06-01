@@ -39,7 +39,18 @@ const titleEm = project.featuredTitleEm ?? "";
     }
   </div>
 
-  <div class="fb-visual" aria-hidden="true">
-    {t("projects.featured.visual")}
+  <div class="fb-visual">
+    {
+      project.previewImageUrl ? (
+        <img
+          src={project.previewImageUrl}
+          alt={project.previewImageAlt ?? project.name}
+          loading="lazy"
+          decoding="async"
+        />
+      ) : (
+        <span aria-hidden="true">{t("projects.featured.visual")}</span>
+      )
+    }
   </div>
 </div>

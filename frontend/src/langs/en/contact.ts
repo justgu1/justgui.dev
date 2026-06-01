@@ -12,8 +12,13 @@ const contact: Dictionary = {
   "contact.form.email": "Email",
   "contact.form.message": "Project Details",
   "contact.form.submit": "Send Message",
-  "contact.form.pending":
-    "Form submission will be enabled when the API is connected.",
+  "contact.form.sending": "Sending…",
+  "contact.form.success": "Thanks! Your message was sent successfully.",
+  "contact.form.error": "Could not send your message. Try again later.",
+  "contact.form.validation":
+    "Please fill in all fields with valid information.",
+  "contact.form.unavailable": "Contact form is temporarily unavailable.",
+  "contact.form.messageCounter": "{current} / {max} characters",
 };
 
 export default contact;

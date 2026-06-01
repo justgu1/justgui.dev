@@ -1,48 +1,18 @@
 services:
-  justgui_api:
-    build:
-      context: .
-      dockerfile: docker/api/Dockerfile
-    image: justgui_api:latest
-    container_name: justgui_api
-    restart: unless-stopped
-    expose:
-      - "${API_PORT:-8080}"
-    working_dir: /var/www/api
-    volumes:
-      - ./:/var/www
-    env_file:
-      - ./.env
-    networks:
-      - justgui
-    depends_on:
-      justgui_db:
-        condition: service_healthy
-    healthcheck:
-      test:
-        [
-          "CMD-SHELL",
-          "wget -qO- http://localhost:8080/health || exit 1"
-        ]
-      interval: 15s
-      timeout: 5s
-      retries: 10
-      start_period: 40s
-
   justgui_frontend:
     build:
       context: .
       dockerfile: docker/frontend/Dockerfile
       args:
         PUBLIC_APP_ENV: ${PUBLIC_APP_ENV:-local}
-        PUBLIC_API_URL: ${PUBLIC_API_URL:-http://localhost:8080}
-        PUBLIC_SITE_URL: ${PUBLIC_SITE_URL:-http://localhost:4321}
+        PUBLIC_SITE_URL: ${PUBLIC_SITE_URL:-http://localhost:8010}
         PUBLIC_LINKEDIN_URL: ${PUBLIC_LINKEDIN_URL:-https://www.linkedin.com/in/justgui}
         PUBLIC_GITHUB_URL: ${PUBLIC_GITHUB_URL:-https://github.com/justgu1}
         PUBLIC_INSTAGRAM_URL: ${PUBLIC_INSTAGRAM_URL:-https://www.instagram.com/just.guis}
         PUBLIC_GA4_MEASUREMENT_ID: ${PUBLIC_GA4_MEASUREMENT_ID:-}
         PUBLIC_META_PIXEL_ID: ${PUBLIC_META_PIXEL_ID:-}
-        PUBLIC_CV_URL: ${PUBLIC_CV_URL:-}
+        PUBLIC_CV_URL: ${PUBLIC_CV_URL:-/cv/GuilhermeSantos-Curriculo-2026.pdf}
+        PUBLIC_WHATSAPP_NUMBER: ${PUBLIC_WHATSAPP_NUMBER:-5511976598853}
     image: justgui_frontend:latest
     container_name: justgui_frontend
     restart: unless-stopped
@@ -51,13 +21,30 @@ services:
     working_dir: /var/www/frontend
     volumes:
       - ./:/var/www
+      - justgui_data:/var/www/data
     env_file:
       - ./.env
+    environment:
+      PUBLIC_APP_ENV: ${PUBLIC_APP_ENV:-local}
+      PUBLIC_SITE_URL: ${PUBLIC_SITE_URL:-http://localhost:8010}
+      PUBLIC_LINKEDIN_URL: ${PUBLIC_LINKEDIN_URL:-https://www.linkedin.com/in/justgui}
+      PUBLIC_GITHUB_URL: ${PUBLIC_GITHUB_URL:-https://github.com/justgu1}
+      PUBLIC_INSTAGRAM_URL: ${PUBLIC_INSTAGRAM_URL:-https://www.instagram.com/just.guis}
+      PUBLIC_GA4_MEASUREMENT_ID: ${PUBLIC_GA4_MEASUREMENT_ID:-}
+      PUBLIC_META_PIXEL_ID: ${PUBLIC_META_PIXEL_ID:-}
+      PUBLIC_CV_URL: ${PUBLIC_CV_URL:-/cv/GuilhermeSantos-Curriculo-2026.pdf}
+      PUBLIC_WHATSAPP_NUMBER: ${PUBLIC_WHATSAPP_NUMBER:-5511976598853}
+      SMTP_HOST: ${SMTP_HOST:-}
+      SMTP_PORT: ${SMTP_PORT:-465}
+      SMTP_USER: ${SMTP_USER:-}
+      SMTP_PASSWORD: ${SMTP_PASSWORD:-}
+      SMTP_FROM: ${SMTP_FROM:-}
+      SMTP_FROM_NAME: ${SMTP_FROM_NAME:-justgui}
+      CONTACT_TO: ${CONTACT_TO:-}
+      DATABASE_PATH: ${DATABASE_PATH:-/var/www/data/justgui.sqlite}
+      VISITOR_IP_SALT: ${VISITOR_IP_SALT:-}
     networks:
       - justgui
-    depends_on:
-      justgui_api:
-        condition: service_healthy
     healthcheck:
       test:
         [
@@ -68,28 +55,6 @@ services:
       timeout: 5s
       retries: 10
       start_period: 40s
-
-  justgui_db:
-    image: postgres:18
-    container_name: justgui_db
-    restart: unless-stopped
-  
-    environment:
-      POSTGRES_DB: ${DB_DATABASE}
-      POSTGRES_USER: ${DB_USERNAME}
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
-      POSTGRES_PORT: ${DB_PORT}
-    expose:
-      - "${DB_PORT}"
-    volumes:
-      - justgui_db_data:/var/lib/postgresql
-    networks:
-      - justgui
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
 
   justgui_nginx:
     image: nginx:stable-alpine3.21
@@ -105,13 +70,11 @@ services:
     networks:
       - justgui
     depends_on:
-      - justgui_api
       - justgui_frontend
-      - justgui_db
-
-volumes:
-  justgui_db_data:
 
 networks:
   justgui:
     driver: bridge
+
+volumes:
+  justgui_data:

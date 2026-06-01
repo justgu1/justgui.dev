@@ -28,3 +28,9 @@ coverage/
 playwright-report/
 test-results/
 .lighthouseci/
+
+# SQLite local
+data/
+*.sqlite
+*.sqlite-wal
+*.sqlite-shm

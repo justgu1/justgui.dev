@@ -26,6 +26,13 @@ disable-model-invocation: true
 - JSON-LD: `Person` + `WebSite` in `@graph`
 - `meta robots`: `index,follow` in production; `noindex` in local
 
+## Locale e redirects (SEO)
+
+- Negociação automática usa **302** (não 301) em `middlewares/languages.ts` — evita fundir canonical entre `/en` e `/pt`.
+- `x-default` permanece `/en/`; crawlers indexam as três URLs explícitas.
+- `/pt` e `/es` não redirecionam por `Accept-Language` (URLs estáveis para partilha e hreflang).
+- Raiz `/` redireciona para o idioma negociado ou cookie; não publicar conteúdo canónico só em `/`.
+
 ## Definition of Done
 
 - `yarn seo` passes (server running on 4321)

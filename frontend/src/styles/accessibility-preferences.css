@@ -1,0 +1,63 @@
+html[data-a11y-font-scale="112"] {
+  font-size: 112.5%;
+}
+
+html[data-a11y-font-scale="125"] {
+  font-size: 125%;
+}
+
+html[data-a11y-font-scale="150"] {
+  font-size: 150%;
+}
+
+html[data-a11y-spacing="comfortable"] body {
+  line-height: 1.75;
+  letter-spacing: 0.06em;
+  word-spacing: 0.12em;
+}
+
+html[data-a11y-contrast="high"] {
+  --bg: #000;
+  --surface: #0a0a0a;
+  --surface2: #111;
+  --cream: #fff;
+  --cream-dim: #f0f0f0;
+  --gray: #e0e0e0;
+  --gray-soft: #d0d0d0;
+  --border: #666;
+  --border2: #888;
+  --red: #ff6b5a;
+  --red-bright: #ff8d7b;
+  --focus: #fff;
+}
+
+html[data-a11y-vision="protanopia"] {
+  filter: grayscale(0.2) sepia(0.4) hue-rotate(-30deg) saturate(1.2);
+}
+
+html[data-a11y-vision="deuteranopia"] {
+  filter: grayscale(0.25) sepia(0.5) hue-rotate(10deg) saturate(1.1);
+}
+
+html[data-a11y-vision="tritanopia"] {
+  filter: grayscale(0.2) sepia(0.3) hue-rotate(180deg) saturate(1.3);
+}
+
+html[data-a11y-vision="achromatopsia"] {
+  filter: grayscale(1);
+}
+
+html[data-a11y-motion="reduce"] *,
+html[data-a11y-motion="reduce"] *::before,
+html[data-a11y-motion="reduce"] *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
+}
+
+html[data-a11y-focus="enhanced"] :focus-visible {
+  outline-width: 4px;
+  outline-offset: 4px;
+  outline-color: var(--focus);
+}

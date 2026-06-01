@@ -2,6 +2,7 @@
 import { getLang } from "../langs";
 import { createT } from "../langs/createT";
 import { ENV } from "../config/env";
+import { buildWhatsAppUrl } from "../utils/whatsapp";
 
 interface Props {
   lang: string;
@@ -10,7 +11,12 @@ interface Props {
 const { lang } = Astro.props;
 const t = createT(getLang(lang));
 const cvUrl = ENV.CV_URL;
+const whatsappUrl = buildWhatsAppUrl(
+  ENV.WHATSAPP_NUMBER,
+  t("header.whatsappMessage")
+);
 const homeHref = `/${lang}`;
+const sectionHref = (id: string) => `${homeHref}#${id}`;
 ---
 
 <header class="header">
@@ -41,7 +47,7 @@ const homeHref = `/${lang}`;
       <ul class="nav-list header-nav-list">
         <li class="nav-item header-nav-item">
           <a
-            href="#expertise"
+            href={sectionHref("expertise")}
             data-analytics="cta_click"
             data-analytics-location="header"
           >
@@ -50,7 +56,7 @@ const homeHref = `/${lang}`;
         </li>
         <li class="nav-item header-nav-item">
           <a
-            href="#projects"
+            href={sectionHref("projects")}
             data-analytics="cta_click"
             data-analytics-location="header"
           >
@@ -59,7 +65,7 @@ const homeHref = `/${lang}`;
         </li>
         <li class="nav-item header-nav-item">
           <a
-            href="#about"
+            href={sectionHref("about")}
             data-analytics="cta_click"
             data-analytics-location="header"
           >
@@ -68,7 +74,7 @@ const homeHref = `/${lang}`;
         </li>
         <li class="nav-item header-nav-item">
           <a
-            href="#contact"
+            href={sectionHref("contact")}
             data-analytics="cta_click"
             data-analytics-location="header"
           >
@@ -77,29 +83,45 @@ const homeHref = `/${lang}`;
         </li>
       </ul>
 
-      {
-        cvUrl ? (
-          <a
-            href={cvUrl}
-            class="button button-primary header-button"
-            download
-            data-analytics="cv_download"
-            data-analytics-location="header"
-          >
-            {t("header.buttons.cv")}
-          </a>
-        ) : (
-          <button
-            type="button"
-            class="button button-primary header-button"
-            disabled
-            aria-disabled="true"
-            title={t("header.buttons.cv")}
-          >
-            {t("header.buttons.cv")}
-          </button>
-        )
-      }
+      <div class="header-actions">
+        <a
+          href={whatsappUrl}
+          class="button button-primary header-button"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={t("a11y.externalLink", {
+            label: t("header.buttons.chat"),
+          })}
+          data-analytics="outbound_click"
+          data-analytics-network="whatsapp"
+          data-analytics-location="header"
+        >
+          {t("header.buttons.chat")}
+        </a>
+        {
+          cvUrl ? (
+            <a
+              href={cvUrl}
+              class="button button-secondary header-button"
+              download="GuilhermeSantos-Curriculo-2026.pdf"
+              data-analytics="cv_download"
+              data-analytics-location="header"
+            >
+              {t("header.buttons.cv")}
+            </a>
+          ) : (
+            <button
+              type="button"
+              class="button button-secondary header-button"
+              disabled
+              aria-disabled="true"
+              title={t("header.buttons.cv")}
+            >
+              {t("header.buttons.cv")}
+            </button>
+          )
+        }
+      </div>
     </div>
   </nav>
 </header>

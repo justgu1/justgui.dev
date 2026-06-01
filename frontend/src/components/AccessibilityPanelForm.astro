@@ -1,0 +1,112 @@
+---
+import { getLang } from "../langs";
+import { createT } from "../langs/createT";
+import type {
+  FontScale,
+  VisionFilter,
+} from "../scripts/accessibility-preferences";
+
+interface Props {
+  lang: string;
+  formId?: string;
+  showReset?: boolean;
+}
+
+const { lang, formId, showReset = true } = Astro.props;
+const t = createT(getLang(lang));
+---
+
+<div
+  class="accessibility-panel-form"
+  data-a11y-form
+  role="group"
+  aria-labelledby={formId ? `${formId}-title` : undefined}
+>
+  <fieldset class="accessibility-panel-fieldset">
+    <legend>{t("a11yPanel.fontSize")}</legend>
+    <p class="a11y-field-desc">{t("a11yPanel.fontSizeDesc")}</p>
+    {
+      (
+        [
+          ["100", "a11yPanel.fontSize100"],
+          ["112", "a11yPanel.fontSize112"],
+          ["125", "a11yPanel.fontSize125"],
+          ["150", "a11yPanel.fontSize150"],
+        ] as [FontScale, string][]
+      ).map(([value, labelKey]) => (
+        <label class="accessibility-panel-option form-control">
+          <input
+            type="radio"
+            name="fontScale"
+            value={value}
+            data-a11y-font-scale
+            checked={value === "100"}
+          />
+          {t(labelKey)}
+        </label>
+      ))
+    }
+  </fieldset>
+
+  <fieldset class="accessibility-panel-fieldset">
+    <legend>{t("a11yPanel.visionFilter")}</legend>
+    <p class="a11y-field-desc">{t("a11yPanel.visionFilterDesc")}</p>
+    {
+      (
+        [
+          ["none", "a11yPanel.visionNone"],
+          ["protanopia", "a11yPanel.visionProtanopia"],
+          ["deuteranopia", "a11yPanel.visionDeuteranopia"],
+          ["tritanopia", "a11yPanel.visionTritanopia"],
+          ["achromatopsia", "a11yPanel.visionAchromatopsia"],
+        ] as [VisionFilter, string][]
+      ).map(([value, labelKey]) => (
+        <label class="accessibility-panel-option form-control">
+          <input
+            type="radio"
+            name="visionFilter"
+            value={value}
+            data-a11y-vision
+            checked={value === "none"}
+          />
+          {t(labelKey)}
+        </label>
+      ))
+    }
+  </fieldset>
+
+  <fieldset class="accessibility-panel-fieldset">
+    <legend>{t("a11yPanel.toggles")}</legend>
+    <p class="a11y-field-desc">{t("a11yPanel.togglesDesc")}</p>
+    <div class="accessibility-panel-toggles">
+      <label class="accessibility-panel-toggle form-control">
+        <input type="checkbox" name="textSpacing" data-a11y-spacing />
+        {t("a11yPanel.textSpacing")}
+      </label>
+      <label class="accessibility-panel-toggle form-control">
+        <input type="checkbox" name="highContrast" data-a11y-contrast />
+        {t("a11yPanel.highContrast")}
+      </label>
+      <label class="accessibility-panel-toggle form-control">
+        <input type="checkbox" name="reduceMotion" data-a11y-motion />
+        {t("a11yPanel.reduceMotion")}
+      </label>
+      <label class="accessibility-panel-toggle form-control">
+        <input type="checkbox" name="enhancedFocus" data-a11y-focus />
+        {t("a11yPanel.enhancedFocus")}
+      </label>
+    </div>
+  </fieldset>
+
+  {
+    showReset && (
+      <button
+        type="button"
+        class="button button-secondary accessibility-panel-reset"
+        data-a11y-reset
+      >
+        {t("a11yPanel.reset")}
+      </button>
+    )
+  }
+</div>

@@ -12,19 +12,19 @@ disable-model-invocation: true
 body
 ├── a.skip-link
 ├── header.header
-│   └── nav[aria-label]
+│   └── nav[aria-label] (menu principal)
 ├── main#main-content
 │   ├── section#hero
-│   │   ├── div.hero-intro (intro content)
-│   │   ├── nav.hero-actions
-│   │   └── aside.hero-aside
-│   │       ├── ul > li > article.hero-card
-│   │       └── footer.hero-status
 │   └── section#expertise|projects|about|contact
-│       ├── header.section-header > h2
-│       └── div.section-content
-└── footer.footer
-    └── nav[aria-label] (social)
+├── footer.footer
+│   ├── p.footer-copyright
+│   ├── div.footer-toolbar[aria-label]
+│   │   ├── div.footer-lang (listbox idioma)
+│   │   └── button (painel a11y)
+│   └── nav.footer-social-nav[aria-label]
+├── #accessibility-panel[role=dialog]  ← Layout, fora do footer
+├── aside.floating-actions
+└── div.welcome-dialog[role=dialog]
 ```
 
 ## Rules
@@ -33,28 +33,30 @@ body
 2. **Section titles** — `h2` via `Title.astro` with stable `id`
 3. **No `<div>` inside headings** — use `<span>` only
 4. **Lists** — groups of links/cards use `<ul>` + `<li>`
-5. **Stats/cards** — `<article>` per card in hero
-6. **Role line** — `<p class="hero-subtitle">`, not `h2`
-7. **Actions** — `<nav aria-label>` for CTA groups; `<a>` for navigation, `<button>` for actions without URL
-8. **Decorative** — separators, icons, bg text: `aria-hidden="true"`
+5. **Actions** — `<a>` for navigation/URLs; `<button type="button">` for ações sem destino
+6. **Decorative** — separators, icons, bg text: `aria-hidden="true"`
+7. **Modais** — `role="dialog"`, `aria-modal="true"`, `aria-labelledby`; focus trap via `focus-trap.ts`
+8. **Form a11y** — `<fieldset>` + `<legend>` por grupo; descrição da seção em `<p class="a11y-field-desc">` após legend
+
+## Footer toolbar
+
+- Idioma: `role="listbox"` / `role="option"` com `aria-selected`
+- Botão a11y: `aria-haspopup="dialog"`, `aria-expanded`
+- Links sociais: `<nav>` + `<ul>` + `<a>` externos
 
 ## Section component
 
-Use `Section.astro` with required `id` matching header anchors:
-
-```astro
-<Section id="expertise" number="..." description="..." title="..." />
-```
+Use `Section.astro` with required `id` matching header anchors.
 
 ## Anti-patterns
 
 | Avoid | Use |
 |-------|-----|
-| `div.left-column` | `div.hero-intro` or named region |
-| `div.card` | `article.hero-card` |
-| `div.hero-buttons-container` | `nav.hero-actions` |
+| Painel a11y dentro de `<footer>` | `AccessibilityPanel` no `Layout.astro` |
+| `transform`/`animation` em `.footer` com filhos `fixed` | animar `.footer-surface` |
+| Descrição por `<input>` | uma `.a11y-field-desc` por `<fieldset>` |
+| `div` como botão de idioma | `<button>` + listbox |
 | Multiple `h1` in sections | `h2` in `Title.astro` |
-| `div` in `h2` | `span` groups |
 
 ## Checklist
 

@@ -1,17 +1,21 @@
 # Marketing Ads — Checklist de comprovação
 
-## CI (job `verify`)
+## CI
 
-- [ ] `yarn test:e2e` — `e2e/analytics.spec.ts` (sem tags em `local`)
+- [ ] `cd frontend && yarn ci`
 
 ## Produção (manual / pós-deploy)
 
 - [ ] `PUBLIC_APP_ENV=production` + IDs GA4/Meta definidos
-- [ ] Meta Pixel Helper: PageView
+- [ ] Welcome dialog: “Aceitar analytics” ativa tags; “Somente essenciais” mantém denied
+- [ ] Meta Pixel Helper: PageView após consent
 - [ ] GA4 DebugView: eventos recebidos
 - [ ] CTAs disparam `cta_click` / `cv_download` / `outbound_click`
+- [ ] Flutuante WhatsApp: `data-analytics-network="whatsapp"`
 
 ## Privacidade
 
-- [ ] Consent default denied até banner (`Analytics.astro`)
+- [ ] Consent default denied até welcome dialog (`Analytics.astro`)
+- [ ] Cookie `justgui_welcome` + `localStorage` após Continuar
+- [ ] `/api/consent` persiste escolha no SQLite
 - [ ] Sem PII em parâmetros de evento
