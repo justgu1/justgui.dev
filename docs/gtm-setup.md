@@ -107,16 +107,31 @@ Meta Ads:   https://justgui.dev/?utm_source=meta&utm_medium=paid&utm_campaign=le
 
 ## 5. Deploy em produção
 
-```bash
-# GitHub secret (repo justgui): PUBLIC_GTM_CONTAINER_ID=<seu-container>
+O GTM ID tem de chegar ao **container em runtime** (`PUBLIC_GTM_CONTAINER_ID` no `.env` da VPS). Só alterar o `.env` e fazer `deploy-stack.sh` **não rebuilda** a imagem — mas, após a imagem com suporte a runtime env, basta redeploy + force update.
 
+```bash
 # VPS /opt/infra-swarm/.env
 PUBLIC_GTM_CONTAINER_ID=<seu-container>
 
 cd /opt/infra-swarm
 git pull
 bash scripts/deploy-stack.sh justgui
+
+# Força pull da imagem :latest (Swarm pode cachear digest antigo)
+docker pull ghcr.io/justgu1/justgui-web:latest
+docker service update --force justgui_web
 ```
+
+Opcional no GitHub (repo justgui): secret `PUBLIC_GTM_CONTAINER_ID` — usado no **build** da imagem CI; a VPS pode continuar a ser a fonte em runtime.
+
+### Verificar
+
+```bash
+curl -sL "https://justgui.dev/en/" | grep -o 'googletagmanager.com/gtm.js[^"]*'
+# Deve devolver URL com o teu GTM-...
+```
+
+Se vazio: confirma `PUBLIC_GTM_CONTAINER_ID` no `.env`, imagem recente (`docker inspect` / `docker service ps`), e aceita cookies no welcome dialog antes de testar no Tag Assistant.
 
 ---
 
