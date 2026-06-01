@@ -113,8 +113,7 @@ Scripts: `floating-actions.client.ts` (`ResizeObserver`, `animationend` no foote
 | `PUBLIC_SITE_URL` | yes | Canonical, OG, sitemap |
 | `PUBLIC_APP_ENV` | yes | `production` enables indexing + analytics |
 | `PUBLIC_WHATSAPP_NUMBER` | yes | Header + flutuante WhatsApp |
-| `PUBLIC_GA4_MEASUREMENT_ID` | no | Google Analytics 4 |
-| `PUBLIC_META_PIXEL_ID` | no | Meta Pixel |
+| `PUBLIC_GTM_CONTAINER_ID` | no | Google Tag Manager container (GA4/Meta configured inside GTM) |
 | `PUBLIC_CV_URL` | no | CV download link |
 | `CONTACT_TO` | server | Email admin para contato |
 | `DATABASE_PATH` | server | SQLite (visitantes, consent, contato) |
@@ -123,7 +122,7 @@ Access via `config/env.ts` — never `import.meta.env` in components directly.
 
 ## Analytics
 
-- `data-analytics="cta_click|cv_download|outbound_click"` on interactive elements
+- `data-analytics="contact_click|whatsapp_click|email_click|form_submit|portfolio_project_click|cv_download|calendly_click"` on interactive elements
 - Consent via welcome dialog → `grantAnalyticsConsent()` + `/api/consent`
 - Tags load only when `IS_PRODUCTION` and IDs set (`Analytics.astro`)
 

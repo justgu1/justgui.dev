@@ -11,7 +11,12 @@ const email = t("contact.email");
 ---
 
 <nav class="contact-links" aria-label={t("sections.contact.description")}>
-  <a class="contact-link" href={`mailto:${email}`}>
+  <a
+    class="contact-link"
+    href={`mailto:${email}`}
+    data-analytics="email_click"
+    data-analytics-location="contact"
+  >
     {email}
     <span aria-hidden="true">→</span>
   </a>
@@ -20,8 +25,6 @@ const email = t("contact.email");
     href={ENV.LINKEDIN_URL}
     target="_blank"
     rel="noopener noreferrer"
-    data-analytics="outbound_click"
-    data-analytics-network="linkedin"
   >
     LinkedIn
     <span aria-hidden="true">→</span>
@@ -31,8 +34,6 @@ const email = t("contact.email");
     href={ENV.GITHUB_URL}
     target="_blank"
     rel="noopener noreferrer"
-    data-analytics="outbound_click"
-    data-analytics-network="github"
   >
     GitHub
     <span aria-hidden="true">→</span>

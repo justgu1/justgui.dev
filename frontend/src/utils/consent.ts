@@ -1,7 +1,6 @@
 declare global {
   interface Window {
     gtag?: (...args: unknown[]) => void;
-    fbq?: (...args: unknown[]) => void;
   }
 }
 
@@ -15,6 +14,4 @@ export function grantAnalyticsConsent() {
     ad_user_data: "granted",
     ad_personalization: "granted",
   });
-
-  window.fbq?.("consent", "grant");
 }

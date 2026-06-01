@@ -44,6 +44,9 @@ const linkLabel = t("a11y.externalLink", { label: project.name });
         <a
           href={project.href}
           class="fb-link"
+          data-analytics="portfolio_project_click"
+          data-analytics-project={project.id}
+          data-analytics-project-name={project.name}
           {...(isExternal
             ? {
                 target: "_blank",

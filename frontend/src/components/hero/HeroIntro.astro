@@ -24,18 +24,13 @@ const { t } = Astro.props;
   <p class="hero-description">{t("hero.description")}</p>
 
   <nav class="hero-actions" aria-label={t("a11y.heroActions")}>
-    <a
-      href="#projects"
-      class="button button-primary hero-button"
-      data-analytics="cta_click"
-      data-analytics-location="hero-primary"
-    >
+    <a href="#projects" class="button button-primary hero-button">
       {t("hero.buttons.primary")}
     </a>
     <a
       href="#contact"
       class="button button-secondary hero-button"
-      data-analytics="cta_click"
+      data-analytics="contact_click"
       data-analytics-location="hero-secondary"
     >
       {t("hero.buttons.secondary")}

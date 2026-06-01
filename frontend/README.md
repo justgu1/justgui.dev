@@ -8,7 +8,7 @@ Frontend do `justgui.dev`, implementado com Astro SSR e foco em acessibilidade, 
 - TypeScript strict
 - CSS com design tokens e escala tipográfica `--text-*`
 - i18n: `en`, `pt`, `es`
-- Analytics: GA4 + Meta Pixel (controlado por ambiente)
+- Analytics: GTM + dataLayer (GA4/Meta via GTM; ver `docs/gtm-setup.md`)
 - Contato: endpoint server-side `/api/contact` com envio SMTP (nodemailer) + SQLite
 - Persistência: SQLite (`better-sqlite3`) para visitantes, contatos, consentimento e prefs a11y
 
@@ -90,8 +90,7 @@ O ficheiro `.env` está no `.gitignore` e **não deve ser commitado**. Use apena
 - `PUBLIC_LINKEDIN_URL`
 - `PUBLIC_GITHUB_URL`
 - `PUBLIC_INSTAGRAM_URL`
-- `PUBLIC_GA4_MEASUREMENT_ID` (opcional)
-- `PUBLIC_META_PIXEL_ID` (opcional)
+- `PUBLIC_GTM_CONTAINER_ID` (opcional; só em produção)
 - `PUBLIC_CV_URL` (opcional; default `/cv/GuilhermeSantos-Curriculo-2026.pdf`)
 - `PUBLIC_WHATSAPP_NUMBER` (link `wa.me` no header e célula flutuante)
 

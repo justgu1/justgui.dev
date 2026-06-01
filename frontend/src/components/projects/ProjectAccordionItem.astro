@@ -30,6 +30,11 @@ const previewSlotAttrs = !eagerPreview
         : {}),
     }
   : {};
+const projectAnalytics = {
+  "data-analytics": "portfolio_project_click",
+  "data-analytics-project": project.id,
+  "data-analytics-project-name": project.name,
+};
 ---
 
 <details
@@ -73,6 +78,7 @@ const previewSlotAttrs = !eagerPreview
             <a
               href={project.href}
               class="fb-link"
+              {...projectAnalytics}
               {...(isExternal
                 ? {
                     target: "_blank",
@@ -94,6 +100,7 @@ const previewSlotAttrs = !eagerPreview
               href={project.href}
               class="project-preview-link"
               aria-label={linkLabel}
+              {...projectAnalytics}
               {...(isExternal
                 ? { target: "_blank", rel: "noopener noreferrer" }
                 : {})}

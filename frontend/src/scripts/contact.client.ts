@@ -1,3 +1,5 @@
+import { trackEvent } from "../utils/analytics";
+
 function getLangFromPath(): string {
   const segment = window.location.pathname.split("/").filter(Boolean)[0];
   return segment === "pt" || segment === "es" ? segment : "en";
@@ -149,6 +151,7 @@ function initContactForm(): void {
       if (response.ok) {
         setFormState(form, "success");
         setNotice(notice, payload.message ?? messages.success, "success");
+        trackEvent("form_submit", { location: "contact" });
         form.reset();
         syncCounter();
         setFieldsDisabled(form, false);

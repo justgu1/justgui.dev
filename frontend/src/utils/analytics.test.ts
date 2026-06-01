@@ -3,33 +3,28 @@ import { trackEvent } from "./analytics";
 
 describe("trackEvent", () => {
   beforeEach(() => {
-    window.gtag = vi.fn();
-    window.fbq = vi.fn();
+    window.dataLayer = [];
   });
 
   afterEach(() => {
     vi.unstubAllGlobals();
   });
 
-  it("calls gtag with event name", () => {
-    trackEvent("cta_click", { location: "hero" });
-    expect(window.gtag).toHaveBeenCalledWith("event", "cta_click", {
-      location: "hero",
-    });
+  it("pushes event to dataLayer", () => {
+    trackEvent("contact_click", { location: "hero" });
+    expect(window.dataLayer).toEqual([
+      { event: "contact_click", location: "hero" },
+    ]);
   });
 
-  it("calls fbq for mapped meta events", () => {
-    trackEvent("cv_download");
-    expect(window.fbq).toHaveBeenCalledWith(
-      "track",
-      "CompleteRegistration",
-      {}
-    );
+  it("pushes form_submit without extra params", () => {
+    trackEvent("form_submit");
+    expect(window.dataLayer).toEqual([{ event: "form_submit" }]);
   });
 
-  it("does not throw when gtag and fbq are missing", () => {
-    delete window.gtag;
-    delete window.fbq;
-    expect(() => trackEvent("cta_click")).not.toThrow();
+  it("does not throw when dataLayer is missing", () => {
+    delete window.dataLayer;
+    expect(() => trackEvent("whatsapp_click")).not.toThrow();
+    expect(window.dataLayer).toEqual([{ event: "whatsapp_click" }]);
   });
 });

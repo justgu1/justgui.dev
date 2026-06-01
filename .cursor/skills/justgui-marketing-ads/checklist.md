@@ -1,21 +1,28 @@
-# Marketing Ads — Checklist de comprovação
+# Marketing / GTM checklist
 
-## CI
+## Env & deploy
 
-- [ ] `cd frontend && yarn ci`
+- [ ] `PUBLIC_GTM_CONTAINER_ID` in production `.env` / GitHub secret
+- [ ] `PUBLIC_APP_ENV=production` on production build
+- [ ] GA4 and Meta Pixel configured in GTM only — not in site env
 
-## Produção (manual / pós-deploy)
+## GTM container
 
-- [ ] `PUBLIC_APP_ENV=production` + IDs GA4/Meta definidos
-- [ ] Welcome dialog: “Aceitar analytics” ativa tags; “Somente essenciais” mantém denied
-- [ ] Meta Pixel Helper: PageView após consent
-- [ ] GA4 DebugView: eventos recebidos
-- [ ] CTAs disparam `cta_click` / `cv_download` / `outbound_click`
-- [ ] Flutuante WhatsApp: `data-analytics-network="whatsapp"`
+- [ ] GA4 Google Tag — All Pages, consent `analytics_storage`
+- [ ] Meta Pixel base — All Pages, consent `ad_storage`
+- [ ] Custom event tags for each dataLayer event (see `docs/gtm-setup.md`)
+- [ ] Container published
 
-## Privacidade
+## Site behavior
 
-- [ ] Consent default denied até welcome dialog (`Analytics.astro`)
-- [ ] Cookie `justgui_welcome` + `localStorage` após Continuar
-- [ ] `/api/consent` persiste escolha no SQLite
-- [ ] Sem PII em parâmetros de evento
+- [ ] Welcome dialog: "Aceitar analytics" grants consent; "Somente essenciais" keeps denied
+- [ ] GTM Preview / Tag Assistant: tags after accept
+- [ ] GA4 DebugView: `contact_click`, `whatsapp_click`, `form_submit`, etc.
+- [ ] Meta Pixel Helper: PageView after consent
+- [ ] Local dev: no GTM network requests
+
+## Conversions (panels)
+
+- [ ] GA4: `form_submit`, `whatsapp_click` marked as conversions
+- [ ] Google Ads: import GA4 conversions
+- [ ] Meta: audiences for remarketing

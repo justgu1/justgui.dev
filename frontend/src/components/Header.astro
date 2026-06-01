@@ -46,36 +46,24 @@ const sectionHref = (id: string) => `${homeHref}#${id}`;
     <div id="primary-nav" class="header-nav-panel">
       <ul class="nav-list header-nav-list">
         <li class="nav-item header-nav-item">
-          <a
-            href={sectionHref("expertise")}
-            data-analytics="cta_click"
-            data-analytics-location="header"
-          >
+          <a href={sectionHref("expertise")}>
             {t("header.sections.expertise")}
           </a>
         </li>
         <li class="nav-item header-nav-item">
-          <a
-            href={sectionHref("projects")}
-            data-analytics="cta_click"
-            data-analytics-location="header"
-          >
+          <a href={sectionHref("projects")}>
             {t("header.sections.projects")}
           </a>
         </li>
         <li class="nav-item header-nav-item">
-          <a
-            href={sectionHref("about")}
-            data-analytics="cta_click"
-            data-analytics-location="header"
-          >
+          <a href={sectionHref("about")}>
             {t("header.sections.about")}
           </a>
         </li>
         <li class="nav-item header-nav-item">
           <a
             href={sectionHref("contact")}
-            data-analytics="cta_click"
+            data-analytics="contact_click"
             data-analytics-location="header"
           >
             {t("header.sections.contact")}
@@ -92,8 +80,7 @@ const sectionHref = (id: string) => `${homeHref}#${id}`;
           aria-label={t("a11y.externalLink", {
             label: t("header.buttons.chat"),
           })}
-          data-analytics="outbound_click"
-          data-analytics-network="whatsapp"
+          data-analytics="whatsapp_click"
           data-analytics-location="header"
         >
           {t("header.buttons.chat")}

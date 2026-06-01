@@ -26,9 +26,7 @@ export const ENV = {
 
   SITE_URL: required(import.meta.env.PUBLIC_SITE_URL, "PUBLIC_SITE_URL"),
 
-  GA4_MEASUREMENT_ID: optional(import.meta.env.PUBLIC_GA4_MEASUREMENT_ID),
-
-  META_PIXEL_ID: optional(import.meta.env.PUBLIC_META_PIXEL_ID),
+  GTM_CONTAINER_ID: optional(import.meta.env.PUBLIC_GTM_CONTAINER_ID),
 
   CV_URL: optional(import.meta.env.PUBLIC_CV_URL),
 

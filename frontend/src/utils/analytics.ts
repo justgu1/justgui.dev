@@ -1,30 +1,24 @@
-export type AnalyticsEvent = "cta_click" | "cv_download" | "outbound_click";
+export type AnalyticsEvent =
+  | "contact_click"
+  | "whatsapp_click"
+  | "email_click"
+  | "form_submit"
+  | "portfolio_project_click"
+  | "cv_download"
+  | "calendly_click";
 
 export type AnalyticsParams = Record<string, string | number | boolean>;
 
 declare global {
   interface Window {
-    dataLayer?: unknown[];
+    dataLayer?: Record<string, unknown>[];
     gtag?: (...args: unknown[]) => void;
-    fbq?: (...args: unknown[]) => void;
   }
 }
-
-const META_EVENTS: Partial<Record<AnalyticsEvent, string>> = {
-  cta_click: "Lead",
-  cv_download: "CompleteRegistration",
-  outbound_click: "Contact",
-};
 
 export function trackEvent(name: AnalyticsEvent, params: AnalyticsParams = {}) {
   if (typeof window === "undefined") return;
 
-  if (typeof window.gtag === "function") {
-    window.gtag("event", name, params);
-  }
-
-  const metaEvent = META_EVENTS[name];
-  if (metaEvent && typeof window.fbq === "function") {
-    window.fbq("track", metaEvent, params);
-  }
+  window.dataLayer = window.dataLayer || [];
+  window.dataLayer.push({ event: name, ...params });
 }
