@@ -4,6 +4,11 @@ History line do projeto em tom de produto técnico, direto e sem detalhamento ex
 
 ## 2026-06-01
 
+### Segurança: Vitest 4.1.8
+
+- `vitest` e `@vitest/coverage-v8` atualizados para `^4.1.0` (CVE advisory 1120011 — UI server; patch ≥4.1.0).
+- `yarn audit` no CI: 0 vulnerabilidades; 54 testes unitários passam.
+
 ### Portfólio, About, i18n e footer (release)
 
 - **Projetos**: accordion com painel layout featured; um aberto por vez; iniciais Tyer Shop (aberto), Baase e Smart Sale; «Ver mais» (+5) e «Ver menos»; preview clicável (link externo); anos por projeto em `featuredYear`; WebP lossless (`yarn images:projects:webp`); pan `object-position` com `prefers-reduced-motion`.
