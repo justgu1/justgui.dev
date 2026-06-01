@@ -6,115 +6,273 @@ function withOverrides(base: Project, overrides: Partial<Project>): Project {
 
 const projectsEn: Project[] = [
   {
-    id: "ultrafarma",
-    slug: "ultrafarma-nutrition",
+    id: "tyer-shop",
+    slug: "tyer-shop",
     number: "001",
-    name: "Ultrafarma",
+    name: "Tyer Shop",
     category: "E-Commerce",
-    tech: "WordPress · PHP · Performance · A11Y",
+    tech: "MedusaJS · AstroJS · Ecommerce · UX Mobile · WCAG 2.1 AA",
     description:
-      "High-performance e-commerce focused on accessible interaction, conversion-oriented UX, and fast navigation across desktop, mobile, and assistive technologies.",
-    tags: ["WordPress", "PHP", "Performance", "A11Y"],
-    href: "#",
-    featured: true,
-    featuredLabel: "Featured · E-Commerce",
-    featuredYear: "2024",
-    featuredTitleEm: "Nutrition",
-    previewImageUrl: "/projects/ultrafarma-preview.svg",
-    previewImageAlt: "Ultrafarma Nutrition project preview",
+      "Brazilian streetwear store with themed collections, Pix discounts, free shipping, and size-variant stock management.",
+    tags: ["MedusaJS", "AstroJS", "Ecommerce", "UX Mobile", "WCAG 2.1 AA"],
+    href: "https://www.tyershop.com",
+    featuredLabel: "E-Commerce",
+    featuredYear: "2026",
+    featuredTitleEm: "Shop",
+    previewImageUrl: "/projects/tyershop-preview.webp",
+    previewImageAlt: "Tyer Shop storefront preview",
   },
   {
-    id: "dashboard",
-    slug: "accessible-dashboard",
+    id: "baase",
+    slug: "baase",
     number: "002",
-    name: "Accessible Dashboard",
-    category: "SaaS · 2024",
-    tech: "Vue · Go · PostgreSQL",
+    name: "Baase",
+    category: "SaaS",
+    tech: "Laravel · PHP · SaaS/SPA · ESG",
     description:
-      "Analytics dashboard with keyboard-first navigation, semantic structure, and real-time data views built for assistive technologies.",
-    tags: ["Vue", "Go", "PostgreSQL"],
-    href: "#",
-    previewImageUrl: "/projects/dashboard-preview.svg",
-    previewImageAlt: "Accessible dashboard project preview",
+      "Web app with auth and session control, internal management platform with dark/light mode and data management.",
+    tags: ["ESG", "UN", "Laravel", "PHP", "SaaS/SPA"],
+    href: "https://baase.app",
+    featuredLabel: "SaaS",
+    featuredYear: "2025",
+    previewImageUrl: "/projects/baase-preview.webp",
+    previewImageAlt: "Baase web application preview",
   },
   {
-    id: "gateway",
-    slug: "integration-gateway",
+    id: "smart-sale",
+    slug: "smart-sale",
     number: "003",
-    name: "Integration Gateway",
-    category: "API · 2024",
-    tech: "Go · Redis · Docker",
+    name: "Smart Sale",
+    category: "SaaS",
+    tech: "Laravel · PHP · SaaS/SPA · Dashboards",
     description:
-      "Gateway for third-party integrations with rate limiting, observability, and resilient async processing.",
-    tags: ["Go", "Redis", "Docker"],
-    href: "#",
-    previewImageUrl: "/projects/gateway-preview.svg",
-    previewImageAlt: "Integration gateway project preview",
+      "SaaS platform for sales management and promotion with session auth and robust web app structure for commercial teams.",
+    tags: [
+      "Financial management",
+      "Team management",
+      "Dynamic dashboards",
+      "Laravel",
+      "PHP",
+      "SaaS/SPA",
+    ],
+    href: "https://smart.sale",
+    featuredLabel: "SaaS",
+    featuredYear: "2026",
+    previewImageUrl: "/projects/smartsale-preview.webp",
+    previewImageAlt: "Smart Sale SaaS platform preview",
   },
   {
-    id: "analytics",
-    slug: "real-time-analytics",
+    id: "mc-pavers",
+    slug: "mc-pavers",
     number: "004",
-    name: "Real-Time Analytics",
-    category: "Web App · 2023",
-    tech: "React · Laravel · WebSockets",
+    name: "MC Pavers & Hardscape",
+    category: "Institutional",
+    tech: "WordPress · Elementor · PHP · SEO · UX/CRO",
     description:
-      "Real-time metrics platform with accessible charts, reduced-motion fallbacks, and responsive layouts.",
-    tags: ["React", "Laravel", "WebSockets"],
-    href: "#",
-    previewImageUrl: "/projects/analytics-preview.svg",
-    previewImageAlt: "Real-time analytics project preview",
+      "Institutional site for a South Florida landscaping company focused on lead generation, online quotes, and project portfolio.",
+    tags: ["WordPress", "Elementor", "PHP", "SEO", "UX/CRO"],
+    href: "https://mcpavers.com",
+    featuredLabel: "Institutional",
+    featuredYear: "2023",
+    previewImageUrl: "/projects/mcpavers-preview.webp",
+    previewImageAlt: "MC Pavers & Hardscape website preview",
+  },
+  {
+    id: "ultranutrition",
+    slug: "ultranutrition",
+    number: "005",
+    name: "UltraNutrition Brasil",
+    category: "E-Commerce",
+    tech: "WordPress · Elementor · WooCommerce · Multilingual · Conversion",
+    description:
+      "Multilingual vitamin e-commerce with interactive product quiz, health-benefit categories, and conversion-focused navigation.",
+    tags: [
+      "WordPress",
+      "Elementor",
+      "WooCommerce",
+      "Multilingual",
+      "Conversion",
+    ],
+    href: "https://br.ultranutrients.miracooldigital.com",
+    featuredLabel: "E-Commerce",
+    featuredYear: "2023",
+    previewImageUrl: "/projects/ultranutrients-preview.webp",
+    previewImageAlt: "UltraNutrition Brasil store preview",
+  },
+  {
+    id: "flow-by-lora",
+    slug: "flow-by-lora",
+    number: "006",
+    name: "Flow Beach Tennis — By Lôra",
+    category: "Landing Page",
+    tech: "WordPress · Elementor · Landing Page · Collab · Conversion",
+    description:
+      "Launch landing for a special-edition racket collab with countdown, VIP list, live-sale exclusives, and product specs.",
+    tags: ["WordPress", "Elementor", "Landing Page", "Collab", "Conversion"],
+    href: "https://flowbeachtennis.com.br/bylora",
+    featuredLabel: "Landing Page",
+    featuredYear: "2024",
+    previewImageUrl: "/projects/flowbylora-preview.webp",
+    previewImageAlt: "Flow Beach Tennis By Lôra landing preview",
+  },
+  {
+    id: "flow-beach-tennis-usa",
+    slug: "flow-beach-tennis-usa",
+    number: "007",
+    name: "Flow Beach Tennis USA",
+    category: "E-Commerce",
+    tech: "WordPress · Elementor · WooCommerce · UX · Performance",
+    description:
+      "Main US beach tennis e-commerce with full racket and apparel lines, product customization, and Klarna/Afterpay/Zip.",
+    tags: ["WordPress", "Elementor", "WooCommerce", "UX", "Performance"],
+    href: "https://flowbeachtennis.com",
+    featuredLabel: "E-Commerce",
+    featuredYear: "2022",
+    previewImageUrl: "/projects/flowbeachtennis-preview.webp",
+    previewImageAlt: "Flow Beach Tennis USA store preview",
+  },
+  {
+    id: "herica-realtor",
+    slug: "herica-realtor",
+    number: "008",
+    name: "Herica Realtor",
+    category: "Real Estate",
+    tech: "Laravel · PHP · UX · Local SEO",
+    description:
+      "Custom web platform for a South Florida realtor with service presentation and contact capture.",
+    tags: ["Laravel", "PHP", "UX", "Local SEO"],
+    href: "https://hericarealtor.com",
+    featuredLabel: "Real Estate",
+    featuredYear: "2026",
+    previewImageUrl: "/projects/hericarealtor-preview.webp",
+    previewImageAlt: "Herica Realtor platform preview",
   },
 ];
 
-const featuredEn = projectsEn[0]!;
-const dashboardEn = projectsEn[1]!;
-const gatewayEn = projectsEn[2]!;
-const analyticsEn = projectsEn[3]!;
+const tyerEn = projectsEn[0]!;
+const baaseEn = projectsEn[1]!;
+const smartEn = projectsEn[2]!;
+const mcEn = projectsEn[3]!;
+const ultraEn = projectsEn[4]!;
+const loraEn = projectsEn[5]!;
+const flowUsaEn = projectsEn[6]!;
+const hericaEn = projectsEn[7]!;
 
 const projectsPt: Project[] = [
-  withOverrides(featuredEn, {
+  withOverrides(tyerEn, {
     description:
-      "E-commerce de alta performance com interação acessível, UX orientada à conversão e navegação rápida em desktop, mobile e tecnologias assistivas.",
-    featuredLabel: "Destaque · E-Commerce",
+      "Loja de moda streetwear brasileira com coleções temáticas, sistema de desconto via Pix, frete grátis e gestão de estoque por variação de tamanho.",
+    featuredLabel: "E-Commerce",
   }),
-  withOverrides(dashboardEn, {
-    name: "Dashboard Acessível",
+  withOverrides(baaseEn, {
     description:
-      "Dashboard analítico com navegação por teclado, estrutura semântica e visualizações em tempo real para tecnologias assistivas.",
+      "Aplicação web com autenticação e controle de sessão, estrutura de plataforma voltada para gestão interna com suporte a dark/light mode e gerenciamento de dados.",
+    tags: ["ESG", "ONU", "Laravel", "PHP", "SaaS/SPA"],
+    featuredLabel: "SaaS",
   }),
-  withOverrides(gatewayEn, {
-    name: "Gateway de Integração",
+  withOverrides(smartEn, {
     description:
-      "Gateway para integrações com rate limiting, observabilidade e processamento assíncrono resiliente.",
+      "Plataforma SaaS de gestão e divulgação de vendas, com autenticação via sessão e estrutura de aplicação web robusta voltada para equipes comerciais.",
+    tags: [
+      "Gestão financeira",
+      "Gestão de time",
+      "Dashboards dinâmicos",
+      "Laravel",
+      "PHP",
+      "SaaS/SPA",
+    ],
+    featuredLabel: "SaaS",
   }),
-  withOverrides(analyticsEn, {
-    name: "Analytics em Tempo Real",
+  withOverrides(mcEn, {
     description:
-      "Plataforma de métricas em tempo real com gráficos acessíveis, fallbacks de movimento reduzido e layouts responsivos.",
+      "Site institucional para empresa de paisagismo e remodelação de exteriores em South Florida, com foco em geração de leads, orçamentos online e exibição de portfólio de projetos.",
+    category: "Institucional",
+    featuredLabel: "Institucional",
+  }),
+  withOverrides(ultraEn, {
+    name: "UltraNutrition Brasil",
+    description:
+      "E-commerce multilíngue de suplementos vitamínicos, com quiz interativo de recomendação de produtos, categorias por benefício de saúde e navegação orientada à conversão.",
+    tech: "WordPress · Elementor · WooCommerce · Multilíngue · Conversão",
+    tags: ["WordPress", "Elementor", "WooCommerce", "Multilíngue", "Conversão"],
+    featuredLabel: "E-Commerce",
+  }),
+  withOverrides(loraEn, {
+    description:
+      "Landing page de lançamento de edição especial de raquete em collab com Carolina Dieckmann, com countdown timer, lista VIP, venda exclusiva via live e specs técnicas do produto.",
+    category: "Landing Page",
+    featuredLabel: "Landing Page",
+  }),
+  withOverrides(flowUsaEn, {
+    description:
+      "E-commerce principal da maior marca americana de beach tennis, com linha completa de raquetes, vestuário e acessórios, personalização de produtos e integração com Klarna, Afterpay e Zip.",
+    featuredLabel: "E-Commerce",
+  }),
+  withOverrides(hericaEn, {
+    description:
+      "Plataforma web personalizada para corretora de imóveis em South Florida (Coral Springs / Delray Beach), com apresentação de serviços e captação de contatos.",
+    category: "Imobiliário",
+    tech: "Laravel · PHP · UX · SEO Local",
+    tags: ["Laravel", "PHP", "UX", "SEO Local"],
+    featuredLabel: "Imobiliário",
   }),
 ];
 
 const projectsEs: Project[] = [
-  withOverrides(featuredEn, {
+  withOverrides(tyerEn, {
     description:
-      "E-commerce de alto rendimiento con interacción accesible, UX orientada a conversión y navegación rápida en desktop, móvil y tecnologías de asistencia.",
-    featuredLabel: "Destacado · E-Commerce",
+      "Tienda streetwear brasileña con colecciones temáticas, descuentos Pix, envío gratis y gestión de stock por talla.",
+    featuredLabel: "E-Commerce",
   }),
-  withOverrides(dashboardEn, {
-    name: "Panel Accesible",
+  withOverrides(baaseEn, {
     description:
-      "Panel analítico con navegación por teclado, estructura semántica y vistas de datos en tiempo real para tecnologías de asistencia.",
+      "Aplicación web con autenticación y control de sesión, plataforma de gestión interna con modo oscuro/claro y administración de datos.",
+    tags: ["ESG", "ONU", "Laravel", "PHP", "SaaS/SPA"],
+    featuredLabel: "SaaS",
   }),
-  withOverrides(gatewayEn, {
-    name: "Gateway de Integración",
+  withOverrides(smartEn, {
     description:
-      "Gateway para integraciones con rate limiting, observabilidad y procesamiento asíncrono resiliente.",
+      "Plataforma SaaS de gestión y promoción de ventas, con autenticación por sesión y estructura robusta para equipos comerciales.",
+    tags: [
+      "Gestión financiera",
+      "Gestión de equipo",
+      "Dashboards dinámicos",
+      "Laravel",
+      "PHP",
+      "SaaS/SPA",
+    ],
+    featuredLabel: "SaaS",
   }),
-  withOverrides(analyticsEn, {
-    name: "Analytics en Tiempo Real",
+  withOverrides(mcEn, {
     description:
-      "Plataforma de métricas en tiempo real con gráficos accesibles, alternativas de movimiento reducido y diseños responsivos.",
+      "Sitio institucional para empresa de paisajismo en South Florida, enfocado en leads, presupuestos online y portafolio de proyectos.",
+    category: "Institucional",
+    featuredLabel: "Institucional",
+  }),
+  withOverrides(ultraEn, {
+    description:
+      "E-commerce multilingüe de suplementos vitamínicos, con quiz interactivo, categorías por beneficio de salud y navegación orientada a conversión.",
+    tech: "WordPress · Elementor · WooCommerce · Multilingüe · Conversión",
+    tags: ["WordPress", "Elementor", "WooCommerce", "Multilingüe", "Conversión"],
+    featuredLabel: "E-Commerce",
+  }),
+  withOverrides(loraEn, {
+    description:
+      "Landing de lanzamiento de edición especial de raqueta en collab, con countdown, lista VIP, venta exclusiva en live y especificaciones técnicas.",
+    featuredLabel: "Landing Page",
+  }),
+  withOverrides(flowUsaEn, {
+    description:
+      "E-commerce principal de beach tennis en EE.UU., con línea completa de raquetas, ropa y accesorios, personalización e integración Klarna, Afterpay y Zip.",
+    featuredLabel: "E-Commerce",
+  }),
+  withOverrides(hericaEn, {
+    description:
+      "Plataforma web para corredora de bienes raíces en South Florida, con presentación de servicios y captación de contactos.",
+    category: "Inmobiliaria",
+    tech: "Laravel · PHP · UX · SEO Local",
+    tags: ["Laravel", "PHP", "UX", "SEO Local"],
+    featuredLabel: "Inmobiliaria",
   }),
 ];
 

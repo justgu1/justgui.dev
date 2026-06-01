@@ -1,5 +1,4 @@
 ---
-import AboutA11yStatement from "../about/AboutA11yStatement.astro";
 import AboutIntro from "../about/AboutIntro.astro";
 import AboutTimeline from "../about/AboutTimeline.astro";
 import { getLang } from "../../langs";
@@ -26,6 +25,5 @@ const t = createT(getLang(lang));
       <AboutIntro t={t} />
       <AboutTimeline lang={lang} />
     </div>
-    <AboutA11yStatement t={t} />
   </div>
 </Section>

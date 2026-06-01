@@ -1,4 +1,5 @@
 ---
+import AboutCommitment from "./AboutCommitment.astro";
 import { ENV } from "../../config/env";
 import type { createT } from "../../langs/createT";
 
@@ -46,4 +47,6 @@ const cvUrl = ENV.CV_URL;
       )
     }
   </div>
+
+  <AboutCommitment t={t} />
 </div>

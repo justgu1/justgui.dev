@@ -5,14 +5,14 @@ const header: Dictionary = {
   "header.title": "Accessible Software Engineer",
   "header.role": "Full-Stack Engineer",
 
-  "header.sections.expertise": "expertise",
-  "header.sections.projects": "projects",
-  "header.sections.about": "about",
-  "header.sections.contact": "contact",
-  "header.sections.resume": "resume",
+  "header.sections.expertise": "especialidades",
+  "header.sections.projects": "projetos",
+  "header.sections.about": "sobre",
+  "header.sections.contact": "contato",
+  "header.sections.resume": "currículo",
 
-  "header.buttons.resume": "download resume",
-  "header.buttons.cv": "download CV",
+  "header.buttons.resume": "baixar currículo",
+  "header.buttons.cv": "baixar CV",
   "header.buttons.chat": "Conversar",
   "header.whatsappMessage":
     "Olá, entrei em contato através do seu site. Está disponível para conversarmos?",

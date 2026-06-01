@@ -11,9 +11,9 @@ const hero: Dictionary = {
   "hero.buttons.secondary": "Let's talk",
   "hero.cards.experience": "Years of Experience",
   "hero.cards.projects": "Projects",
-  "hero.cards.wcag-2.1-aa-oriented": "2.1 AA Oriented",
-  "hero.accessible-performance": "Accessible & Performance-Oriented",
-  "hero.available": "Available for work",
+  "hero.cards.wcag-2.1-aa-oriented": "WCAG 2.1 AA accessibility",
+  "hero.accessible-performance": "Performance & accessibility oriented",
+  "hero.available": "Available",
   "hero.contact": "Contact",
 };
 

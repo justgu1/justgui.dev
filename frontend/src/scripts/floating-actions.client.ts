@@ -1,11 +1,20 @@
 const SCROLL_THRESHOLD = 400;
+const FOOTER_SCROLL_PADDING = "3.75rem";
 const backToTop =
   document.querySelector<HTMLButtonElement>("[data-back-to-top]");
 const floatingRoot = document.querySelector<HTMLElement>(".floating-actions");
 const footer = document.querySelector<HTMLElement>(".footer");
+const footerSurface = document.querySelector<HTMLElement>(".footer-surface");
+const mainContent = document.querySelector<HTMLElement>("#main-content");
 
 const BASE_OFFSET = 16;
 const FOOTER_GAP = 12;
+
+function updateMainScrollPadding(): void {
+  if (!mainContent || !footer) return;
+  const pinned = footer.classList.contains("footer--pinned");
+  mainContent.style.scrollPaddingBottom = pinned ? FOOTER_SCROLL_PADDING : "";
+}
 
 function updateFloatingVisibility(): void {
   if (!floatingRoot) return;
@@ -21,6 +30,7 @@ function updateFloatingVisibility(): void {
 function updateFooterPin(): void {
   if (!footer) return;
   footer.classList.toggle("footer--pinned", window.scrollY > 0);
+  updateMainScrollPadding();
 }
 
 function updateFloatingOffset(): void {
@@ -70,5 +80,16 @@ function onScrollOrResize(): void {
 backToTop?.addEventListener("click", scrollToTop);
 window.addEventListener("scroll", onScrollOrResize, { passive: true });
 window.addEventListener("resize", onScrollOrResize, { passive: true });
+
+footerSurface?.addEventListener("animationend", () => {
+  updateFloatingOffset();
+});
+
+if (footer && typeof ResizeObserver !== "undefined") {
+  const footerObserver = new ResizeObserver(() => {
+    updateFloatingOffset();
+  });
+  footerObserver.observe(footer);
+}
 
 onScrollOrResize();

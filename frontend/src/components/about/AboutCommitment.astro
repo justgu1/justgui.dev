@@ -1,0 +1,21 @@
+---
+import type { createT } from "../../langs/createT";
+import { A11Y_ITEM_KEYS } from "../../langs/about-keys";
+
+interface Props {
+  t: ReturnType<typeof createT>;
+}
+
+const { t } = Astro.props;
+const titleId = "about-a11y-title";
+---
+
+<div class="about-commitment" role="region" aria-labelledby={titleId}>
+  <h3 class="about-commitment-title" id={titleId}>
+    {t("about.a11y.title")}
+  </h3>
+  <p class="about-commitment-lead">{t("about.a11y.lead")}</p>
+  <ul class="about-commitment-list">
+    {A11Y_ITEM_KEYS.map((key) => <li>{t(key)}</li>)}
+  </ul>
+</div>

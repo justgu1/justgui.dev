@@ -1,16 +1,42 @@
 ---
+import ProjectPreview from "./ProjectPreview.astro";
 import type { Project } from "../../types/project";
 import type { createT } from "../../langs/createT";
 
 interface Props {
   project: Project;
   t: ReturnType<typeof createT>;
+  isDefaultOpen?: boolean;
+  eagerPreview?: boolean;
 }
 
-const { project, t } = Astro.props;
+const { project, t, isDefaultOpen = false, eagerPreview = false } = Astro.props;
+const titleEm = project.featuredTitleEm ?? "";
+const eyebrowLabel = project.featuredLabel ?? project.category;
+const isExternal = Boolean(project.href?.startsWith("http"));
+const linkLabel = t("a11y.externalLink", { label: project.name });
+
+const previewSlotAttrs = !eagerPreview
+  ? {
+      "data-project-preview": "",
+      "data-preview-src": project.previewImageUrl,
+      "data-preview-alt": project.previewImageAlt ?? project.name,
+      ...(project.href
+        ? {
+            "data-preview-href": project.href,
+            "data-preview-external": isExternal ? "true" : "false",
+            "data-preview-link-label": linkLabel,
+          }
+        : {}),
+    }
+  : {};
 ---
 
-<details class="project-accordion" data-project-id={project.id}>
+<details
+  class="project-accordion"
+  data-project-id={project.id}
+  open={isDefaultOpen}
+>
   <summary class="project-accordion-summary">
     <span class="pr-num">{project.number}</span>
     <span class="pr-name">{project.name}</span>
@@ -19,28 +45,86 @@ const { project, t } = Astro.props;
     <span class="pr-chevron" aria-hidden="true">↓</span>
   </summary>
   <div class="project-accordion-panel">
-    {
-      project.previewImageUrl && (
-        <div class="project-accordion-preview">
-          <img
-            src={project.previewImageUrl}
-            alt={project.previewImageAlt ?? project.name}
-            loading="lazy"
-            decoding="async"
-          />
+    <div class="featured-block featured-block--accordion">
+      <div class="fb-content">
+        <div class="fb-eyebrow">
+          <span class="fb-label">{eyebrowLabel}</span>
+          <div class="fb-sep" aria-hidden="true"></div>
+          {
+            project.featuredYear && (
+              <span class="fb-year">{project.featuredYear}</span>
+            )
+          }
         </div>
-      )
-    }
-    <p class="project-accordion-desc">{project.description}</p>
-    <div class="project-accordion-tags">
-      {project.tags.map((tag) => <span class="fb-tag">{tag}</span>)}
+
+        <h3 class="fb-title-serif">
+          {project.name}
+          {titleEm && <em>{titleEm}</em>}
+        </h3>
+
+        <p class="fb-body">{project.description}</p>
+
+        <div class="fb-tags">
+          {project.tags.map((tag) => <span class="fb-tag">{tag}</span>)}
+        </div>
+
+        {
+          project.href && (
+            <a
+              href={project.href}
+              class="fb-link"
+              {...(isExternal
+                ? {
+                    target: "_blank",
+                    rel: "noopener noreferrer",
+                    "aria-label": linkLabel,
+                  }
+                : {})}
+            >
+              {t("projects.featured.link")}
+            </a>
+          )
+        }
+      </div>
+
+      <div class="fb-visual">
+        {
+          project.previewImageUrl && project.href ? (
+            <a
+              href={project.href}
+              class="project-preview-link"
+              aria-label={linkLabel}
+              {...(isExternal
+                ? { target: "_blank", rel: "noopener noreferrer" }
+                : {})}
+            >
+              <div class="project-accordion-preview-slot" {...previewSlotAttrs}>
+                {eagerPreview && (
+                  <ProjectPreview
+                    src={project.previewImageUrl}
+                    alt={project.previewImageAlt ?? project.name}
+                    variant="featured"
+                    eager
+                  />
+                )}
+              </div>
+            </a>
+          ) : project.previewImageUrl ? (
+            <div class="project-accordion-preview-slot" {...previewSlotAttrs}>
+              {eagerPreview && (
+                <ProjectPreview
+                  src={project.previewImageUrl}
+                  alt={project.previewImageAlt ?? project.name}
+                  variant="featured"
+                  eager
+                />
+              )}
+            </div>
+          ) : (
+            <span aria-hidden="true">{t("projects.featured.visual")}</span>
+          )
+        }
+      </div>
     </div>
-    {
-      project.href && (
-        <a href={project.href} class="project-accordion-link">
-          {t("projects.accordion.viewLink")}
-        </a>
-      )
-    }
   </div>
 </details>

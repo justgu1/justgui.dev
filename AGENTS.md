@@ -30,6 +30,14 @@ Toda alteração relevante deve atualizar documentação em conjunto:
 - `frontend/README.md` (quando afetar uso/processo/arquitetura/comandos)
 - `AGENTS.md` (quando houver mudança de processo, qualidade, regras ou Definition of Done)
 
+## Convenções do frontend (resumo)
+
+- **i18n**: strings em `frontend/src/langs/{en,pt,es}/*.ts`; nunca copy hardcoded em componentes.
+- **Projetos**: `src/data/projects.mock.ts` + `ProjectAccordion` / `ProjectAccordionItem`; scripts `projects-accordion.client.ts`.
+- **About**: timeline em `about.ts`; compromisso a11y em `AboutCommitment.astro` (coluna esquerda).
+- **Assets**: previews WebP em `public/projects/`; reconverter com `cd frontend && yarn images:projects:webp` (requer `cwebp`).
+- **Astro**: no frontmatter, só lógica TS; HTML/condicionais no template (sem `const x = (<div>…</div>)`).
+
 ## Checklists de referência
 
 O agente deve usar e respeitar:

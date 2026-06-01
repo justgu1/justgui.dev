@@ -1,7 +1,11 @@
 ---
 import ProjectAccordion from "../projects/ProjectAccordion.astro";
-import ProjectFeatured from "../projects/ProjectFeatured.astro";
-import { getAccordionProjects, getFeaturedProject } from "../../data/projects";
+import ProjectAccordionItem from "../projects/ProjectAccordionItem.astro";
+import {
+  getInitialProjects,
+  getProjectLoadMoreBatches,
+  getProjects,
+} from "../../data/projects";
 import { getLang } from "../../langs";
 import { createT } from "../../langs/createT";
 import Section from "../Section.astro";
@@ -12,8 +16,10 @@ interface Props {
 
 const { lang } = Astro.props;
 const t = createT(getLang(lang));
-const featured = await getFeaturedProject(lang);
-const accordionProjects = await getAccordionProjects(lang);
+const allProjects = await getProjects(lang);
+const initialProjects = await getInitialProjects(lang);
+const loadMoreBatches = getProjectLoadMoreBatches(allProjects);
+const hasMoreBatches = loadMoreBatches.length > 0;
 ---
 
 <Section
@@ -23,6 +29,39 @@ const accordionProjects = await getAccordionProjects(lang);
   description={t("sections.projects.description")}
   title={t("sections.projects.title")}
 >
-  {featured && <ProjectFeatured project={featured} t={t} />}
-  <ProjectAccordion projects={accordionProjects} t={t} />
+  <ProjectAccordion projects={initialProjects} t={t} />
+
+  {
+    loadMoreBatches.map((batch) => (
+      <div class="projects-load-batch" data-projects-batch hidden>
+        {batch.map((project) => (
+          <ProjectAccordionItem project={project} t={t} />
+        ))}
+      </div>
+    ))
+  }
+
+  {
+    hasMoreBatches && (
+      <div class="projects-actions">
+        <button
+          type="button"
+          class="button button-secondary projects-action-btn"
+          data-projects-load-more
+        >
+          {t("projects.loadMore")}
+        </button>
+        <button
+          type="button"
+          class="button button-secondary projects-action-btn"
+          data-projects-show-less
+          hidden
+        >
+          {t("projects.showLess")}
+        </button>
+      </div>
+    )
+  }
 </Section>
+
+<script src="../../scripts/projects-accordion.client.ts"></script>

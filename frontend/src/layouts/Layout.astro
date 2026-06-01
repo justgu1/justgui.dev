@@ -34,6 +34,7 @@ const showWelcome = Astro.locals.showWelcome ?? false;
       rel="stylesheet"
     />
     <Analytics />
+    <slot name="head" />
     <script is:inline>
       (function () {
         try {

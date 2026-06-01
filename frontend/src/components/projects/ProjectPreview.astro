@@ -1,0 +1,61 @@
+---
+interface Props {
+  src: string;
+  alt: string;
+  variant: "featured";
+  eager?: boolean;
+  href?: string;
+  linkLabel?: string;
+  isExternal?: boolean;
+}
+
+const {
+  src,
+  alt,
+  eager = false,
+  href,
+  linkLabel,
+  isExternal = false,
+} = Astro.props;
+---
+
+{
+  href ? (
+    <a
+      href={href}
+      class="project-preview-link"
+      aria-label={linkLabel}
+      {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+    >
+      <div class="project-preview project-preview--featured">
+        <div class="project-preview-viewport">
+          <img
+            class="project-preview-image"
+            src={src}
+            alt={alt}
+            width={3735}
+            height={1844}
+            loading={eager ? "eager" : "lazy"}
+            decoding="async"
+            fetchpriority={eager ? "high" : "auto"}
+          />
+        </div>
+      </div>
+    </a>
+  ) : (
+    <div class="project-preview project-preview--featured">
+      <div class="project-preview-viewport">
+        <img
+          class="project-preview-image"
+          src={src}
+          alt={alt}
+          width={3735}
+          height={1844}
+          loading={eager ? "eager" : "lazy"}
+          decoding="async"
+          fetchpriority={eager ? "high" : "auto"}
+        />
+      </div>
+    </div>
+  )
+}

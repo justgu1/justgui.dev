@@ -9,7 +9,7 @@ const a11y: Dictionary = {
   "a11y.homepage": "Guilherme Santos, página de inicio",
   "a11y.heroActions": "Acciones principales",
   "a11y.heroStats": "Destacados",
-  "a11y.availableStatus": "Disponible para trabajar",
+  "a11y.availableStatus": "Disponible",
   "a11y.externalLink": "{label} (se abre en una pestaña nueva)",
   "a11y.decorativeSeparator": "",
   "a11y.languageNavigation": "Idioma",

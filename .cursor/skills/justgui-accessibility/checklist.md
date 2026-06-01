@@ -9,7 +9,7 @@
 
 ## Perceivable (1.x)
 
-- [ ] 1.1.1: imagens/SVG decorativos com `aria-hidden`; conteúdo informativo com texto alternativo
+- [ ] 1.1.1: imagens/SVG decorativos com `aria-hidden`; conteúdo informativo com texto alternativo; preview de projeto como link com `aria-label` (não só `alt` na imagem)
 - [ ] 1.3.1: landmarks (`header`, `nav`, `main`, `section`, `footer`); um `h1` por página
 - [ ] 1.4.3: contraste texto normal ≥ 4.5:1 (tokens em `default.css`)
 - [ ] 1.4.4: escala de fonte via painel a11y (`data-a11y-font-scale`)
@@ -21,7 +21,7 @@
 
 - [ ] 2.1.1: toda ação disponível via teclado
 - [ ] 2.1.2: menu mobile — `e2e/keyboard.spec.ts` (Escape)
-- [ ] 2.2.2 / 2.3.3: movimento reduzido — painel a11y + `prefers-reduced-motion` + fade-in dos flutuantes respeita prefs
+- [ ] 2.2.2 / 2.3.3: movimento reduzido — painel a11y + `prefers-reduced-motion` + fade-in dos flutuantes + pan estático nos previews de projeto
 - [ ] 2.4.1: skip link — `e2e/keyboard.spec.ts`
 - [ ] 2.4.7: `:focus-visible` em `a11y.css` e `.form-control`
 - [ ] 2.4.11 / 2.4.13 (WCAG 2.2): foco reforçado via painel (`data-a11y-focus`)

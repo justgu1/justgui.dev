@@ -1,5 +1,6 @@
 ---
 import ProjectAccordionItem from "./ProjectAccordionItem.astro";
+import { PROJECTS_INITIAL_COUNT } from "../../data/projects";
 import type { Project } from "../../types/project";
 import type { createT } from "../../langs/createT";
 
@@ -11,8 +12,19 @@ interface Props {
 const { projects, t } = Astro.props;
 ---
 
-<div class="projects-accordion" data-project-accordion>
-  {projects.map((project) => <ProjectAccordionItem project={project} t={t} />)}
+<div
+  class="projects-accordion"
+  data-project-accordion
+  data-initial-count={PROJECTS_INITIAL_COUNT}
+>
+  {
+    projects.map((project, index) => (
+      <ProjectAccordionItem
+        project={project}
+        t={t}
+        isDefaultOpen={index === 0}
+        eagerPreview={index === 0}
+      />
+    ))
+  }
 </div>
-
-<script src="../../scripts/projects-accordion.client.ts"></script>

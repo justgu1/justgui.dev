@@ -40,6 +40,8 @@
 
 - [ ] Cabeçalho de seção: `description` à esquerda; `title` à direita
 - [ ] Âncoras com `scroll-margin-top: var(--header-height)`
-- [ ] Accordion de projetos: um aberto, chevron ↓/↑ visível
-- [ ] Compromisso a11y em About, não em Projects
+- [ ] **Projetos** (`ProjectAccordion`): 3 itens iniciais; primeiro aberto; um `<details>` por vez; painel aberto = grid featured; «Ver mais» (+5) / «Ver menos» (`projects-accordion.client.ts`)
+- [ ] Preview: link externo com `aria-label`; WebP em `public/projects/`; `yarn images:projects:webp`; preload só do 1º; lazy ao abrir
+- [ ] **About**: timeline só marcos; `AboutCommitment.astro` na coluna esquerda (não em Projects)
+- [ ] Accordion: chevron ↓/↑ visível; sem JSX em variável no frontmatter Astro
 - [ ] Controles a11y: `.form-control` + descrição por seção (`a11y-field-desc`)

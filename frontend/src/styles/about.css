@@ -26,7 +26,7 @@
 .about-body {
   margin-top: 1.5rem;
   font-size: var(--text-sm);
-  line-height: 1.9;
+  line-height: 1.7;
   color: var(--gray);
 }
 
@@ -54,38 +54,42 @@
   border-left: none;
 }
 
-.about-a11y {
-  padding: 3rem;
+.about-commitment {
+  margin-top: 2.5rem;
+  padding-top: 2rem;
   border-top: 1px solid var(--border);
-  background: var(--surface);
 }
 
-.about-a11y-title {
-  margin: 0 0 1rem;
+.about-commitment-title {
+  margin: 0 0 0.75rem;
   font-family: var(--font-secondary);
-  font-size: var(--text-lg);
+  font-size: var(--text-md);
   color: var(--cream);
 }
 
-.about-a11y-lead {
-  max-width: 40rem;
-  margin-bottom: 1.25rem;
-  font-size: var(--text-sm);
-  line-height: 1.8;
+.about-commitment-lead {
+  margin: 0 0 1rem;
+  font-size: var(--text-xs);
+  line-height: 1.5;
   color: var(--gray);
 }
 
-.about-a11y-list {
-  display: grid;
-  gap: 0.5rem;
-  padding-left: 1.25rem;
-  max-width: 48rem;
+.about-commitment-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 0.75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
-.about-a11y-list li {
-  font-size: var(--text-sm);
-  line-height: 1.8;
+.about-commitment-list li {
+  font-family: var(--font-mono);
+  font-size: var(--text-xxs);
+  line-height: 1.4;
   color: var(--gray);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
 
 .timeline-entry {
@@ -110,28 +114,29 @@
 }
 
 .te-body {
-  padding: 2rem;
+  padding: 1.5rem 2rem;
 }
 
 .te-chapter {
   display: block;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.35rem;
   font-family: var(--font-primary);
-  font-size: var(--text-sm);
+  font-size: var(--text-xs);
   letter-spacing: 0.12em;
   color: var(--red-bright);
 }
 
 .te-title {
-  margin-bottom: 0.75rem;
+  margin: 0 0 0.5rem;
   font-family: var(--font-secondary);
   font-size: var(--text-md);
   color: var(--cream);
 }
 
 .te-text {
-  font-size: var(--text-sm);
-  line-height: 1.8;
+  margin: 0;
+  font-size: var(--text-xs);
+  line-height: 1.5;
   color: var(--gray);
 }
 

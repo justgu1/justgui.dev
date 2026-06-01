@@ -9,6 +9,7 @@ disable-model-invocation: true
 ## Astro
 
 - Prefer `.astro` components; avoid React islands unless needed
+- **Frontmatter**: só TypeScript; HTML condicional no template do ficheiro — **não** `const el = (<div class="…">…</div>)` (parser Astro falha)
 - Client scripts: `<script src="../scripts/foo.client.ts"></script>` em component (mesmo padrão de `Header.astro`)
 - SSR: `@astrojs/node` adapter; middleware em `src/middleware.ts` via `sequence()`
 
@@ -51,12 +52,29 @@ skip-link → Header → main → Footer → AccessibilityPanel → FloatingActi
 | Peça | Comportamento |
 |------|---------------|
 | `.footer.footer--pinned` | sticky após `scrollY > 0` |
-| `.footer-surface` | animação slide-in; contém copyright, toolbar, redes |
+| `.footer-surface` | slide-in **sem** `opacity: 0` inicial; contém copyright, toolbar, redes |
+| `main` | `scroll-padding-bottom` quando footer pinned (evita conteúdo sob o footer) |
 | Footer toolbar | idioma (listbox) + botão a11y |
 | Redes sociais | linha horizontal em `<64rem`, estilo toolbar |
 | `FloatingActionCell` | WhatsApp (esq.) + topo (dir.); visíveis juntos após scroll ≥400px; fade-in |
 
-Scripts: `floating-actions.client.ts`, `footer-toolbar.client.ts`.
+Scripts: `floating-actions.client.ts` (`ResizeObserver`, `animationend` no footer), `footer-toolbar.client.ts`.
+
+## Projects (portfólio)
+
+- Dados: `src/data/projects.mock.ts` + tipos em `src/types/projects.ts`
+- UI: `ProjectAccordion.astro` → `ProjectAccordionItem.astro` + `ProjectPreview.astro`
+- Comportamento: 3 projetos visíveis; só o primeiro aberto; **um** `<details>` aberto; painel aberto replica layout featured (2 colunas + preview)
+- «Ver mais projetos»: lotes de 5 (`PROJECTS_LOAD_MORE_COUNT`); «Ver menos» remove itens carregados extra
+- Preview: `<a>` para URL do projeto quando `href` existe; `aria-label` i18n; WebP lossless em `public/projects/*-preview.webp` — `yarn images:projects:webp` (`cwebp`)
+- Performance: `preload` + `fetchpriority="high"` só no 1º; imagens dos itens fechados via slot `data-project-preview` montado ao abrir
+- Motion: pan com `object-position`; estático com `prefers-reduced-motion` / `data-a11y-motion="reduce"`
+- Client: `projects-accordion.client.ts`
+
+## About
+
+- Timeline: entradas em `langs/*/about.ts` (marcos 2014–2024 + micro-resumos)
+- Compromisso acessibilidade: `AboutCommitment.astro` na coluna esquerda de `AboutIntro.astro` — **não** na secção Projects nem como entrada da timeline
 
 ## Welcome dialog (1º acesso)
 
@@ -120,17 +138,16 @@ Access via `config/env.ts` — never `import.meta.env` in components directly.
 ```
 src/
   components/
+    projects/ProjectAccordion.astro
+    about/AboutCommitment.astro
     AccessibilityPanel.astro
-    AccessibilityPanelForm.astro
     FloatingActionCell.astro
-    WelcomeDialog.astro
     Footer.astro
+  data/projects.mock.ts
   scripts/
-    focus-trap.ts
-    a11y-form.ts
-    footer-toolbar.client.ts
+    projects-accordion.client.ts
     floating-actions.client.ts
-    welcome-dialog.client.ts
+    footer-toolbar.client.ts
   middlewares/
     visitors.ts          # antes de languages
     languages.ts

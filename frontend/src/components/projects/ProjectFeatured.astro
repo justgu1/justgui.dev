@@ -1,22 +1,31 @@
 ---
+import ProjectPreview from "./ProjectPreview.astro";
 import type { Project } from "../../types/project";
 import type { createT } from "../../langs/createT";
 
 interface Props {
   project: Project;
   t: ReturnType<typeof createT>;
+  eager?: boolean;
 }
 
-const { project, t } = Astro.props;
+const { project, t, eager = false } = Astro.props;
 const titleEm = project.featuredTitleEm ?? "";
+const eyebrowLabel = project.featuredLabel ?? project.category;
+const isExternal = Boolean(project.href?.startsWith("http"));
+const linkLabel = t("a11y.externalLink", { label: project.name });
 ---
 
-<div class="featured-block">
+<article class="featured-block" data-project-card>
   <div class="fb-content">
     <div class="fb-eyebrow">
-      <span class="fb-label">{project.featuredLabel}</span>
+      <span class="fb-label">{eyebrowLabel}</span>
       <div class="fb-sep" aria-hidden="true"></div>
-      <span class="fb-year">{project.featuredYear}</span>
+      {
+        project.featuredYear && (
+          <span class="fb-year">{project.featuredYear}</span>
+        )
+      }
     </div>
 
     <h3 class="fb-title-serif">
@@ -32,7 +41,17 @@ const titleEm = project.featuredTitleEm ?? "";
 
     {
       project.href && (
-        <a href={project.href} class="fb-link">
+        <a
+          href={project.href}
+          class="fb-link"
+          {...(isExternal
+            ? {
+                target: "_blank",
+                rel: "noopener noreferrer",
+                "aria-label": linkLabel,
+              }
+            : {})}
+        >
           {t("projects.featured.link")}
         </a>
       )
@@ -42,15 +61,15 @@ const titleEm = project.featuredTitleEm ?? "";
   <div class="fb-visual">
     {
       project.previewImageUrl ? (
-        <img
+        <ProjectPreview
           src={project.previewImageUrl}
           alt={project.previewImageAlt ?? project.name}
-          loading="lazy"
-          decoding="async"
+          variant="featured"
+          eager={eager}
         />
       ) : (
         <span aria-hidden="true">{t("projects.featured.visual")}</span>
       )
     }
   </div>
-</div>
+</article>

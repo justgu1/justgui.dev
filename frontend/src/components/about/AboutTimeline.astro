@@ -2,7 +2,7 @@
 import TimelineEntry from "./TimelineEntry.astro";
 import { getLang } from "../../langs";
 import { createT } from "../../langs/createT";
-import { TIMELINE_ENTRY_KEYS } from "../../langs/about-keys";
+import { TIMELINE_MILESTONE_KEYS } from "../../langs/about-keys";
 
 interface Props {
   lang: string;
@@ -14,7 +14,7 @@ const t = createT(getLang(lang));
 
 <div class="about-timeline">
   {
-    TIMELINE_ENTRY_KEYS.map((index) => (
+    TIMELINE_MILESTONE_KEYS.map((index) => (
       <TimelineEntry
         year={t(`about.timeline.${index}.year`)}
         chapter={t(`about.timeline.${index}.chapter`)}

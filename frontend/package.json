@@ -23,6 +23,7 @@
     "test:a11y": "pa11y-ci",
     "validate:seo": "node scripts/validate-seo.mjs",
     "seo": "yarn validate:seo",
+    "images:projects:webp": "bash scripts/convert-project-previews.sh",
     "lighthouse": "lhci autorun",
     "size": "size-limit",
     "audit": "npm audit --audit-level=high",

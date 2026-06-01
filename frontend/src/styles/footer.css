@@ -19,6 +19,7 @@
 .footer.footer--pinned {
   position: sticky;
   bottom: 0;
+  background: var(--surface);
 }
 
 .footer.footer--pinned .footer-surface {
@@ -28,13 +29,21 @@
 @keyframes footer-slide-in {
   from {
     transform: translateY(100%);
-    opacity: 0;
   }
 
   to {
     transform: translateY(0);
-    opacity: 1;
   }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .footer.footer--pinned .footer-surface {
+    animation: none;
+  }
+}
+
+html[data-a11y-motion="reduce"] .footer.footer--pinned .footer-surface {
+  animation: none;
 }
 
 .footer-copyright-firstname {

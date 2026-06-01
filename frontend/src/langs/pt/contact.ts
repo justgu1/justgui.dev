@@ -10,7 +10,7 @@ const contact: Dictionary = {
   "contact.form.label": "Formulário de contato",
   "contact.form.name": "Nome",
   "contact.form.email": "E-mail",
-  "contact.form.message": "Detalhes do projeto",
+  "contact.form.message": "Motivo do contato",
   "contact.form.submit": "Enviar mensagem",
   "contact.form.sending": "Enviando…",
   "contact.form.success": "Obrigado! Sua mensagem foi enviada com sucesso.",

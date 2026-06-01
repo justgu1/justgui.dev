@@ -5,6 +5,7 @@ import Expertise from "../../components/sections/Expertise.astro";
 import Projects from "../../components/sections/Projects.astro";
 import About from "../../components/sections/About.astro";
 import Contact from "../../components/sections/Contact.astro";
+import { getFirstProjectPreview } from "../../data/projects";
 import { SUPPORTED_LANGS } from "../../config/seo";
 
 export function getStaticPaths() {
@@ -15,9 +16,21 @@ export const prerender = false;
 
 const { lang: langParam } = Astro.params;
 const lang = langParam ?? "en";
+const featuredPreview = await getFirstProjectPreview(lang);
 ---
 
 <Layout lang={lang}>
+  {
+    featuredPreview && (
+      <link
+        rel="preload"
+        as="image"
+        href={featuredPreview}
+        type="image/webp"
+        slot="head"
+      />
+    )
+  }
   <Hero lang={lang} />
   <Expertise lang={lang} />
   <Projects lang={lang} />

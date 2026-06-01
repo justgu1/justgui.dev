@@ -68,6 +68,9 @@ cd frontend && yarn ci:quality
 
 # pipeline completa
 cd frontend && yarn ci
+
+# reconverter screenshots de projetos (PNG → WebP lossless; requer cwebp)
+cd frontend && yarn images:projects:webp
 ```
 
 ## Variáveis de ambiente
@@ -162,6 +165,16 @@ O remetente (`SMTP_FROM`) e o destino admin (`CONTACT_TO`) são distintos: o SMT
 ## CV
 
 O botão de download usa `PUBLIC_CV_URL`. O PDF padrão fica em `public/cv/GuilhermeSantos-Curriculo-2026.pdf`.
+
+## Previews de projetos
+
+- Screenshots em `public/projects/*-preview.webp` (`yarn images:projects:webp`, `cwebp -lossless`).
+- Dados em `src/data/projects.mock.ts`; componentes em `components/projects/`.
+- **Accordion**: 3 itens visíveis (Tyer aberto por padrão); painel aberto = grid featured (texto + preview); só um `<details>` aberto; preview é link para o site.
+- **Ver mais / Ver menos**: carrega lotes de 5 projetos (`PROJECTS_LOAD_MORE_COUNT`); «Ver menos» recolhe os itens carregados.
+- **Performance**: preload WebP só do primeiro projeto; lazy ao abrir cada item.
+- **Motion**: pan via `object-position`; estático com `prefers-reduced-motion` ou `data-a11y-motion="reduce"`.
+- **Astro**: não usar JSX atribuído a variável no frontmatter (`.astro`); markup no template do componente.
 
 ## Célula flutuante e acessibilidade
 

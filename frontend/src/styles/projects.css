@@ -1,123 +1,48 @@
-.featured-block {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  border-bottom: 1px solid var(--border);
-}
-
-.fb-content {
-  padding: 3.5rem 3rem;
-  border-right: 1px solid var(--border);
-}
-
-.fb-eyebrow {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  margin-bottom: 1.75rem;
-}
-
-.fb-label,
-.fb-year {
-  font-family: var(--font-mono);
-  font-size: var(--text-xs);
-  letter-spacing: 0.06em;
-}
-
-.fb-label {
-  color: var(--red-bright);
-}
-
-.fb-year {
-  color: var(--gray);
-}
-
-.fb-sep {
-  flex: 1;
-  height: 1px;
-  background: var(--border);
-}
-
-.fb-title-serif {
-  margin: 0;
-  font-family: var(--font-secondary);
-  font-size: var(--text-xl);
-  line-height: 0.92;
-  color: var(--cream);
-}
-
-.fb-title-serif em {
-  display: block;
-  font-size: 0.55em;
-  font-style: italic;
-  font-weight: var(--fw-light);
-  color: var(--cream-dim);
-}
-
-.fb-body {
-  max-width: 32.5rem;
-  margin: 2rem 0;
-  font-size: var(--text-sm);
-  line-height: 1.9;
-  color: var(--gray);
-}
-
-.fb-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.625rem;
-  margin-bottom: 2.25rem;
-}
-
-.fb-tag {
-  padding: 0.375rem 0.875rem;
-  border: 1px solid var(--border);
-  font-family: var(--font-mono);
-  font-size: var(--text-xs);
-  color: var(--gray);
-}
-
-.fb-link {
-  font-family: var(--font-secondary);
-  font-size: var(--text-md);
-  font-style: italic;
-  color: var(--red-bright);
-}
-
-.fb-visual {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--surface2);
-  font-family: var(--font-mono);
-  font-size: var(--text-xs);
-  letter-spacing: 0.12em;
-  color: var(--gray-soft);
-}
-
-.fb-visual img {
-  width: 100%;
-  height: 100%;
-  min-height: 12rem;
-  object-fit: cover;
-}
-
-.project-accordion-preview {
-  margin-bottom: 1.5rem;
-  border: 1px solid var(--border);
-  background: var(--surface);
-}
-
-.project-accordion-preview img {
-  display: block;
-  width: 100%;
-  max-height: 16rem;
-  object-fit: cover;
-}
-
 .projects-accordion {
   display: flex;
   flex-direction: column;
   gap: 2px;
+}
+
+.projects-load-batch[hidden] {
+  display: none;
+}
+
+.projects-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 2rem;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.projects-action-btn {
+  font-family: var(--font-primary);
+  font-style: normal;
+  letter-spacing: 0.08em;
+  min-width: 12rem;
+}
+
+.project-preview-link {
+  display: flex;
+  flex: 1;
+  width: 100%;
+  min-height: 100%;
+  text-decoration: none;
+  color: inherit;
+}
+
+.project-preview-link:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: -2px;
+}
+
+.project-preview-link .project-accordion-preview-slot {
+  flex: 1;
+  width: 100%;
+  min-height: 100%;
 }
 
 .project-accordion {
@@ -202,31 +127,166 @@
 }
 
 .project-accordion-panel {
-  padding: 0 2rem 2rem 5.5rem;
+  padding: 0;
   border-top: 1px solid var(--border);
   background: var(--surface2);
 }
 
-.project-accordion-desc {
-  max-width: 40rem;
-  margin: 1.5rem 0;
-  font-size: var(--text-sm);
-  line-height: 1.8;
+.featured-block {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: stretch;
+}
+
+.featured-block--accordion {
+  border-bottom: none;
+}
+
+.fb-content {
+  padding: 3.5rem 3rem;
+  border-right: 1px solid var(--border);
+}
+
+.fb-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.75rem;
+}
+
+.fb-label,
+.fb-year {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.06em;
+}
+
+.fb-label {
+  color: var(--red-bright);
+}
+
+.fb-year {
   color: var(--gray);
 }
 
-.project-accordion-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-bottom: 1.5rem;
+.fb-sep {
+  flex: 1;
+  height: 1px;
+  background: var(--border);
 }
 
-.project-accordion-link {
+.fb-title-serif {
+  margin: 0;
+  font-family: var(--font-secondary);
+  font-size: var(--text-xl);
+  line-height: 0.92;
+  color: var(--cream);
+}
+
+.fb-title-serif em {
+  display: block;
+  font-size: 0.55em;
+  font-style: italic;
+  font-weight: var(--fw-light);
+  color: var(--cream-dim);
+}
+
+.fb-body {
+  max-width: 32.5rem;
+  margin: 2rem 0;
+  font-size: var(--text-sm);
+  line-height: 1.9;
+  color: var(--gray);
+}
+
+.fb-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.625rem;
+  margin-bottom: 2.25rem;
+}
+
+.fb-tag {
+  padding: 0.375rem 0.875rem;
+  border: 1px solid var(--border);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--gray);
+}
+
+.fb-link {
   font-family: var(--font-secondary);
   font-size: var(--text-md);
   font-style: italic;
   color: var(--red-bright);
+}
+
+.fb-visual {
+  display: flex;
+  align-self: stretch;
+  min-height: 100%;
+  background: var(--surface2);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.12em;
+  color: var(--gray-soft);
+}
+
+.project-accordion-preview-slot {
+  flex: 1;
+  width: 100%;
+  min-height: 100%;
+}
+
+.fb-visual .project-preview {
+  flex: 1;
+  width: 100%;
+  min-height: 100%;
+}
+
+.project-preview {
+  width: 100%;
+  height: 100%;
+  min-height: 100%;
+}
+
+.project-preview-viewport {
+  width: 100%;
+  height: 100%;
+  min-height: 100%;
+  overflow: hidden;
+  background: var(--surface);
+}
+
+.project-preview-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  animation: project-preview-pan 22s ease-in-out infinite alternate;
+}
+
+@keyframes project-preview-pan {
+  from {
+    object-position: center top;
+  }
+
+  to {
+    object-position: center bottom;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project-preview-image {
+    animation: none;
+    object-position: center top;
+  }
+}
+
+html[data-a11y-motion="reduce"] .project-preview-image {
+  animation: none;
+  object-position: center top;
 }
 
 @media (max-width: 64rem) {
@@ -239,12 +299,16 @@
     border-bottom: 1px solid var(--border);
   }
 
+  .fb-visual {
+    min-height: 18rem;
+  }
+
+  .project-preview-viewport {
+    min-height: 18rem;
+  }
+
   .project-accordion-summary {
     grid-template-columns: 1fr;
     gap: 0.5rem;
-  }
-
-  .project-accordion-panel {
-    padding: 0 1.5rem 1.5rem;
   }
 }

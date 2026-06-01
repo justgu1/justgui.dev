@@ -17,6 +17,7 @@
 }
 
 .floating-actions--visible {
+  z-index: 95;
   opacity: 1;
   visibility: visible;
   pointer-events: auto;

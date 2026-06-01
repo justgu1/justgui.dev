@@ -2,6 +2,17 @@
 
 History line do projeto em tom de produto técnico, direto e sem detalhamento excessivo.
 
+## 2026-06-01
+
+### Portfólio, About, i18n e footer (release)
+
+- **Projetos**: accordion com painel layout featured; um aberto por vez; iniciais Tyer Shop (aberto), Baase e Smart Sale; «Ver mais» (+5) e «Ver menos»; preview clicável (link externo); anos por projeto em `featuredYear`; WebP lossless (`yarn images:projects:webp`); pan `object-position` com `prefers-reduced-motion`.
+- **About**: timeline 2014 / 2018 / 2020–2024 (micro-resumos); compromisso a11y na coluna esquerda abaixo dos CTAs (`AboutCommitment.astro`).
+- **i18n**: header `pt`/`es`; hero/contato (Acessibilidade 2.1 AA, Disponível, Motivo do contato).
+- **Footer**: slide-in sem `opacity: 0`; FABs com `ResizeObserver` + `scroll-padding-bottom` no `main`.
+- **CV**: `public/cv/GuilhermeSantos-Curriculo-2026.pdf` atualizado.
+- Skills e `AGENTS.md` alinhados ao comportamento atual.
+
 ## 2026-05-31
 
 ### Dependências e auditoria de segurança
