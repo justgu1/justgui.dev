@@ -4,6 +4,18 @@ History line do projeto em tom de produto técnico, direto e sem detalhamento ex
 
 ## 2026-05-31
 
+### Dependências e auditoria de segurança
+
+- `happy-dom` 20.9, `@lhci/cli` 0.15, `eslint-plugin-sonarjs` 4, `@astrojs/check` 0.9.9; `resolutions` Yarn para `tmp`, `uuid` e `yaml`.
+- `yarn audit` no CI passa com 0 vulnerabilidades; e2e do painel a11y dispara `pointerdown` (conteúdo principal fica `inert` com o painel aberto).
+
+### E-mail de contato branded
+
+- Auto-reply ao visitante: template HTML multipart branded (tokens do site, logo, i18n en/pt/es) com fallback texto plano.
+- `replyTo` do auto-reply aponta para `CONTACT_TO` (e-mail admin pessoal); notificações admin continuam em `CONTACT_TO`.
+- `CONTACT_TO` resolve também via alias legado `ADMIN_EMAIL`; Docker Compose repassa fallback correto.
+- Documentação de roteamento SMTP e troubleshooting em `frontend/README.md`.
+
 ### SQLite, welcome dialog e refinamentos UX
 
 - Persistência server-side com SQLite (`better-sqlite3`): visitantes, submissões de contato, consentimento e prefs a11y.

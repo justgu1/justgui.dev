@@ -30,7 +30,17 @@ export type MailConfig = {
   from: string;
   fromName: string;
   contactTo: string;
+  siteUrl: string;
 };
+
+function resolveContactTo(): string {
+  return required(
+    optional(process.env.CONTACT_TO) ??
+      optional(process.env.ADMIN_EMAIL) ??
+      optional(process.env.SMTP_FROM),
+    "CONTACT_TO"
+  );
+}
 
 export function getMailConfig(): MailConfig {
   return {
@@ -40,10 +50,8 @@ export function getMailConfig(): MailConfig {
     password: required(process.env.SMTP_PASSWORD, "SMTP_PASSWORD"),
     from: required(process.env.SMTP_FROM, "SMTP_FROM"),
     fromName: optional(process.env.SMTP_FROM_NAME) ?? "justgui",
-    contactTo: required(
-      optional(process.env.CONTACT_TO) ?? optional(process.env.SMTP_FROM),
-      "CONTACT_TO"
-    ),
+    contactTo: resolveContactTo(),
+    siteUrl: required(process.env.PUBLIC_SITE_URL, "PUBLIC_SITE_URL"),
   };
 }
 
@@ -53,7 +61,9 @@ export function isMailConfigured(): boolean {
     optional(process.env.SMTP_USER) &&
     optional(process.env.SMTP_PASSWORD) &&
     optional(process.env.SMTP_FROM) &&
-    (optional(process.env.CONTACT_TO) || optional(process.env.SMTP_FROM))
+    (optional(process.env.CONTACT_TO) ||
+      optional(process.env.ADMIN_EMAIL) ||
+      optional(process.env.SMTP_FROM))
   );
 }
 

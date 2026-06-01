@@ -67,7 +67,12 @@ test("accessibility panel closes on click outside", async ({ page }) => {
   await page.getByRole("button", { name: /accessibility settings/i }).click();
   const panel = page.locator("#accessibility-panel");
   await expect(panel).toBeVisible();
-  await page.locator("main").click({ position: { x: 10, y: 10 } });
+  // #main-content is inert while the panel is open; dispatch pointerdown like a real outside tap.
+  await page.evaluate(() => {
+    document.dispatchEvent(
+      new PointerEvent("pointerdown", { bubbles: true, composed: true })
+    );
+  });
   await expect(panel).toBeHidden();
 });
 

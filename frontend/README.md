@@ -96,7 +96,7 @@ O ficheiro `.env` está no `.gitignore` e **não deve ser commitado**. Use apena
 
 - `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASSWORD`
 - `SMTP_FROM`, `SMTP_FROM_NAME`
-- `CONTACT_TO` (destinatário admin das mensagens — **nunca** expor como `PUBLIC_*`)
+- `CONTACT_TO` (destinatário admin das mensagens — **nunca** expor como `PUBLIC_*`; alias legado: `ADMIN_EMAIL`)
 
 ### Server-side (SQLite / visitantes)
 
@@ -104,6 +104,49 @@ O ficheiro `.env` está no `.gitignore` e **não deve ser commitado**. Use apena
 - `VISITOR_IP_SALT` (hash de IP para metadata LGPD)
 
 Sem SMTP configurado, o endpoint `/api/contact` responde `503` e o formulário mostra mensagem de indisponibilidade.
+
+## E-mail de contato
+
+O formulário dispara **dois e-mails** via SMTP (nodemailer):
+
+| E-mail                | Destino             | Reply-To            | Formato                  |
+| --------------------- | ------------------- | ------------------- | ------------------------ |
+| Notificação admin     | `CONTACT_TO`        | E-mail do visitante | Texto plano              |
+| Auto-reply (obrigado) | E-mail do visitante | `CONTACT_TO`        | HTML + texto (multipart) |
+
+### Variáveis e papéis
+
+| Variável                  | Papel                                                                    |
+| ------------------------- | ------------------------------------------------------------------------ |
+| `SMTP_FROM` / `SMTP_USER` | Identidade de envio (ex.: `support@justgui.dev` no Hostinger)            |
+| `CONTACT_TO`              | E-mail pessoal admin — recebe notificações e é o `replyTo` do auto-reply |
+| `ADMIN_EMAIL`             | Alias legado de `CONTACT_TO` (resolvido se `CONTACT_TO` estiver vazio)   |
+| `PUBLIC_SITE_URL`         | URLs absolutas de logo e links no template HTML                          |
+
+Configure em produção (Docker repassa via `docker-compose.yaml`):
+
+```env
+CONTACT_TO=seu-email-pessoal@example.com
+```
+
+O remetente (`SMTP_FROM`) e o destino admin (`CONTACT_TO`) são distintos: o SMTP envia como caixa institucional, mas notificações e respostas do visitante vão para o e-mail pessoal.
+
+### Auto-reply branded
+
+- Template em `src/server/mail/contactAutoReplyTemplate.ts`
+- Copy i18n em `src/server/mail/autoReplyMessages.ts` (`en`, `pt`, `es`)
+- Design alinhado aos tokens do site (fundo escuro, cream/gray, accent red-bright)
+- Acessibilidade: `lang` por idioma, preheader, alt no logo, contraste ≥ 4.5:1, fallback texto plano, escape HTML do nome
+
+### Troubleshooting de entrega
+
+- Confirmar `CONTACT_TO` (ou `ADMIN_EMAIL`) no `.env` de produção — sem isso, notificações caem em `SMTP_FROM` (`support@justgui.dev`)
+- No Docker, `docker-compose.yaml` repassa `CONTACT_TO` com fallback para `ADMIN_EMAIL`
+- Em dev (`PUBLIC_APP_ENV=local`): log `[mail] admin notification to:` mostra o destino real antes do envio
+
+- Verificar spam/quarentena no Gmail ou outro provedor pessoal
+- Validar SPF/DKIM de `justgui.dev` no painel Hostinger
+- Em dev (`PUBLIC_APP_ENV=local`): logs `[mail] sendMail to admin failed` e `[mail] auto-reply failed`
 
 ## Detecção de idioma
 

@@ -40,7 +40,7 @@ services:
       SMTP_PASSWORD: ${SMTP_PASSWORD:-}
       SMTP_FROM: ${SMTP_FROM:-}
       SMTP_FROM_NAME: ${SMTP_FROM_NAME:-justgui}
-      CONTACT_TO: ${CONTACT_TO:-}
+      CONTACT_TO: ${CONTACT_TO:-${ADMIN_EMAIL:-}}
       DATABASE_PATH: ${DATABASE_PATH:-/var/www/data/justgui.sqlite}
       VISITOR_IP_SALT: ${VISITOR_IP_SALT:-}
     networks:
