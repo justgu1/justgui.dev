@@ -19,8 +19,24 @@ const enabled = IS_PRODUCTION && Boolean(gtmId);
           ad_storage: "denied",
           ad_user_data: "denied",
           ad_personalization: "denied",
-          wait_for_update: 500,
+          wait_for_update: 2000,
         });
+      </script>
+      <script is:inline>
+        (function () {
+          if (document.cookie.indexOf("justgui_analytics_consent=1") === -1) return;
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          window.gtag = window.gtag || gtag;
+          gtag("consent", "update", {
+            analytics_storage: "granted",
+            ad_storage: "granted",
+            ad_user_data: "granted",
+            ad_personalization: "granted",
+          });
+        })();
       </script>
       <script is:inline define:vars={{ gtmId }}>
         (function (w, d, s, l, i) {
@@ -41,6 +57,7 @@ const enabled = IS_PRODUCTION && Boolean(gtmId);
 {
   enabled && (
     <script>
+      import "../scripts/consent-restore.client.ts";
       import "../scripts/analytics.client.ts";
     </script>
   )

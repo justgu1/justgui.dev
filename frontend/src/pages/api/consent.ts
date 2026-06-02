@@ -4,6 +4,7 @@ import { recordConsent } from "../../server/db/repositories/consent";
 
 const WELCOME_COOKIE = "justgui_welcome";
 const WELCOME_PENDING_COOKIE = "justgui_welcome_pending";
+const ANALYTICS_CONSENT_COOKIE = "justgui_analytics_consent";
 const COOKIE_MAX_AGE = 60 * 60 * 24 * 365;
 
 export const POST: APIRoute = async ({ request, cookies, locals }) => {
@@ -50,6 +51,17 @@ export const POST: APIRoute = async ({ request, cookies, locals }) => {
     sameSite: "lax",
     secure: IS_PRODUCTION,
   });
+
+  if (analyticsGranted) {
+    cookies.set(ANALYTICS_CONSENT_COOKIE, "1", {
+      path: "/",
+      maxAge: COOKIE_MAX_AGE,
+      sameSite: "lax",
+      secure: IS_PRODUCTION,
+    });
+  } else {
+    cookies.delete(ANALYTICS_CONSENT_COOKIE, { path: "/" });
+  }
 
   cookies.delete(WELCOME_PENDING_COOKIE, {
     path: "/",

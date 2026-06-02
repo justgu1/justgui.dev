@@ -1,4 +1,8 @@
-import { grantAnalyticsConsent } from "../utils/consent";
+import {
+  grantAnalyticsConsent,
+  revokeAnalyticsConsent,
+  setAnalyticsConsentCookie,
+} from "../utils/consent";
 import {
   applyAccessibilityPreferences,
   loadAccessibilityPreferences,
@@ -84,8 +88,11 @@ function hasCompletedWelcome(): boolean {
 }
 
 async function persistConsent(analyticsGranted: boolean): Promise<void> {
+  setAnalyticsConsentCookie(analyticsGranted);
   if (analyticsGranted) {
     grantAnalyticsConsent();
+  } else {
+    revokeAnalyticsConsent();
   }
   await fetch("/api/consent", {
     method: "POST",
@@ -120,6 +127,14 @@ async function finishWelcome(): Promise<void> {
 
   const analyticsGranted = analyticsChoice === true;
 
+  if (analyticsGranted) {
+    setAnalyticsConsentCookie(true);
+    grantAnalyticsConsent();
+  } else {
+    setAnalyticsConsentCookie(false);
+    revokeAnalyticsConsent();
+  }
+
   if (continueButton) {
     continueButton.disabled = true;
     continueButton.setAttribute("aria-busy", "true");
@@ -144,8 +159,16 @@ function shouldShowWelcome(): boolean {
   return document.cookie.includes("justgui_welcome_pending=1");
 }
 
-acceptAnalyticsBtn?.addEventListener("click", () => setCookieChoice(true));
-essentialOnlyBtn?.addEventListener("click", () => setCookieChoice(false));
+acceptAnalyticsBtn?.addEventListener("click", () => {
+  setCookieChoice(true);
+  setAnalyticsConsentCookie(true);
+  grantAnalyticsConsent();
+});
+essentialOnlyBtn?.addEventListener("click", () => {
+  setCookieChoice(false);
+  setAnalyticsConsentCookie(false);
+  revokeAnalyticsConsent();
+});
 
 dialog?.addEventListener("click", (event) => {
   const target = event.target as HTMLElement;
