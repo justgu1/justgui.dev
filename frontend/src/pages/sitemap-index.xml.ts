@@ -1,8 +1,5 @@
 import type { APIRoute } from "astro";
-import {
-  buildSitemapIndexXml,
-  XML_HEADERS,
-} from "../server/sitemap";
+import { buildSitemapIndexXml, XML_HEADERS } from "../server/sitemap";
 
 export const prerender = true;
 

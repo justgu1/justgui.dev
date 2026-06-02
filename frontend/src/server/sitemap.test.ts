@@ -1,8 +1,5 @@
 import { describe, expect, it } from "vitest";
-import {
-  buildSitemapIndexXml,
-  buildSitemapUrlsetXml,
-} from "./sitemap";
+import { buildSitemapIndexXml, buildSitemapUrlsetXml } from "./sitemap";
 
 describe("sitemap", () => {
   it("builds sitemap index pointing to sitemap-0.xml", () => {
