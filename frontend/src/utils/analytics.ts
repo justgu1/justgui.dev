@@ -9,13 +9,6 @@ export type AnalyticsEvent =
 
 export type AnalyticsParams = Record<string, string | number | boolean>;
 
-declare global {
-  interface Window {
-    dataLayer?: Record<string, unknown>[];
-    gtag?: (...args: unknown[]) => void;
-  }
-}
-
 export function trackEvent(name: AnalyticsEvent, params: AnalyticsParams = {}) {
   if (typeof window === "undefined") return;
 

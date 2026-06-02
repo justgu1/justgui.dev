@@ -15,13 +15,6 @@ const CONSENT_DENIED = {
   ad_personalization: "denied",
 } as const;
 
-declare global {
-  interface Window {
-    dataLayer?: unknown[];
-    gtag?: (...args: unknown[]) => void;
-  }
-}
-
 function ensureGtag(): (...args: unknown[]) => void {
   window.dataLayer = window.dataLayer || [];
   if (typeof window.gtag !== "function") {
