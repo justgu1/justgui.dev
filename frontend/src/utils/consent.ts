@@ -25,9 +25,8 @@ declare global {
 function ensureGtag(): (...args: unknown[]) => void {
   window.dataLayer = window.dataLayer || [];
   if (typeof window.gtag !== "function") {
-    window.gtag = function gtag() {
-      // GTM expects Arguments objects on dataLayer (same as Analytics.astro stub).
-      window.dataLayer?.push(arguments);
+    window.gtag = function gtag(...args: unknown[]) {
+      window.dataLayer?.push(args);
     };
   }
   return window.gtag;
