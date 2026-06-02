@@ -4,7 +4,7 @@ Frontend do `justgui.dev`, implementado com Astro SSR e foco em acessibilidade, 
 
 ## Stack
 
-- Astro (`@astrojs/node`, `@astrojs/sitemap`)
+- Astro (`@astrojs/node`)
 - TypeScript strict
 - CSS com design tokens e escala tipográfica `--text-*`
 - i18n: `en`, `pt`, `es`

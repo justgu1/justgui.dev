@@ -29,6 +29,7 @@ function isIgnoredPath(pathname: string): boolean {
     pathname.startsWith("/images") ||
     pathname.startsWith("/api") ||
     pathname.startsWith("/sitemap") ||
+    pathname.endsWith(".xml") ||
     pathname === "/robots.txt"
   );
 }

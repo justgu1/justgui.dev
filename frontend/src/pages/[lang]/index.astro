@@ -8,6 +8,8 @@ import Contact from "../../components/sections/Contact.astro";
 import { getFirstProjectPreview } from "../../data/projects";
 import { SUPPORTED_LANGS } from "../../config/seo";
 
+import { isSupportedLang } from "../../utils/localePath";
+
 export function getStaticPaths() {
   return SUPPORTED_LANGS.map((lang) => ({ params: { lang } }));
 }
@@ -15,7 +17,12 @@ export function getStaticPaths() {
 export const prerender = false;
 
 const { lang: langParam } = Astro.params;
-const lang = langParam ?? "en";
+
+if (!isSupportedLang(langParam)) {
+  return new Response(null, { status: 404, statusText: "Not Found" });
+}
+
+const lang = langParam;
 const featuredPreview = await getFirstProjectPreview(lang);
 ---
 

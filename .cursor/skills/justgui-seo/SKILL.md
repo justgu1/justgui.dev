@@ -13,8 +13,8 @@ disable-model-invocation: true
 | Meta, OG, Twitter, JSON-LD | `components/SeoHead.astro` |
 | URL helpers | `config/seo.ts` |
 | Copy per lang | `langs/{en,pt,es}/seo.ts` |
-| Sitemap | `@astrojs/sitemap` in `astro.config.mjs` |
-| Robots | `public/robots.txt` |
+| Sitemap | `src/server/sitemap.ts` + `pages/sitemap-index.xml.ts`, `pages/sitemap-0.xml.ts` |
+| Robots | `pages/robots.txt.ts` |
 
 ## Required per language URL (`/{lang}/`)
 

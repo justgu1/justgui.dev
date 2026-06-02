@@ -73,6 +73,42 @@ for (const lang of LANGS) {
   }
 }
 
+const base = BASE_URL.replace(/\/$/, "");
+
+for (const [sitemapPath, marker] of [
+  ["/sitemap-index.xml", "<sitemapindex"],
+  ["/sitemap-0.xml", "<urlset"],
+]) {
+  try {
+    const response = await fetch(`${base}${sitemapPath}`);
+    const body = await response.text();
+    if (!response.ok) {
+      console.error(`[sitemap] HTTP ${response.status} for ${sitemapPath}`);
+      failed++;
+      continue;
+    }
+    if (!body.startsWith("<?xml") || !body.includes(marker)) {
+      console.error(`[sitemap] Invalid XML body for ${sitemapPath}`);
+      failed++;
+    }
+  } catch (error) {
+    console.error(`[sitemap] Failed to fetch ${sitemapPath}:`, error.message);
+    failed++;
+  }
+}
+
+try {
+  const robotsResponse = await fetch(`${base}/robots.txt`);
+  const robotsBody = await robotsResponse.text();
+  if (!robotsResponse.ok || !robotsBody.includes("Sitemap:")) {
+    console.error("[robots] Missing or invalid robots.txt");
+    failed++;
+  }
+} catch (error) {
+  console.error("[robots] Failed to fetch robots.txt:", error.message);
+  failed++;
+}
+
 if (failed > 0) {
   console.error(`\nSEO validation failed with ${failed} issue(s).`);
   process.exit(1);

@@ -18,6 +18,7 @@ function isStaticAsset(pathname: string): boolean {
     pathname.startsWith("/projects") ||
     pathname.startsWith("/cv") ||
     pathname.startsWith("/sitemap") ||
+    pathname.endsWith(".xml") ||
     pathname === "/robots.txt"
   );
 }
