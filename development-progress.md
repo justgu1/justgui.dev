@@ -4,6 +4,11 @@ History line do projeto em tom de produto técnico, direto e sem detalhamento ex
 
 ## 2026-06-20
 
+### Segurança: dependências (yarn audit CI)
+
+- `astro` → `^6.4.8`, `nodemailer` → `^9.0.1` (CVEs high).
+- `resolutions`: `form-data`, `undici`, `vite`, `js-yaml`, `esbuild` — `yarn audit` com 0 vulnerabilidades.
+
 ### Landing, SEO de marca/serviços e indexação
 
 - **Welcome dialog**: botão Continuar fixo no rodapé do modal; scroll só no conteúdo (cookies + a11y).

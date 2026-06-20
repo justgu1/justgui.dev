@@ -36,9 +36,9 @@
   },
   "dependencies": {
     "@astrojs/node": "^10.1.1",
-    "astro": "^6.3.7",
+    "astro": "^6.4.8",
     "better-sqlite3": "^12.10.0",
-    "nodemailer": "^8.0.10"
+    "nodemailer": "^9.0.1"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.9",
@@ -70,6 +70,11 @@
   "resolutions": {
     "tmp": "^0.2.6",
     "uuid": "^11.1.1",
-    "yaml": "^2.8.3"
+    "yaml": "^2.8.3",
+    "form-data": "^4.0.6",
+    "undici": "^6.27.0",
+    "vite": "^7.3.5",
+    "js-yaml": "^4.2.0",
+    "esbuild": "^0.28.1"
   }
 }
