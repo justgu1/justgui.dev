@@ -33,7 +33,11 @@ export function loadAccessibilityPreferences(): AccessibilityPreferences {
     const raw = window.localStorage.getItem(A11Y_STORAGE_KEY);
     if (!raw) return DEFAULT_A11Y_PREFERENCES;
     const parsed = JSON.parse(raw) as Partial<AccessibilityPreferences>;
-    return { ...DEFAULT_A11Y_PREFERENCES, ...parsed };
+    return {
+      ...DEFAULT_A11Y_PREFERENCES,
+      ...parsed,
+      reduceMotion: parsed.reduceMotion === true,
+    };
   } catch {
     return DEFAULT_A11Y_PREFERENCES;
   }

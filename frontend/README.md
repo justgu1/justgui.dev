@@ -153,7 +153,7 @@ O remetente (`SMTP_FROM`) e o destino admin (`CONTACT_TO`) são distintos: o SMT
 ## Detecção de idioma
 
 - **`/`** sem prefixo: redireciona (302) para `/{lang}` com base em `Accept-Language` (`negotiateLocale`).
-- **`/en`** (locale padrão SEO): se o browser preferir `pt` ou `es` e não existir cookie `justgui_lang`, redireciona para o mesmo path em `pt`/`es`.
+- **`/en`** (locale padrão SEO): se o browser preferir `pt` ou `es` e não existir cookie `justgui_lang`, redireciona para o mesmo path em `pt`/`es`. **Crawlers** (Googlebot, Bingbot, etc.) não são redirecionados — `/en` responde 200 estável para alinhar com sitemap e `x-default`.
 - A home `src/pages/[lang]/index.astro` usa SSR (`prerender = false`) para o middleware aplicar negociação em `/en`, `/pt` e `/es`.
 - **`/pt` e `/es`**: não são alterados automaticamente (links partilháveis).
 - **Seletor de idioma e acessibilidade**: footer sticky (`Footer` toolbar); cookie `justgui_lang` ao servir `/{lang}`.
@@ -179,8 +179,17 @@ O botão de download usa `PUBLIC_CV_URL`. O PDF padrão fica em `public/cv/Guilh
 
 - **Footer sticky**: idioma (nomes completos) + painel WCAG 2.2 AA.
 - **Flutuantes** (`FloatingActionCell`): WhatsApp à esquerda + voltar ao topo à direita; visíveis após scroll; sobem quando o footer entra na viewport.
-- Welcome dialog no 1º acesso: cookies (analytics) + atalhos a11y; cookie `justgui_welcome`.
+- Welcome dialog no 1º acesso: cookies (analytics) + atalhos a11y; cookie `justgui_welcome`; botão Continuar fixo no rodapé do modal.
+- **Animações desativadas com toggle do site desligado?** Verifique `data-os-reduced-motion` no `<html>` — o SO pode ter `prefers-reduced-motion: reduce` ativo (Windows: Acessibilidade → Efeitos visuais). O painel do site só controla `data-a11y-motion`.
 - Menu principal: navegação por setas com roving tabindex (←/→/↑/↓).
+
+## SEO
+
+- Metadados por idioma em `src/langs/{en,pt,es}/seo.ts` (marca + serviços: e-commerce, IA, Laravel, WordPress, WCAG).
+- `SeoHead.astro` + `config/seo-schema.ts`: JSON-LD com `WebSite`, `Person` (`knowsAbout`, `alternateName`), `ProfessionalService` e `ItemList` dinâmico dos projetos.
+- Sitemap: `/en`, `/pt`, `/es` apenas; raiz `/` redireciona (não indexar no GSC).
+- Validação: `yarn validate:seo` (marca, serviços, schema) com servidor em `4321`.
+- Pós-deploy: reenviar `sitemap-index.xml` no Search Console; solicitar indexação de `/pt`, `/en`, `/es`; usar links de campanha com locale explícito (`/pt?utm_...`).
 
 ## Testes
 

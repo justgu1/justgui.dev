@@ -7,7 +7,7 @@ const hero: Dictionary = {
   "hero.role": "Ingeniero Full-Stack",
   "hero.description":
     "La innovación solo importa cuando es accesible. Construyo sistemas digitales escalables enfocados en rendimiento, accesibilidad y usabilidad real — incluyendo personas con limitaciones visuales, cognitivas o motoras.",
-  "hero.buttons.primary": "Ver trabajos",
+  "hero.buttons.primary": "Ver proyectos",
   "hero.buttons.secondary": "Hablemos",
   "hero.cards.experience": "Años de Experiencia",
   "hero.cards.projects": "Proyectos",

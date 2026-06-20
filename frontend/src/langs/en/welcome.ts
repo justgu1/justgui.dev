@@ -1,12 +1,12 @@
 import type { Dictionary } from "../types";
 
 const welcome: Dictionary = {
-  "welcome.title": "Welcome to justgui",
+  "welcome.title": "Welcome to my site!",
   "welcome.intro":
     "Before you continue, choose your cookie preferences and optional accessibility settings.",
   "welcome.cookiesTitle": "Cookies",
   "welcome.cookiesBody":
-    "We use essential cookies for language. Analytics cookies (GA4/Meta) are optional and only load if you accept.",
+    "We use essential cookies for language. Analytics cookies are optional and only load if you accept.",
   "welcome.acceptAnalytics": "Accept analytics",
   "welcome.essentialOnly": "Essential only",
   "welcome.a11yTitle": "Accessibility",

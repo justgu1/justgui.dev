@@ -8,6 +8,7 @@ function createContext(options: {
   search?: string;
   acceptLanguage?: string;
   cookieLang?: string;
+  userAgent?: string;
 }) {
   const search = options.search ?? "";
   const url = new URL(`http://localhost:4321${options.pathname}${search}`);
@@ -16,17 +17,21 @@ function createContext(options: {
     cookieStore.set(LANG_COOKIE, options.cookieLang);
   }
 
+  const headers = new Headers();
+  if (options.acceptLanguage) {
+    headers.set("Accept-Language", options.acceptLanguage);
+  }
+  if (options.userAgent) {
+    headers.set("User-Agent", options.userAgent);
+  }
+
   const redirect = vi.fn((location: string, status = 302) => {
     return new Response(null, { status, headers: { Location: location } });
   });
 
   const context = {
     url,
-    request: new Request(url, {
-      headers: options.acceptLanguage
-        ? { "Accept-Language": options.acceptLanguage }
-        : {},
-    }),
+    request: new Request(url, { headers }),
     cookies: {
       get: (name: string) => {
         const value = cookieStore.get(name);
@@ -67,6 +72,22 @@ describe("LanguagesMiddleware", () => {
 
     expect(redirect).toHaveBeenCalledWith("/pt", 302);
     expect(next).not.toHaveBeenCalled();
+  });
+
+  it("keeps /en for search engine bots even when browser prefers pt", async () => {
+    const { context, redirect, cookieStore } = createContext({
+      pathname: "/en",
+      acceptLanguage: "pt-BR,pt;q=0.9",
+      userAgent:
+        "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)",
+    });
+    const next = vi.fn();
+
+    await LanguagesMiddleware(context as never, next);
+
+    expect(redirect).not.toHaveBeenCalled();
+    expect(next).toHaveBeenCalled();
+    expect(cookieStore.get(LANG_COOKIE)).toBe("en");
   });
 
   it("keeps /pt when browser prefers en and no cookie", async () => {

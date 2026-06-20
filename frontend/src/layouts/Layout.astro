@@ -39,17 +39,23 @@ const showWelcome = Astro.locals.showWelcome ?? false;
     <script is:inline>
       (function () {
         try {
+          var root = document.documentElement;
+          var osReducedMotion = window.matchMedia(
+            "(prefers-reduced-motion: reduce)"
+          ).matches;
+          root.dataset.osReducedMotion = osReducedMotion ? "reduce" : "default";
+
           var raw = localStorage.getItem("justgui.a11y.prefs");
           if (!raw) return;
           var prefs = JSON.parse(raw);
-          var root = document.documentElement;
           if (prefs.fontScale) root.dataset.a11yFontScale = prefs.fontScale;
           root.dataset.a11ySpacing = prefs.textSpacing
             ? "comfortable"
             : "default";
           root.dataset.a11yContrast = prefs.highContrast ? "high" : "default";
           root.dataset.a11yVision = prefs.visionFilter || "none";
-          root.dataset.a11yMotion = prefs.reduceMotion ? "reduce" : "default";
+          root.dataset.a11yMotion =
+            prefs.reduceMotion === true ? "reduce" : "default";
           root.dataset.a11yFocus = prefs.enhancedFocus ? "enhanced" : "default";
         } catch (_) {}
       })();

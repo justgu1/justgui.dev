@@ -2,6 +2,7 @@
 import HeroAside from "../hero/HeroAside.astro";
 import HeroIntro from "../hero/HeroIntro.astro";
 import HeroTicker from "../hero/HeroTicker.astro";
+import { getProjectCount } from "../../data/projects";
 import { getLang } from "../../langs";
 import { createT } from "../../langs/createT";
 
@@ -13,6 +14,7 @@ const { lang } = Astro.props;
 const t = createT(getLang(lang));
 
 const yearsOfExperience = new Date().getFullYear() - 2022;
+const projectCount = await getProjectCount(lang);
 const cards = [
   {
     title: String(yearsOfExperience),
@@ -20,8 +22,8 @@ const cards = [
     description: t("hero.cards.experience"),
   },
   {
-    title: String(yearsOfExperience),
-    subtitle: "+",
+    title: String(projectCount),
+    subtitle: "",
     description: t("hero.cards.projects"),
   },
   {

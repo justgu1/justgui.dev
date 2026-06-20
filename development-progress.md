@@ -2,6 +2,17 @@
 
 History line do projeto em tom de produto técnico, direto e sem detalhamento excessivo.
 
+## 2026-06-20
+
+### Landing, SEO de marca/serviços e indexação
+
+- **Welcome dialog**: botão Continuar fixo no rodapé do modal; scroll só no conteúdo (cookies + a11y).
+- **Copy i18n**: welcome (“Bem-vindo ao meu site!”), cookies sem “GA4/Meta”, “trabalhos” → “projetos”; headers de seção com termos de serviço (e-commerce, IA, SaaS).
+- **Hero**: card de projetos exibe contagem real (`getProjectCount`) em vez de anos de experiência.
+- **SEO**: title/description/og com marca (Just Gui Software, Guilherme Dev) e serviços (e-commerce, IA, Laravel, WordPress, WCAG); JSON-LD com `WebSite`, `Person`, `ProfessionalService`, `ItemList` de projetos; builder em `config/seo-schema.ts`.
+- **Indexação**: crawlers (Googlebot, etc.) não sofrem redirect `/en` → `/pt|es` por `Accept-Language`; humanos mantêm negociação 302.
+- **Animações**: `reduceMotion` com coerção booleana no localStorage; `data-os-reduced-motion` para diagnóstico de `prefers-reduced-motion` do SO.
+
 ## 2026-06-01
 
 ### Segurança: Vitest 4.1.8

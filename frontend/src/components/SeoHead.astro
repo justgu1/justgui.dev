@@ -2,6 +2,7 @@
 import { getLang } from "../langs";
 import { createT } from "../langs/createT";
 import { SITE_CONFIG } from "../config/site";
+import { buildSeoJsonLd, parseSeoList } from "../config/seo-schema";
 import {
   alternateUrls,
   canonicalUrl,
@@ -11,6 +12,7 @@ import {
   pageUrl,
   SUPPORTED_LANGS,
 } from "../config/seo";
+import { getProjects } from "../data/projects";
 
 interface Props {
   lang: string;
@@ -24,32 +26,28 @@ const description = t("seo.description");
 const canonical = canonicalUrl(lang);
 const ogImage = ogImageUrl();
 const robots = isIndexable() ? "index, follow" : "noindex, nofollow";
+const projects = await getProjects(lang);
 
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "WebSite",
-      "@id": `${canonical}#website`,
-      url: canonical,
-      name: title,
-      description,
-      inLanguage: lang,
-    },
-    {
-      "@type": "Person",
-      "@id": `${canonical}#person`,
-      name: `${t("firstname")} ${t("lastname")}`,
-      jobTitle: t("role"),
-      url: canonical,
-      sameAs: [
-        SITE_CONFIG.linkedinUrl,
-        SITE_CONFIG.githubUrl,
-        SITE_CONFIG.instagramUrl,
-      ],
-    },
+const jsonLd = buildSeoJsonLd({
+  canonical,
+  lang,
+  title,
+  description,
+  serviceName: t("seo.schema.serviceName"),
+  websiteAlternateNames: parseSeoList(t("seo.schema.websiteAlternateNames")),
+  personAlternateNames: parseSeoList(t("seo.schema.personAlternateNames")),
+  knowsAbout: parseSeoList(t("seo.schema.knowsAbout")),
+  serviceTypes: parseSeoList(t("seo.schema.serviceTypes")),
+  personName: `${t("firstname")} ${t("lastname")}`,
+  jobTitle: t("role"),
+  sameAs: [
+    SITE_CONFIG.linkedinUrl,
+    SITE_CONFIG.githubUrl,
+    SITE_CONFIG.instagramUrl,
   ],
-};
+  projectsListName: t("sections.projects.title"),
+  projects,
+});
 ---
 
 <title>{title}</title>

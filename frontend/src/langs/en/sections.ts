@@ -2,11 +2,11 @@ import type { Dictionary } from "../types";
 
 const sections: Dictionary = {
   "sections.expertise.number": "01",
-  "sections.expertise.description": "What I build — and why it matters",
+  "sections.expertise.description": "E-commerce, AI, systems & accessibility",
   "sections.expertise.title": "Core Expertise",
 
   "sections.projects.number": "02",
-  "sections.projects.description": "Selected work",
+  "sections.projects.description": "E-commerce, SaaS & WordPress projects",
   "sections.projects.title": "Projects",
 
   "sections.about.number": "03",

@@ -3,6 +3,7 @@ import { IS_PRODUCTION } from "../config/env";
 import { SUPPORTED_LANGS, type SupportedLang } from "../config/seo";
 import { pathLang, replacePathLang } from "../utils/localePath";
 import { negotiateLocale } from "../utils/negotiateLocale";
+import { isSearchEngineBot } from "../utils/searchEngineBot";
 
 const DEFAULT_LOCALE: SupportedLang = "en";
 const LANG_COOKIE = "justgui_lang";
@@ -63,7 +64,8 @@ function handleNegotiatedLang(
   pathname: string,
   negotiated: SupportedLang,
   currentPathLang: SupportedLang | null,
-  cookieLang: SupportedLang | null
+  cookieLang: SupportedLang | null,
+  skipBrowserNegotiation: boolean
 ): ReturnType<typeof redirect302> | "next" {
   if (!currentPathLang) {
     const target = cookieLang ?? negotiated;
@@ -74,7 +76,11 @@ function handleNegotiatedLang(
     return "next";
   }
 
-  if (currentPathLang === DEFAULT_LOCALE && negotiated !== DEFAULT_LOCALE) {
+  if (
+    !skipBrowserNegotiation &&
+    currentPathLang === DEFAULT_LOCALE &&
+    negotiated !== DEFAULT_LOCALE
+  ) {
     return redirect302(context, replacePathLang(pathname, negotiated));
   }
 
@@ -98,13 +104,17 @@ export const LanguagesMiddleware: MiddlewareHandler = async (context, next) => {
   );
   const cookieLang = readCookieLang(context);
   const currentPathLang = pathLang(pathname);
+  const skipBrowserNegotiation = isSearchEngineBot(
+    context.request.headers.get("user-agent")
+  );
 
   const negotiatedResult = handleNegotiatedLang(
     context,
     pathname,
     negotiated,
     currentPathLang,
-    cookieLang
+    cookieLang,
+    skipBrowserNegotiation
   );
   if (negotiatedResult !== "next") {
     return negotiatedResult;

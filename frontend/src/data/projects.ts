@@ -8,6 +8,10 @@ export async function getProjects(lang: string): Promise<Project[]> {
   return getProjectsMock(lang);
 }
 
+export async function getProjectCount(lang: string): Promise<number> {
+  return (await getProjects(lang)).length;
+}
+
 export async function getInitialProjects(lang: string): Promise<Project[]> {
   const projects = await getProjects(lang);
   return projects.slice(0, PROJECTS_INITIAL_COUNT);
