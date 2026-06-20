@@ -17,7 +17,9 @@ test("seo meta tags on english page", async ({ page }) => {
   );
   const jsonLd = page.locator('script[type="application/ld+json"]');
   await expect(jsonLd).toHaveCount(1);
-  await expect(jsonLd).toContainText("ProfessionalService");
-  await expect(jsonLd).toContainText("ItemList");
-  await expect(jsonLd).toContainText("knowsAbout");
+  const jsonLdContent = await jsonLd.textContent();
+  expect(jsonLdContent).toBeTruthy();
+  expect(jsonLdContent).toContain("ProfessionalService");
+  expect(jsonLdContent).toContain("ItemList");
+  expect(jsonLdContent).toContain("knowsAbout");
 });
