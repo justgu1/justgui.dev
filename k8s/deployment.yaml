@@ -1,0 +1,70 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: justgui-web
+  namespace: apps
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate # PVC do sqlite é RWO, sem rolling update
+  selector:
+    matchLabels:
+      app: justgui-web
+  template:
+    metadata:
+      labels:
+        app: justgui-web
+    spec:
+      containers:
+        - name: justgui-web
+          image: ghcr.io/justgu1/justgui-web:latest
+          ports:
+            - name: http
+              containerPort: 4321
+          env:
+            - name: PUBLIC_APP_ENV
+              value: production
+            - name: DATABASE_PATH
+              value: /data/justgui.sqlite
+            - name: CONTACT_TO
+              value: szguisantos@gmail.com
+            - name: VISITOR_IP_SALT
+              valueFrom:
+                secretKeyRef:
+                  name: justgui-web-secrets
+                  key: VISITOR_IP_SALT
+            - name: SMTP_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: justgui-web-secrets
+                  key: SMTP_HOST
+            - name: SMTP_USER
+              valueFrom:
+                secretKeyRef:
+                  name: justgui-web-secrets
+                  key: SMTP_USER
+            - name: SMTP_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: justgui-web-secrets
+                  key: SMTP_PASSWORD
+            - name: SMTP_FROM
+              valueFrom:
+                secretKeyRef:
+                  name: justgui-web-secrets
+                  key: SMTP_FROM
+          volumeMounts:
+            - name: data
+              mountPath: /data
+          readinessProbe:
+            tcpSocket:
+              port: http
+            initialDelaySeconds: 5
+          livenessProbe:
+            tcpSocket:
+              port: http
+            initialDelaySeconds: 15
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: justgui-web-data
